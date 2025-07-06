@@ -1,0 +1,9 @@
+site_name: SmartNav Dataset Docs
+nav:
+  - Home: index.md
+  - Sensors: sensors.md
+  - Usage: usage.md
+  - FAQ: faq.md
+
+theme:
+  name: material
