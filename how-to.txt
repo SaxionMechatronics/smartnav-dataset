@@ -1,0 +1,35 @@
+
+
+################################################ ONLY ONCE ################################################
+
+# For creating this web page, mkdocs is used. To install and setup the project, these steps were necessary:
+
+  mkdir smartnav-docs && cd smartnav-docs
+  pip install mkdocs mkdocs-material
+  mkdocs new .
+
+# Editing the mkdocs.yml to the following:
+  site_name: SmartNav Dataset Docs
+  nav:
+    - Home: index.md
+
+  theme:
+    name: material
+
+# Initialize Git & push to GitHub
+  git init
+  git add .
+  git commit -m "Initial MkDocs site"
+  git remote add origin git@github.com:<your-username>/smartnav-docs.git
+  git branch -M main
+  git push -u origin main
+
+############################################################################################################
+
+#################################################### FOR UPDATING SITE #####################################
+
+# For local updating of the site before commiting:
+  mkdocs build
+
+# Deploying and updating the website after commiting changes:
+  mkdocs gh-deploy --force
