@@ -5,23 +5,46 @@
 In this webpage, we present the SMARTNav dataset, which stores the raw sensor data recorded by aerial and ground robots. The data was collected as part of our projects that address the challenges of autonomous navigation in industries where autonomous robots are needed. This data was mainly recorded for the evaluation of Visual-Inertial Odometry (VIO) algorithms; however, it can be used generally for vision or LiDAR-based SLAM and fusion algorithms. 
 
 ## Downloads
+The sequences of the dataset were recorded in ROS2 bag format, and can be downloaded from the following links. Since each sequence is recorded on a different hardware and for a different project, the content of each bag file is different, but inclusion of stereo images and IMU is constant in all bag files. 
 
-| Seq. Name            | Size (GB) | Topics          | Link            | Snapshot          |
-|----------------------|-----------|-----------------|-----------------|-------------------|
-| greenhouse_flight_3  | 6.1       |  | [SRCD](https://saxion.data.surf.nl/s/M9G9wbXzKrdPriS)    | ![](gifs/greenhouse_flight_3) |
-| greenhouse_flight_5  | 3.1       |  | [SRCD](https://saxion.data.surf.nl/s/zSRpbPBHksaHocd)    | ![](gifs/greenhouse_flight_5) |
-| greenhouse_ground_1  | 7.3       |  | [SRCD](https://saxion.data.surf.nl/s/4rnGxWidfxT5EYS)    | ![](gifs/greenhouse_ground_1) |
-| greenhouse_ground_2  | 7.7       |  | [SRCD](https://saxion.data.surf.nl/s/kGWn4RYmCQTcWaj)    | ![](gifs/greenhouse_ground_2) |
-| greenhouse_handheld_1| 2.4       |  | [SRCD](https://saxion.data.surf.nl/s/88A8rMdRibqJZHm)  | ![](gifs/greenhouse_handheld_1) |
-| optitrack_flight_1   | 0.5       |  | [SRCD](https://saxion.data.surf.nl/s/RfQmLQZKFdqdX54)     | ![](gifs/optitrack_flight_1)  |
-| optitrack_flight_2   | 1.7       |  | [SRCD](https://saxion.data.surf.nl/s/gYbayyCDCtLbe3z)     | ![](gifs/optitrack_flight_2)  |
-| optitrack_handheld_2 | 1.1       |  | [SRCD](https://saxion.data.surf.nl/s/yqGLFda3G896iq8)  | ![](gifs/optitrack_handheld_2) |
-| optitrack_handheld_3 | 1.1       |  | [SRCD](https://saxion.data.surf.nl/s/AY5BQQArnmggqka)  | ![](gifs/optitrack_handheld_3) |
-| outdoor_flight_3     | 2.5       |  | [SRCD](https://saxion.data.surf.nl/s/a62gc3r36eH6S2D)       | ![](gifs/outdoor_flight_3)     |
-| outdoor_flight_4     | 6.8       |  | [SRCD](https://saxion.data.surf.nl/s/pepbt3SKPwNjYFC)       | ![](gifs/outdoor_flight_4)     |
-| outdoor_flight_5     | 8.7       |  | [SRCD](https://saxion.data.surf.nl/s/YdkaRbLxTSWwzTm)       | ![](gifs/outdoor_flight_5)     |
-| outdoor_flight_6     | 3.5       |  | [SRCD](https://saxion.data.surf.nl/s/HJaLcCgGGPdeiDq)       | ![](gifs/outdoor_flight_6)     |
-| sidewalk_ground_1    | 35.9      |  | [SRCD](https://saxion.data.surf.nl/s/nFdt4KLQiNpt5ap)      | ![](gifs/sidewalk_ground_1)    |
-| corridor_ground_1    | 25.8      |  | [SRCD](https://saxion.data.surf.nl/s/799dYzRYwaXZrmi)      | ![](gifs/corridor_ground_1)    |
+| Seq. Name            | Size[GB]| Descriptions          | Link            | Snapshot          |
+|----------------------|---------|-----------------------|-----------------|-------------------|
+| greenhouse_flight_3  | 6.1 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; RTK <br><br>Sensors: <br>&emsp; ZEDX camera <br>&emsp; Holybro H-RTK F9P| [SRCD](https://saxion.data.surf.nl/s/M9G9wbXzKrdPriS)    | <img src="gifs/greenhouse_flight_3" alt="greenhouse_flight_3" width="150" /> |
+| greenhouse_flight_5  | 3.1 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; RTK <br><br>Sensors: <br>&emsp; ZEDX camera <br>&emsp; Holybro H-RTK F9P| [SRCD](https://saxion.data.surf.nl/s/zSRpbPBHksaHocd)    | <img src="gifs/greenhouse_flight_5" alt="greenhouse_flight_5" width="150" />  |
+| greenhouse_ground_1  | 7.3 |  Topics: <br>&emsp; stereo images <br>&emsp; camera IMU <br>&emsp; LiDAR pointcloud <br>&emsp; LiDAR IMU <br>&emsp; GPS <br><br>Sensors: <br>&emsp; ZEDX camera <br>&emsp; Holybro H-RTK F9P <br>&emsp; Ouster OS1-128 | [SRCD](https://saxion.data.surf.nl/s/4rnGxWidfxT5EYS)    | <img src="gifs/greenhouse_ground_1" alt="greenhouse_ground_1" width="150" />  |
+| greenhouse_ground_2  | 7.7 |  Topics: <br>&emsp; stereo images <br>&emsp; camera IMU <br>&emsp; LiDAR pointcloud <br>&emsp; LiDAR IMU <br>&emsp; GPS <br><br>Sensors: <br>&emsp; ZEDX camera <br>&emsp; Holybro H-RTK F9P <br>&emsp; Ouster OS1-128 | [SRCD](https://saxion.data.surf.nl/s/kGWn4RYmCQTcWaj)    | <img src="gifs/greenhouse_ground_2" alt="greenhouse_ground_2" width="150" /> |
+| greenhouse_handheld_1| 2.4 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; RTK <br><br>Sensors: <br>&emsp; ZEDX camera <br>&emsp; Holybro H-RTK F9P | [SRCD](https://saxion.data.surf.nl/s/88A8rMdRibqJZHm)    | <img src="gifs/greenhouse_handheld_1" alt="greenhouse_handheld_1" width="150" /> |
+| optitrack_flight_1   | 0.5 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; motion capture <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; OptiTrack Prime 13  | [SRCD](https://saxion.data.surf.nl/s/RfQmLQZKFdqdX54)    | <img src="gifs/optitrack_flight_1" alt="optitrack_flight_1" width="150" /> |
+| optitrack_flight_2   | 1.7 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; motion capture <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; OptiTrack Prime 13  | [SRCD](https://saxion.data.surf.nl/s/gYbayyCDCtLbe3z)    | <img src="gifs/optitrack_flight_2" alt="optitrack_flight_2" width="150" /> |
+| optitrack_handheld_2 | 1.1 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; motion capture <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; OptiTrack Prime 13  | [SRCD](https://saxion.data.surf.nl/s/yqGLFda3G896iq8)    | <img src="gifs/optitrack_handheld_2" alt="optitrack_handheld_2" width="150" /> |
+| optitrack_handheld_3 | 1.1 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; motion capture <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; OptiTrack Prime 13  | [SRCD](https://saxion.data.surf.nl/s/AY5BQQArnmggqka)    | <img src="gifs/optitrack_handheld_3" alt="optitrack_handheld_3" width="150" /> |
+| outdoor_flight_3     | 2.5 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; RTK <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; Holybro H-RTK F9P | [SRCD](https://saxion.data.surf.nl/s/a62gc3r36eH6S2D)    | <img src="gifs/outdoor_flight_3" alt="outdoor_flight_3" width="150" /> |
+| outdoor_flight_4     | 6.8 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; RTK <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; Holybro H-RTK F9P | [SRCD](https://saxion.data.surf.nl/s/pepbt3SKPwNjYFC)    | <img src="gifs/outdoor_flight_4" alt="outdoor_flight_4" width="150" />  |
+| outdoor_flight_5     | 8.7 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; RTK <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; Holybro H-RTK F9P | [SRCD](https://saxion.data.surf.nl/s/YdkaRbLxTSWwzTm)    | <img src="gifs/outdoor_flight_5" alt="outdoor_flight_5" width="150" /> |
+| outdoor_flight_6     | 3.5 |  Topics: <br>&emsp; stereo images <br>&emsp; IMU <br>&emsp; RTK <br><br>Sensors: <br>&emsp; ZED 2 camera <br>&emsp; Holybro H-RTK F9P | [SRCD](https://saxion.data.surf.nl/s/HJaLcCgGGPdeiDq)    | <img src="gifs/outdoor_flight_6" alt="outdoor_flight_6" width="150" />  |
+| sidewalk_ground_1    | 35.9|  Topics: <br>&emsp; stereo images <br>&emsp; camera IMU <br>&emsp; LiDAR pointcloud <br>&emsp; LiDAR IMU <br>&emsp; GPS <br><br>Sensors: <br>&emsp; ZEDX camera <br>&emsp; Holybro H-RTK F9P <br>&emsp; Ouster OS1-128 | [SRCD](https://saxion.data.surf.nl/s/nFdt4KLQiNpt5ap)    | <img src="gifs/sidewalk_ground_1" alt="sidewalk_ground_1" width="150" /> |
+| corridor_ground_1    | 25.8|  Topics: <br>&emsp; stereo images <br>&emsp; camera IMU <br>&emsp; LiDAR pointcloud <br>&emsp; LiDAR IMU <br><br>Sensors: <br>&emsp; ZEDX camera  <br>&emsp; Ouster OS1-128 | [SRCD](https://saxion.data.surf.nl/s/799dYzRYwaXZrmi)    | <img src="gifs/corridor_ground_1" alt="corridor_ground_1" width="150" /> |
 
+## Ground Truth
 
+In the table below, for each bag file of raw sensor data, a ROS2 bag file only containing one topic as ground-truth is provided. The topic type for each sequence may differ (odometry, pose, or PX4 gps topic types), but our evaluation tool can handle and compare these different topic types.
+
+| Seq. Name            | Source         | Link    |
+|----------------------|----------------|---------|
+| greenhouse_flight_3  | RTK |  [download](gts/greenhouse_flight_3.zip) |
+| greenhouse_flight_5  | RTK |  [download](gts/greenhouse_flight_5.zip) |
+| greenhouse_ground_1  | LiDAR SLAM (GLIM algorithm)      | [download](gts/greenhouse_ground_1.zip) |
+| greenhouse_ground_2  | LiDAR SLAM (LeGO-LOAM algorithm) | [download](gts/greenhouse_ground_2.zip) |
+| greenhouse_handheld_1| RTK | [download](gts/greenhouse_handheld_1.zip) |
+| optitrack_flight_1   | Motion Capture System | [download](gts/optitrack_flight_1.zip) |
+| optitrack_flight_2   | Motion Capture System | [download](gts/optitrack_flight_2.zip) |
+| optitrack_handheld_2 | Motion Capture System | [download](gts/optitrack_handheld_2.zip) |
+| optitrack_handheld_3 | Motion Capture System | [download](gts/optitrack_handheld_3.zip) |
+| outdoor_flight_3     | RTK | [download](gts/outdoor_flight_3.zip) |
+| outdoor_flight_4     | RTK | [download](gts/outdoor_flight_4.zip) |
+| outdoor_flight_5     | RTK | [download](gts/outdoor_flight_5.zip) |
+| outdoor_flight_6     | RTK | [download](gts/outdoor_flight_6.zip) |
+| sidewalk_ground_1    | LiDAR SLAM (LeGO-LOAM algorithm) | [download](gts/sidewalk_ground_1.zip) |
+| corridor_ground_1    | LiDAR SLAM (LeGO-LOAM algorithm) | [download](gts/corridor_ground_1.zip) |
+
+## Calibration
