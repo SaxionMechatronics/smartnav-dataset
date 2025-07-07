@@ -251,18 +251,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ground-truth" class="md-nav__link">
+  <a href="#ground-truth-and-calibration" class="md-nav__link">
     <span class="md-ellipsis">
-      Ground Truth
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Calibration
+      Ground Truth and Calibration
     </span>
   </a>
   
@@ -356,18 +347,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ground-truth" class="md-nav__link">
+  <a href="#ground-truth-and-calibration" class="md-nav__link">
     <span class="md-ellipsis">
-      Ground Truth
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Calibration
+      Ground Truth and Calibration
     </span>
   </a>
   
@@ -393,7 +375,8 @@
 <p><img alt="Alt text" src="images/main.png" /></p>
 <p>In this webpage, we present the SMARTNav dataset, which stores the raw sensor data recorded by aerial and ground robots. The data was collected as part of our projects that address the challenges of autonomous navigation in industries where autonomous robots are needed. This data was mainly recorded for the evaluation of Visual-Inertial Odometry (VIO) algorithms; however, it can be used generally for vision or LiDAR-based SLAM and fusion algorithms. </p>
 <h2 id="downloads">Downloads</h2>
-<p>The sequences of the dataset were recorded in ROS2 bag format, and can be downloaded from the following links. Since each sequence is recorded on a different hardware and for a different project, the content of each bag file is different, but inclusion of stereo images and IMU is constant in all bag files. </p>
+<p>The sequences of the dataset were recorded in ROS2 bag format, and can be downloaded from the following links. Since each sequence is recorded on a different hardware and for a different project, the content of each bag file is different, but inclusion of stereo images and IMU is constant in all bag files. Currently, all the bag files are only accessible through Saxion Research Cloud Drive (SRCD).</p>
+<p>Note: For those sequences of this dataset containing RTK data, px4-msgs (it must be release/1.15 branch) is needed. This dependency will be removed in future versions of dataset. </p>
 <table>
 <thead>
 <tr>
@@ -512,14 +495,15 @@
 </tr>
 </tbody>
 </table>
-<h2 id="ground-truth">Ground Truth</h2>
-<p>In the table below, for each bag file of raw sensor data, a ROS2 bag file only containing one topic as ground-truth is provided. The topic type for each sequence may differ (odometry, pose, or PX4 gps topic types), but our evaluation tool can handle and compare these different topic types.</p>
+<h2 id="ground-truth-and-calibration">Ground Truth and Calibration</h2>
+<p>In the table below, for each sequence, a bag file containing ground-truth topic and well as the sensor calibration data are provided. The GT topic type and calibration for each sequence may differ. Our evaluation tool can handle and compare these different topic types.</p>
 <table>
 <thead>
 <tr>
 <th>Seq. Name</th>
-<th>Source</th>
-<th>Link</th>
+<th>GT Source</th>
+<th>GT Link</th>
+<th>Calibration</th>
 </tr>
 </thead>
 <tbody>
@@ -527,80 +511,94 @@
 <td>greenhouse_flight_3</td>
 <td>RTK</td>
 <td><a href="gts/greenhouse_flight_3.zip">download</a></td>
+<td><a href="calibs/greenhouse_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>greenhouse_flight_5</td>
 <td>RTK</td>
 <td><a href="gts/greenhouse_flight_5.zip">download</a></td>
+<td><a href="calibs/greenhouse_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>greenhouse_ground_1</td>
 <td>LiDAR SLAM (GLIM algorithm)</td>
 <td><a href="gts/greenhouse_ground_1.zip">download</a></td>
+<td><a href="calibs/greenhouse_ground/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_ground/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_ground/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_ground/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_ground/left_right.yaml">leftcam_rightcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_ground/lidar_imu.yaml">lidar_imu_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>greenhouse_ground_2</td>
 <td>LiDAR SLAM (LeGO-LOAM algorithm)</td>
 <td><a href="gts/greenhouse_ground_2.zip">download</a></td>
+<td><a href="calibs/greenhouse_ground/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_ground/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_ground/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_ground/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_ground/left_right.yaml">leftcam_rightcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_ground/lidar_imu.yaml">lidar_imu_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>greenhouse_handheld_1</td>
 <td>RTK</td>
 <td><a href="gts/greenhouse_handheld_1.zip">download</a></td>
+<td><a href="calibs/greenhouse_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/greenhouse_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/greenhouse_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>optitrack_flight_1</td>
 <td>Motion Capture System</td>
 <td><a href="gts/optitrack_flight_1.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>optitrack_flight_2</td>
 <td>Motion Capture System</td>
 <td><a href="gts/optitrack_flight_2.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>optitrack_handheld_2</td>
 <td>Motion Capture System</td>
 <td><a href="gts/optitrack_handheld_2.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>optitrack_handheld_3</td>
 <td>Motion Capture System</td>
 <td><a href="gts/optitrack_handheld_3.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>outdoor_flight_3</td>
 <td>RTK</td>
 <td><a href="gts/outdoor_flight_3.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>outdoor_flight_4</td>
 <td>RTK</td>
 <td><a href="gts/outdoor_flight_4.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>outdoor_flight_5</td>
 <td>RTK</td>
 <td><a href="gts/outdoor_flight_5.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>outdoor_flight_6</td>
 <td>RTK</td>
 <td><a href="gts/outdoor_flight_6.zip">download</a></td>
+<td><a href="calibs/optitrack_flight/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/optitrack_flight/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>sidewalk_ground_1</td>
 <td>LiDAR SLAM (LeGO-LOAM algorithm)</td>
 <td><a href="gts/sidewalk_ground_1.zip">download</a></td>
+<td><a href="calibs/sidewalk_ground/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/sidewalk_ground/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/sidewalk_ground/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/sidewalk_ground/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a><br><a href="calibs/sidewalk_ground/left_right.yaml">leftcam_rightcam_extrinsic.yaml</a><br><a href="calibs/sidewalk_ground/lidar_imu.yaml">lidar_imu_extrinsic.yaml</a></td>
 </tr>
 <tr>
 <td>corridor_ground_1</td>
 <td>LiDAR SLAM (LeGO-LOAM algorithm)</td>
 <td><a href="gts/corridor_ground_1.zip">download</a></td>
+<td><a href="calibs/sidewalk_ground/left.yaml">left_camera_intrinsic.yaml</a><br><a href="calibs/sidewalk_ground/right.yaml">right_camera_intrinsic.yaml</a><br><a href="calibs/sidewalk_ground/imu_camleft.yaml">imu_leftcam_extrinsic.yaml</a><br><a href="calibs/sidewalk_ground/imu_camright.yaml">imu_rightcam_extrinsic.yaml</a><br><a href="calibs/sidewalk_ground/left_right.yaml">leftcam_rightcam_extrinsic.yaml</a><br><a href="calibs/sidewalk_ground/lidar_imu.yaml">lidar_imu_extrinsic.yaml</a></td>
 </tr>
 </tbody>
 </table>
-<h2 id="calibration">Calibration</h2>
 
 
 
