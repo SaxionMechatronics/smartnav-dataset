@@ -1,0 +1,9 @@
+height: 376
+width: 672
+distortion_model: radial_tangential 
+d: [-0.033552, 0.001859, 0.000599, -0.000901]
+fx: 269.516269
+fy: 269.734233
+cx: 336.395110
+cy: 188.435176
+
