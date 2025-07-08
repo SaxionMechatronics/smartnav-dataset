@@ -1,4 +1,4 @@
-site_name: SmartNav Dataset
+site_name: SMARTNav Dataset
 nav:
   - Home: index.md
   - Evaluation: eval.md
