@@ -1,0 +1,41 @@
+/* docs/css/custom.css
+
+/* Make the header taller and top-align everything */
+header.md-header {
+  min-height: 3rem !important;
+  padding: 0 !important;
+  align-items: flex-start !important;
+}
+
+/* Top-align the inner wrapper */
+header.md-header > .md-header__inner {
+  align-items: flex-start !important;
+}
+
+/* Top-align both left and right sections (logo vs. nav) */
+header.md-header__inner .md-header__section {
+  align-items: flex-start !important;
+}
+
+/* Logo: fill the header height */
+header.md-header .md-logo img {
+  height: 3rem !important;
+  width: auto !important;
+  max-height: none !important;
+  margin: 0 !important;
+}
+
+/* Page title: push down from the very top, then slide right */
+header.md-header .md-header-nav__title {
+  margin: 0 !important;
+  padding-top: 0.75rem !important;   /* vertical position */
+  margin-left: 2rem !important;      /* horizontal offset */
+  line-height: 1 !important;
+  align-self: flex-start !important;
+}
+
+/* Mobile hamburger: keep it aligned with the title */
+.md-nav__toggle {
+  margin-top: 0.75rem !important; 
+  line-height: 4rem !important;
+} 

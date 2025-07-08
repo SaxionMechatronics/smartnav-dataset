@@ -18,11 +18,14 @@
     
     
       
-        <title>SmartNav Dataset Docs</title>
+        <title>SmartNav Dataset</title>
       
     
     
       <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -41,6 +44,8 @@
       
     
     
+      <link rel="stylesheet" href="css/custom.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -51,7 +56,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -76,10 +86,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="SmartNav Dataset Docs" class="md-header__button md-logo" aria-label="SmartNav Dataset Docs" data-md-component="logo">
+    <a href="." title="SmartNav Dataset" class="md-header__button md-logo" aria-label="SmartNav Dataset" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="images/SMART-RG-White-transparent.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -90,7 +99,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            SmartNav Dataset Docs
+            SmartNav Dataset
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -103,8 +112,8 @@
       </div>
     </div>
     
+      
     
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -174,13 +183,12 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="SmartNav Dataset Docs" class="md-nav__button md-logo" aria-label="SmartNav Dataset Docs" data-md-component="logo">
+    <a href="." title="SmartNav Dataset" class="md-nav__button md-logo" aria-label="SmartNav Dataset" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="images/SMART-RG-White-transparent.png" alt="logo">
 
     </a>
-    SmartNav Dataset Docs
+    SmartNav Dataset
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -254,6 +262,15 @@
   <a href="#ground-truth-and-calibration" class="md-nav__link">
     <span class="md-ellipsis">
       Ground Truth and Calibration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acknowledgements
     </span>
   </a>
   
@@ -355,6 +372,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acknowledgements
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -372,7 +398,7 @@
 
 
 <h1 id="smartnav-a-visual-inertial-dataset-for-reliable-robotic-state-estimation">SMARTNav: A Visual-Inertial Dataset for Reliable Robotic State Estimation</h1>
-<p><img alt="Alt text" src="images/main.png" /></p>
+<p><img alt="Alt text" src="images/dataset_page.drawio.png" /></p>
 <p>In this webpage, we present the SMARTNav dataset, which stores the raw sensor data recorded by aerial and ground robots. The data was collected as part of our projects that address the challenges of autonomous navigation in industries where autonomous robots are needed. This data was mainly recorded for the evaluation of Visual-Inertial Odometry (VIO) algorithms; however, it can be used generally for vision or LiDAR-based SLAM and fusion algorithms. </p>
 <h2 id="downloads">Downloads</h2>
 <p>The sequences of the dataset were recorded in ROS2 bag format, and can be downloaded from the following links. Since each sequence is recorded on a different hardware and for a different project, the content of each bag file is different, but inclusion of stereo images and IMU is constant in all bag files. Currently, all the bag files are only accessible through Saxion Research Cloud Drive (SRCD).</p>
@@ -599,6 +625,8 @@
 </tr>
 </tbody>
 </table>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>This work was partly supported by the Netherlands Organization for Scientific Research (NWO) via SIA RAAK-Public project (Van bestrijden naar beheersen van de EPR, No.10.015) and SIA RAAK-MKB project (Smart Greenhouses, No.17.014).</p>
 
 
 
