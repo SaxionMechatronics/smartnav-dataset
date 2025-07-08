@@ -1,6 +1,6 @@
 # SMARTNav: A Visual-Inertial Dataset for Reliable Robotic State Estimation
 
-![Alt text](images/main.png)
+![Alt text](images/dataset_page.drawio.png)
 
 In this webpage, we present the SMARTNav dataset, which stores the raw sensor data recorded by aerial and ground robots. The data was collected as part of our projects that address the challenges of autonomous navigation in industries where autonomous robots are needed. This data was mainly recorded for the evaluation of Visual-Inertial Odometry (VIO) algorithms; however, it can be used generally for vision or LiDAR-based SLAM and fusion algorithms. 
 
@@ -49,3 +49,7 @@ In the table below, for each sequence, a bag file containing ground-truth topic 
 | sidewalk_ground_1    | LiDAR SLAM (LeGO-LOAM algorithm) | [download](gts/sidewalk_ground_1.zip) | [left_camera_intrinsic.yaml](calibs/sidewalk_ground/left.yaml)<br>[right_camera_intrinsic.yaml](calibs/sidewalk_ground/right.yaml)<br>[imu_leftcam_extrinsic.yaml](calibs/sidewalk_ground/imu_camleft.yaml)<br>[imu_rightcam_extrinsic.yaml](calibs/sidewalk_ground/imu_camright.yaml)<br>[leftcam_rightcam_extrinsic.yaml](calibs/sidewalk_ground/left_right.yaml)<br>[lidar_imu_extrinsic.yaml](calibs/sidewalk_ground/lidar_imu.yaml)
 | corridor_ground_1    | LiDAR SLAM (LeGO-LOAM algorithm) | [download](gts/corridor_ground_1.zip) | [left_camera_intrinsic.yaml](calibs/sidewalk_ground/left.yaml)<br>[right_camera_intrinsic.yaml](calibs/sidewalk_ground/right.yaml)<br>[imu_leftcam_extrinsic.yaml](calibs/sidewalk_ground/imu_camleft.yaml)<br>[imu_rightcam_extrinsic.yaml](calibs/sidewalk_ground/imu_camright.yaml)<br>[leftcam_rightcam_extrinsic.yaml](calibs/sidewalk_ground/left_right.yaml)<br>[lidar_imu_extrinsic.yaml](calibs/sidewalk_ground/lidar_imu.yaml)
 
+
+## Acknowledgements
+
+This work was partly supported by the Netherlands Organization for Scientific Research (NWO) via SIA RAAK-Public project (Van bestrijden naar beheersen van de EPR, No.10.015) and SIA RAAK-MKB project (Smart Greenhouses, No.17.014).

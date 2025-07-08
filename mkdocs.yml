@@ -1,4 +1,4 @@
-site_name: SmartNav Dataset Docs
+site_name: SmartNav Dataset
 nav:
   - Home: index.md
   - Evaluation: eval.md
@@ -6,3 +6,11 @@ nav:
 
 theme:
   name: material
+  logo: images/SMART-RG-White-transparent.png
+
+  palette:
+    scheme: default     
+    primary: teal        
+
+extra_css:
+  - css/custom.css
