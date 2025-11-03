@@ -1,8 +1,15 @@
 site_name: SMARTNav Dataset
+
+use_directory_urls: false
+
 nav:
   - Home: index.md
-  - Evaluation: eval.md
-  - Examples: examples.md
+  - Practical Guide to SLAM: 
+    - Introduction: introduction.md
+    - Sensor Selection for SLAM: sensors.md
+    - Calibtation of Sensors: calibration.md
+    - Deployment of SLAM Algorithms: deployment.md
+    - Interpretation of SLAM Results: interpretation.md
 
 theme:
   name: material
