@@ -346,6 +346,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sensor-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensor Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#role-of-sensors-in-slam-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       Role of Sensors in SLAM Architecture
@@ -581,36 +590,45 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#241-ultrasonic" class="md-nav__link">
+  <a href="#241-wheel-odmetry" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.1 Ultrasonic
+      2.4.1 Wheel odmetry
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#242-event-camera" class="md-nav__link">
+  <a href="#242-ultrasonic" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.2 Event camera
+      2.4.2 Ultrasonic
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#243-radar" class="md-nav__link">
+  <a href="#243-event-camera" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.3 Radar
+      2.4.3 Event camera
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#244-gnss" class="md-nav__link">
+  <a href="#244-radar" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.4 GNSS
+      2.4.4 Radar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-gnss" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.5 GNSS
     </span>
   </a>
   
@@ -775,6 +793,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sensor-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensor Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#role-of-sensors-in-slam-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       Role of Sensors in SLAM Architecture
@@ -1010,36 +1037,45 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#241-ultrasonic" class="md-nav__link">
+  <a href="#241-wheel-odmetry" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.1 Ultrasonic
+      2.4.1 Wheel odmetry
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#242-event-camera" class="md-nav__link">
+  <a href="#242-ultrasonic" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.2 Event camera
+      2.4.2 Ultrasonic
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#243-radar" class="md-nav__link">
+  <a href="#243-event-camera" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.3 Radar
+      2.4.3 Event camera
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#244-gnss" class="md-nav__link">
+  <a href="#244-radar" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.4 GNSS
+      2.4.4 Radar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-gnss" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.5 GNSS
     </span>
   </a>
   
@@ -1106,6 +1142,7 @@
 - Identify the suitable set of sensors for their application
 - They will be familiar with the common trade-offs regarding the SLAM sensors, including the trade-offs between accuracy, cost, computation, environment, and maturity of algorithms.
 - They will have an idea of which specifications to consider when choosing sensors for SLAM</p>
+<h2 id="sensor-types">Sensor Types</h2>
 <h2 id="role-of-sensors-in-slam-architecture">Role of Sensors in SLAM Architecture</h2>
 <p>SLAM often has two separate internal components, namely the front-end and back-end. </p>
 <p><strong>Front-end</strong>: It is the module that turns raw sensor measurements of sensors into an intermediate representations that are more compact and informative about robot's or environment's state.
@@ -1211,81 +1248,245 @@ For example, if a camera sensor is used for SLAM, it outputs images at a resolut
 <p>Although, the tracking of the features of environment is essential to the SLAM, providing a sense of relative motion with respect to the environment, it is not enough to realize a 3D measuremt of motion. The feature points should not be only tracked in the 2 dimensional space of the image, but also their 3D location in the space must be determined. So for each feature point, we can estimate a 3D location from the images, that is not trivial, but achievable through either monocular or stere-based camera configurations. In Figure 2, the uplifting of 2 dimensional features from image space into the 3D space is visualized such that a metric distance between the camera and the spatial position of that feature is at hand.</p>
 <h3 id="214-sensor-requirements-what-to-buy-why">2.1.4 Sensor requirements (what to buy &amp; why)</h3>
 <p>The camera to be used in SLAM should have specific characteristics, some of which are listed in the table below. Note that some of more detailed specs are useful when a custom camera sensor and lens is being selected, while many cameras used in robotics, have a good trade-off between these specs.</p>
+<ul>
+<li><strong>Field of View (FOV)</strong>:
+For SLAM methods, a high FOV, is usually desireable, to see a higher number of features at the same time in the environment, and to be able to pick best features to track. To avoid being blinded or obstructed. It is worth noting that very large field of view (above 120 degrees) will be a bit challenging for calibration (one step before deploying your SLAM) such that the available open-source calibration tool will have difficulties yielding accurate calibration results.</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th style="text-align: right;">Spec.</th>
-<th style="text-align: center;">Desirable</th>
-<th>Remarks</th>
+<th><img alt="Small FOV" src="images/ftsfisheye-vs-conventional_r.jpg" /></th>
+<th><img alt="Large FOV" src="images/ftsfisheye-vs-conventional.jpg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;">FOV</td>
-<td style="text-align: center;">high</td>
-<td>To see a higher number of features at the same time in the environment. To be able to pick best features. To avoid being blinded or obstructed.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Shutter</td>
-<td style="text-align: center;">global</td>
-<td>To minimize motion blur. To eliminate rolling shutter effect, that skews moving objects in the image and give unrealistic depiction of scenes in case of motion.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Resolution</td>
-<td style="text-align: center;">medium</td>
-<td>Very low resolution can prevent VIO from proper tracking of features. High resolution will introduce unnecessary processing loads to the system, specially keeping the buses (USB for instance) busy, difficult to record the data, and more delay in VIO when tracking features between frames. Moreover, high reolution global shutter sensors will add to the costs of the system.</td>
-</tr>
-<tr>
-<td style="text-align: right;">FPS</td>
-<td style="text-align: center;">high</td>
-<td>It can help in fast motion so that the feature tracks dont get lost.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Attachment</td>
-<td style="text-align: center;">Rigid</td>
-<td>The camera should not be gimballed or should not have a loose connection to the body. It should represent the robot’s body position and orientation.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Dynamic Range</td>
-<td style="text-align: center;">high</td>
-<td>Dynamic range indicated the ability of the camera to capture details in dark or bright areas of an image.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Lens</td>
-<td style="text-align: center;">adjustable</td>
-<td>The lens of the camera should be changeable. The cameras with and m-12 lens mount are ideal. It should not have a stock lens which is not changeable.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Connection</td>
-<td style="text-align: center;">MIPI</td>
-<td>Flat cable connection to the onboard computer (Jetson) help with faster data transfer and undesirable delays and bandwidth limitations of the USB.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Pixel size</td>
-<td style="text-align: center;">high</td>
-<td>The higher the pixel size, the better low light performance.</td>
-</tr>
-<tr>
-<td style="text-align: right;">Optical size/format</td>
-<td style="text-align: center;">compatible with lens</td>
-<td>This size determines the effective area of sensor that captures the scene. If it is smaller than that of the lens, a big part of the scene taken by lens will go out of image boundaries. If it is larger than that of lens, a big dark area will appear around the captures scene in the final image.</td>
+<td><em>Figure 7: Visualization of the difference between narrow (left image) and wide (right image) FOV, and its effect on feature tracking.</em></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<!--
-- **Global vs. Rolling shutter** — reduce motion blur; support auto + manual control
-- **Dynamic range (DR)** — avoid blown highlights/black crush in high-contrast scenes
-- **Frame rate (Rate)** — ≥30 FPS typical; higher for fast robots or VIO
-- **Field of view (FOV)** — wider = more features, better robustness to occlusion/fast motion
-- **Resolution** — detail vs. compute/memory; common sweet spots (720p–1080p)
-- **Pixel size** — low-light performance vs. resolution trade-off
-- **Optical size/format** (e.g., 1/2.3", 1/1.8") — impacts lens choice and SNR
-- **Attachment type** — C/CS-mount, M12; rigidity and repeatability of extrinsics
-- **Lens** — focal length, distortion, aperture (f-number), focus control, IR cut
-- **Connection type** — USB3, GMSL, MIPI, Ethernet; bandwidth, cable length, sync options
--->
-
+<p>Figure 7, compares the effect of having a wider FOV. The red dots are the spots in the image that usually considered as feature points in a the SLAM front-end, and they are extracted using a common feature detection algorithm used in many SLAM methods. In the wider FOV image, it is usually easier to have higher quality features (unique corner points for instance), while in the low field of view, the algorithms has to rely on lower quality features (like the many points insie the trees that are less unique) to maintain a required number of feature points. The other difference is that while having the wide FOV, in order to lose sight of all these features at once, you should have a larger sudden motion from the camera. The drawback of the wide-FOV lenses usually is in the form of the distortion of the image. The straight lines, and planes are curved, speceially close to the borders of the image, and the higher the FOV, the more spherical pattern is induced on the image. These distrotions have to be rectified in the calibration stage.</p>
+<ul>
+<li>
+<p><strong>Resolution</strong>:
+Low resolution can prevent visual SLAM from proper tracking of features. High resolution will introduce unnecessary processing loads to the system, specially keeping the buses (USB for instance) busy, making it difficult to record the data, and adding more delay in position tracking and map updating due to time taken for tracking feature in images. </p>
+</li>
+<li>
+<p><strong>Shutter</strong>:
+Global shutter sensors are ideal for visual SLAM to minimize motion blur. To eliminate rolling shutter effect, that skews moving objects in the image and give unrealistic depiction of scenes in case of motion. Interesting to note that rolling shutter is in contrast with image resolution due to limitation in the technology behind rolling shutter, such that if you want a high-resolution rolling shutter sensor, the price increases. However, most of the cheap rolling shutter camera have an adequate resolution for our application.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="Global shutter" src="images/img_gs.png" /></th>
+<th><img alt="Motion" src="images/rs_fast_midRS_blur_vectors.png" /></th>
+<th><img alt="Rolling" src="images/rs_fast_midRS_blur.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Figure 8: Comparison between the image taken from a global shutter camera (left) and the one taken from rolling shutter (right) due to the motion pattern in scene (middle). The image is taken from the <code>corridor_ground_1</code> sequence in SMARTNav dataset.</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The difference between the image taken from a roller shutter and one taken from global, is illustrated in Figure 8 (the effect is simulated on the rolling shutter image). As evident, the distortion cause by motion, make the rolling shutter image to yield an undrealistic representation of the scene (all the vertical line are bent closer to the edges) along with more blurring on high-speed parts in the image. The amount of rolling shutter effect is dependent on the magnitude of speed. Meaning that in applications that the robot is moving slow or high magnitude and high frequency vibrations are not expected, this effect might be negiligle, however, for more dynamic use cases, a global shutter sensor is advised.</p>
+<ul>
+<li>
+<p><strong>Data Rate</strong>:
+A higher streaming rate of the camera can help in fast motion so that the feature tracks dont get lost. Here, by high we mean higher that the norm in most of the cameras which is usually 30 Frames per Second (FPS); while having an excessively high FPS (&gt; 90 FPS) might be unnecessary due to the fact that most of the SLAM will not be able to handle this high frequency stream of data and they have to drop some of the frames to keep up.</p>
+</li>
+<li>
+<p><strong>Dynamic Range</strong>:
+Dynamic range indicates the ability of the camera to capture details in dark or bright areas of an image. It is defined as the difference between brightest light and darkest dark in the image. Any light above this range will be diplayed as white and anything below it is pitch dark. This difference is also visible in Figure 9.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="Low DR" src="images/low_DR.png" /></th>
+<th><img alt="Hight DR" src="images/high_DR.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Figure 9: Difference beween low dynamic range (left image) and high dynamic range (right image) cameras.</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Bit-rate</strong>:
+The normal image data that is given by cameras is an array on 8-bit pixels. This means that each pixel value can be reported by a combination of 8 zeros or one. As a result, each pixel might have $2^8 = 256$ values. In simpler terms, a normal 8-bit camera can capture colors in 256 different shades.
+If we can capture higher bit-rates such as 10, the number shades we can capture will be immediately increased to 1024, which translate to far more details in cases that the lighting of the environment is uniform (dark for instance) or the textures have very close colors.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="Low bit rate" src="images/8-bit_image.png" /></th>
+<th><img alt="Hight bit rate" src="images/10-bit_image.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Figure 10: An example of an 8-image in a low light environment.</em></td>
+<td><em>The example of a 10-bit image from the same environment. The image taken as part of the <a href="https://www.saxion.nl/onderzoek/smart-industry/smart-mechatronics-and-robotics/firebot">firefighting robot</a> within the SMART group.</em></td>
+</tr>
+</tbody>
+</table>
+<p>The above figure shows on the left side an image that was captured and converted to 8-bit format (256 shades). For this image a hostogram of different pixel values is drawn as well. As visible in the histogram, most of the pixel color are concentrated in one small region, meaning that all colors in the image are close to each other and having a general dark vibe. On the right side, all 10-bit (1024 shade of color) where used. The important thing to note is that our displays and most of computer vision functions are not able to process the higher bit-rates that 8, meaning that an algorithm should be used to convert this higher bit-rate to 8, while maintaing and intensifying the details. The exact details about such an algorithm is beyond this guide, but as a comparison, you can see the result of a better use of extra shades of color and a correct conversion in the right image of Figure 10.</p>
+<ul>
+<li><strong>Lens</strong>:
+This item mostly depends on how custom you want your sensor setup to be. If you want to be able to keep your core sensor (resolution, shutter, rate, and connection remain the same) but you want to be able to change or experiment with different FOVs, you can go for a sensor that allows you to change the lens. This information can be found in the datasheets of the sensor, for instance an m-12 lens mount is an ideal option in the market, while those that are mentioned to have a stock lens are not changeable.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="Stock Lens" src="images/stock_lens.png" /></th>
+<th><img alt="M12 Lens" src="images/m12_mount.png" /></th>
+<th><img alt="Different Lenses" src="images/lenses.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Figure 11: A camera with an unchangable stock lens (left), one with an M12 mount (center), and different options for lens yielding different FOVs and sometimes difference frequency band cuts and IR filters (right).</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Connection</strong>:
+Flat cable connection to the onboard computer (Jetson) help with faster data transfer and reduces undesirable delays and bandwidth limitations of the USB port. However, they are ideal when the camera is close to the processor board, otherwise, these cable do not have the needed flexibility and USB3 interface will be more ideal as a balance between data transfer speed and design flexibility. USB2 camera are not very desireable for SLAM and generally embedded vision applications. When making the decision about going for a USB3 camera or a camera with flat cables, other than the mechanical design aspects, the compatibility with the processing unit (whether the embedded computer has relevant port) should be taken into account.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="USB Cam" src="images/USB_cam.jpg" /></th>
+<th><img alt="Flat Cable" src="images/flat_cable.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Figure 12: Example of a camera having a USB connection (left) and a camera with flat cable connection (right).</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>Pixel size</strong>:
+The higher the pixel size, the better low light performance.</p>
+</li>
+<li>
+<p><strong>Optical size/format</strong>:
+In case you go with an adjustable lens option for the sensor, you should make sure the the optical format provided in lens and sensor are compatible. This size determines the effective area of sensor that captures the scene. If it is smaller than that of the lens, a big part of the scene taken by lens will go out of image boundaries. If it is larger than that of lens, a big dark area will appear around the captures scene in the final image.</p>
+</li>
+<li>
+<p><strong>Driver</strong>:
+When buying a camera, if the vendor provides you with a driver that is compatible with embedded computers (usually having aarch64/arm64 processor architecture as opposed to amd64 which is common in the desktops) and if they have a ROS2 wrapper for their sensor, it is going to make life much easier and it will be mostly plug and play. </p>
+</li>
+</ul>
 <h3 id="216-available-solutions-examples">2.1.6 Available solutions (examples)</h3>
+<p>In the table below, we bring a few example of some commonly available cameras in the market, and compare them base on the discussed criteria.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Camera</th>
+<th style="text-align: left;">Modality</th>
+<th style="text-align: left;">Horizontal FOV</th>
+<th style="text-align: left;">Max resolution</th>
+<th style="text-align: left;">Shutter</th>
+<th style="text-align: left;">Max FPS</th>
+<th style="text-align: left;">Dynamic Range (dB)</th>
+<th style="text-align: left;">Max bit rate</th>
+<th style="text-align: left;">Lens</th>
+<th style="text-align: left;">Connection</th>
+<th style="text-align: left;">Pixel size ($µm^2$)</th>
+<th style="text-align: left;">Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Realsense D455</td>
+<td style="text-align: left;"><font color="green">monochrome</font></td>
+<td style="text-align: left;"><font color="red">87°</font></td>
+<td style="text-align: left;"><font color="green">1280 × 800</font></td>
+<td style="text-align: left;"><font color="green">global</font></td>
+<td style="text-align: left;"><font color="red">30</font></td>
+<td style="text-align: left;"><font color="red">-</font></td>
+<td style="text-align: left;"><font color="green">10</font></td>
+<td style="text-align: left;"><font color="red">fixed</font></td>
+<td style="text-align: left;"><font color="green">USB 3.1</font></td>
+<td style="text-align: left;"><font color="green">3 x 3</font></td>
+<td style="text-align: left;"><font color="green">Embedded Linux and ROS2 support</font></td>
+</tr>
+<tr>
+<td style="text-align: left;">ZED 2</td>
+<td style="text-align: left;"><font color="red">color</font></td>
+<td style="text-align: left;"><font color="green">110°</font></td>
+<td style="text-align: left;"><font color="red">2208 x 1242</font></td>
+<td style="text-align: left;"><font color="red">rolling</font></td>
+<td style="text-align: left;"><font color="green">100</font></td>
+<td style="text-align: left;"><font color="red">64</font></td>
+<td style="text-align: left;"><font color="red">8</font></td>
+<td style="text-align: left;"><font color="red">fixed</font></td>
+<td style="text-align: left;"><font color="green">USB 3.0</font></td>
+<td style="text-align: left;"><font color="red">2 x 2</font></td>
+<td style="text-align: left;"><font color="green">Embedded Linux and ROS2 support</font></td>
+</tr>
+<tr>
+<td style="text-align: left;">ZED X</td>
+<td style="text-align: left;"><font color="red">color</font></td>
+<td style="text-align: left;"><font color="green">110°</font></td>
+<td style="text-align: left;"><font color="red">1920 x 1200</font></td>
+<td style="text-align: left;"><font color="green">global</font></td>
+<td style="text-align: left;"><font color="green">100</font></td>
+<td style="text-align: left;"><font color="green">71</font></td>
+<td style="text-align: left;"><font color="red">8</font></td>
+<td style="text-align: left;"><font color="red">fixed</font></td>
+<td style="text-align: left;"><font color="red">GMSL2</font></td>
+<td style="text-align: left;"><font color="green">3 x 3</font></td>
+<td style="text-align: left;"><font color="green">Embedded Linux and ROS2 support</font></td>
+</tr>
+<tr>
+<td style="text-align: left;">Raspberry Pi Camera Module 3 Wide</td>
+<td style="text-align: left;"><font color="red">color</font></td>
+<td style="text-align: left;"><font color="green">102°</font></td>
+<td style="text-align: left;"><font color="red">4608 × 2592</font></td>
+<td style="text-align: left;"><font color="red">rolling</font></td>
+<td style="text-align: left;"><font color="green">60</font></td>
+<td style="text-align: left;"><font color="green">up to 96 in HDR mode</font></td>
+<td style="text-align: left;"><font color="green">10</font></td>
+<td style="text-align: left;"><font color="red">stock lens</font></td>
+<td style="text-align: left;"><font color="green">Flat cable</font></td>
+<td style="text-align: left;"><font color="red">1.4 × 1.4</font></td>
+<td style="text-align: left;"><font color="green">Embedded Linux support</font></td>
+</tr>
+<tr>
+<td style="text-align: left;">Arducam multi-cam board with OV9282 base sensors</td>
+<td style="text-align: left;"><font color="red">color</font></td>
+<td style="text-align: left;"><font color="green">adjustable</font></td>
+<td style="text-align: left;"><font color="green">1280 × 720</font></td>
+<td style="text-align: left;"><font color="green">global</font></td>
+<td style="text-align: left;"><font color="green">150</font></td>
+<td style="text-align: left;"><font color="red">68</font></td>
+<td style="text-align: left;"><font color="green">10</font></td>
+<td style="text-align: left;"><font color="green">M12 mount</font></td>
+<td style="text-align: left;"><font color="green">Flat cable</font></td>
+<td style="text-align: left;"><font color="green">3 × 3</font></td>
+<td style="text-align: left;"><font color="green">Embedded Linux support</font></td>
+</tr>
+</tbody>
+</table>
+<p>We assigned characteristics of the mentioned sensors in either green or red, a harsh thresholding that of course can vary based on specific applications. For instance, if you prefer having a colored 3D map of the environment, monochrome sensors are probabely not what you are looking for. In this version of the table, we preferred low light performance, thus the monochrome is marked as green and colored sensors are red.</p>
+<p>Another improtant thing to note is that the maximum of some of these specifications does not happen at the same time. For instance, the max resolution usually leads to a lower FPS than the max FPS reported in the table. However, when we set some of the maximum resolutions to red, it means that for a typical SLAM application with most of the available open-source method, such high resolutions are an overkill and can needlessly increase the sensor price. </p>
+<p>There are other consideration related to these cameras at the marker, such as out of the box softwares that can give you additional functionalities. For instance the ZED cameras and Intel Realsense, usually have yield an out of the box depth estimation which can be useful in some SLAMs. However, in some cases such as the ZED cameras, it adds another requirement which is GPU-equipped embedded computers (such as Nvidia Jetson family).</p>
+<p>In a nutshell, for a beginner-level introduction to the world of SLAM or generally computer vision, ready-to-use options such as ZED cameras or Realsense D455 is a good choice.
+For having more control over the sensor and customizing to your robot, while having maximum control over the suitability of the sensor, custom sensor boards such the Arducam is an attractive option.</p>
 <h3 id="218-advantages-and-disadvantages-of-visual-slam">2.1.8 Advantages and disadvantages of visual SLAM</h3>
 <p>There are many advantages to the cameras, that make them a suitable choice for SLAM in robotics. 
 - They are rich. They see almost everything that a human doest.
@@ -1298,12 +1499,61 @@ For example, if a camera sensor is used for SLAM, it outputs images at a resolut
 - The volume of data that is to be handled by camera is relatively high.
 - Due to the handling of the camera data, they often introduce delay to system, happening at the data transfer from sensor to the computer and copy pastings at Operating System (OS) level.
 - The SLAM algorithms that use camera are usually heavier than the ones using other modalities. This further processing often happens during feature extraction and 3D understanding of the environment
-- Normal RGB cameras dont see at darkness. </p>
+- Normal RGB cameras dont see at darkness. 
+- There are some challenges related to SLAM algorithms such as the motion blur in very dynamic cases. Also in environments with no texture (flat uniform surface or reflective surfaces), the visual SLAM perfrom poorly. Although we introduced some paramters in this section to have a camera with good performance in challenging lighting conditions (low light for instance), however, there are limits to what camera can clearly see.</p>
 <hr />
 <h2 id="22-lidar-for-slam">2.2 LiDAR for SLAM</h2>
+<p>LiDAR stands for Light Detection and Ranging, a technology that is less broad and generic compared to cameras, and is often more suitable and specialized for robotic applications.</p>
 <h3 id="221-lidar-mechanism">2.2.1 LiDAR Mechanism</h3>
+<p>LiDAR operates based on the principle of sending out a laser beam at a very specific and narrow direction in space, and also waits for the reflection of that beam, then, based on the traveling time of the beam (also known as Time of Flight or ToF), having the speed of light in mind, it measures the distance of the nearest object in that direction of the space.</p>
+<p>This ToF-based range measurement usually occurs multiple times and for multiple directions in space, giving an estimation of the environment geomitrical shape.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="LiDAR Mech." src="images/LIDAR-scanned-SICK-LMS-animation.gif" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Figure 13: The concept of LiDAR mechanism taken from <a href="https://en.wikipedia.org/wiki/Lidar">LiDAR Wikipedia</a>. On the top, a simplified design for LiDAR sensor is displayed, including the laser source and the rotating mirror that reflects the beam in different spatial directions. In the middle figure, the top view of the space around the sensor is shown in form of rectangular room with the LiDAR (blue rectangle) and another round object (green circle). After capturing the time of flight for the beam in each direction and measuring the distance, a 2 dimensional map can be formed as displayed in the bottom image.</em></td>
+</tr>
+</tbody>
+</table>
 <h3 id="222-pointcloud">2.2.2 Pointcloud</h3>
+<p>Just like the cameras that output an image as their data format, LiDARs produce pointclouds. A pointcloud is a set of 3D points in space. These points have $x, y, z$ coordinates. These are points in the coordinate frame of the sensor, meaning that they are relative to the sensor itself and still do not have any spatial meaning relative to a world-related reference frame. In fact, making sure that these points are coordinates in a world related reference frame is one of the tasks that our SLAM will do.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Pointcloud" src="images/lidar_img.png" /></th>
+<th><img alt="Pointcloud" src="images/lidar_top.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Pointcloud" src="images/lidar_camera.png" /></td>
+<td><img alt="Pointcloud" src="images/lidar_distance.png" /></td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><em>Figure 14: Visualization of LiDAR pointcloud taken from the <code>corridor_ground_1</code> sequence of the SMARTNav dataset.</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The immidiate outputs of a LiDAR sensor are depicted in Figure 14. The top left image, is a camera image, to give you an understanding of how the environment in front of the robot is supposed to look like. The top right is the 3D pointcloud of the environment. This pointcloud is measured by a LiDAR sensor that has a 360 view, so it sees more than just the front of the robot (unlike the camera). The robot is actually located in the middle of the empty circle. By comparing the geometry of the scene as a human can percieve from the image, you can observe that pointcloud is almost perfectly resempling the area around the robot. The colors of each point is based on its height, where the higher point have a more reddish color. In bottom left you can see the pointcloud closely from camera's point of view, and it is more evident that the 3D geometry of the scene matches the camera image. In bottom right, is another top view, but this time it can be observed that the density of the points is increasing with the distance from the sensor. So a LiDAR sensor has a much denser representation of the scene at its vecinity compared to farther points.</p>
 <h3 id="223-configurations-data-patterns">2.2.3 Configurations (data patterns)</h3>
+<p>LiDAR mechanism and technology is used in different design configurations. Having a general understanding about these designs can help to  identify the best option for each application.</p>
+<ul>
+<li>LiDAR Range Finders:
+  This is the simplest version that only measure the distance in one spatial direction and is not often used in SLAMs but very common in robotics especially the aerial robots. For instance it can be attached to the bottom of a drone to measure a more accurate distance to the ground.</li>
+<li>2D Planar Scanners: rplidar and tilting using a gimbal (hokoyo)</li>
+<li>3D Multi-beam:</li>
+<li>Non-repetitive Scan:</li>
+<li>Flash LiDAR:</li>
+</ul>
 <h3 id="224-lidar-based-front-end-architecture">2.2.4 LiDAR-based front-end architecture</h3>
 <h3 id="225-good-specs-for-lidar">2.2.5 Good specs for LiDAR</h3>
 <h3 id="226-sensor-examples">2.2.6 Sensor examples</h3>
@@ -1315,10 +1565,11 @@ For example, if a camera sensor is used for SLAM, it outputs images at a resolut
 <h3 id="234-front-end-of-imu-aided-slam">2.3.4 Front-end of IMU-aided SLAM</h3>
 <h3 id="235-good-specs-of-imu-sensors">2.3.5 Good specs of IMU sensors</h3>
 <h2 id="24-other-sensors">2.4 Other sensors</h2>
-<h3 id="241-ultrasonic">2.4.1 Ultrasonic</h3>
-<h3 id="242-event-camera">2.4.2 Event camera</h3>
-<h3 id="243-radar">2.4.3 Radar</h3>
-<h3 id="244-gnss">2.4.4 GNSS</h3>
+<h3 id="241-wheel-odmetry">2.4.1 Wheel odmetry</h3>
+<h3 id="242-ultrasonic">2.4.2 Ultrasonic</h3>
+<h3 id="243-event-camera">2.4.3 Event camera</h3>
+<h3 id="244-radar">2.4.4 Radar</h3>
+<h3 id="245-gnss">2.4.5 GNSS</h3>
 <h2 id="25-practical-considerations">2.5 Practical Considerations</h2>
 <h3 id="251-damping">2.5.1 Damping</h3>
 <h3 id="252-interference-magnetic-field-or-ir-camera-and-lidar-may-interfere">2.5.2 Interference (magnetic field or IR camera, and LiDAR may interfere)</h3>
