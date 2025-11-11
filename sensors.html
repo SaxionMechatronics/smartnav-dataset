@@ -1386,33 +1386,35 @@ The vertical resolution is limited, so the pointcloud can be sparse, and thin ob
 </div>
 
 <h3 id="224-lidar-based-front-end-architecture">2.2.4 LiDAR-based front-end architecture</h3>
-<p>An overal architecture of LiDAR-based SLAM methods looks like Figure 21. Compared to visual SLAM, here the architecture is a bit more simple, since it does not have any steps to infer 3D positions for the tracked features. The sensor data is already in accurate 3D format. Similar to visual SLAM, here we should infer a connection between consecutive scans, and it is simpler to be done not on the raw input data. Feature extraction is useful here as well, to speed up the processing and only use parts of the input data that is necessary. Despite visual SLAM, the feature points for pointclouds are less intuitive. One example of common feature extraction is depicted in Figure 21, which is also know as <em>Scan Context</em>. It basically converts a 3D pointcloud into a 2 dimensional projection, which then can more easily be compared with other scans using fast vision methods.</p>
-<p>After extracting features for individual scans, they can be matched with each other, a process that is also known as <em>registration</em>. After this, a rigid translation and rotation can be found that related two consecutive scan. The relative motions will often be the input to be used in the SLAM backend to ensure minimal localization and mapping error over time.</p>
+<p>An overall architecture of LiDAR-based SLAM methods looks like Figure 19. Compared to visual SLAM, this architecture is a bit simpler, because we do not need any step to infer 3D positions of features: the sensor data is already in an accurate 3D format (the pointcloud).</p>
+<p>Similar to visual SLAM, we still need to estimate how consecutive scans are related to each other. It is usually simpler and faster to do this not on the raw pointcloud directly, but on some extracted features. Feature extraction is therefore useful here as well. It speeds up processing and focuses the computation on the most informative parts of the data.</p>
+<p>Unlike images, features in pointclouds are less intuitive. One example of a popular feature representation is shown in Figure 19, known as <em>Scan Context</em>. The idea is to convert a 3D pointcloud into a 2D descriptor (a kind of image-like projection). This 2D representation can then be compared more easily and quickly with other scans using efficient vision-style methods.</p>
+<p>After extracting features for individual scans, they can be matched with each other. This process is often called registration. Once registration is done, we can estimate the rigid transformation (translation and rotation) that aligns two consecutive scans. These relative motions are then passed to the SLAM back-end, which uses them to optimize the robot’s trajectory and the map over time, keeping localization and mapping errors as small as possible.</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
   <img src="images/lidar_based_SLAM.drawio.png" alt="1" style="width:70%; height:350px ">
   <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
-    <em>Figure 21: The general front-end architecture of LiDAR-based SLAM.</em>
+    <em>Figure 19: The general front-end architecture of LiDAR-based SLAM.</em>
   </div>
 </div>
 
 <h3 id="226-advantages-and-disadvantages">2.2.6 Advantages and Disadvantages</h3>
 <p>LiDAR sensors have many advantages over the cameras, which makes them the most reliable senor for SLAM:</p>
 <ul>
-<li>They capture the metric geometry of the scene directly, without any need for estimating the depth; they work whether the scene has sufficient feature or not.</li>
-<li>They are less sensitive to lighting, whether intese light of the day or darkness at night. The only problem could arise from surfaces that are not reflecting laser very well. The are a greate solution for night time SLAM.</li>
-<li>Depending on the sensor type (from the examples dicussed in previous section), LiDARs can cover larger scenes and measure relative farther away, and some of them have wider FOV, making them suitable for outdoor robots.</li>
+<li>They capture the metric geometry of the scene directly, without any need for estimating the depth. They work even if the scene has few visual features, as long as there is some geometric structure.</li>
+<li>They are much less sensitive to lighting conditions, whether it is strong daylight or complete darkness at night. The main issues arise only with surfaces that do not reflect the laser well. In general, they are a great solution for night-time SLAM.</li>
+<li>Depending on the sensor type, LiDARs can cover large scenes, measure objects farther away, and some models provide very wide FOVs, making them suitable for many outdoor robots.</li>
 </ul>
 <p>Despite many advantages of LiDAR, there are certain drawbacks of these sensors:</p>
 <ul>
-<li>They are more costly, heavy, and require more power, and these requirements increase with the need for more fidelity. Most of the available LiDARs, might not be an optimal solution for lightweight autonomous drones.</li>
-<li>LiDARs are relatively sparse, meaning that they usually do not deliver a dense pointcloud of the environemnt; they might miss some details and small objects.</li>
-<li>LiDARs do not capture the colors of the environment, thus if you want to use the map created by a LiDAR-based SLAM, the only clue you would have is the shapes and geometries of the subject and you would not know anything about the cognitive features that are mostly associated with colors.</li>
-<li>LiDARs are often more complicated mechanically, mostly having rotating mechanisms.</li>
-<li>The motion distortion is relatively more severe in LiDARs, in contrast to global shutter cameras, thus, strong deskewing is often needed in dynamic environments.</li>
+<li>They are typically more expensive, heavier, and consume more power than cameras. These requirements grow as you demand more fidelity (higher resolution, more beams, longer range). Many LiDARs are not ideal for small, lightweight drones.</li>
+<li>LiDAR pointclouds are often sparse, especially at longer ranges. They may miss fine details and small objects, or only sample them with a few points.</li>
+<li>LiDARs do not capture color information. If you use a LiDAR-based SLAM map, your main clue is the shape and geometry of the environment; you do not get semantic cues that are strongly tied to color.</li>
+<li>Many LiDARs are mechanically complex, often relying on rotating mechanisms, which may reduce robust long-term use.</li>
+<li>Motion distortion is usually more severe than in global-shutter cameras. Because a LiDAR scan is built over a certain time window, fast motion of the robot or the environment can warp the pointcloud. As a result, strong deskewing (motion compensation) is often needed in dynamic environments.</li>
 </ul>
 <h2 id="23-imu">2.3 IMU</h2>
 <h3 id="231-concept">2.3.1 Concept</h3>
-<p>An Inertial Measurement Unit (IMU) is one of those classic sensors in the navigation. These sensors can sense the motion of the robot and not anything about the environemnt. There has been a variety of these sensors around, but the ones that are used in robotcs, measure 6 specific values. It can sense the amount of rotational speed (a.k.a angular velocity) over 3-axis, and the linear acceleration (the rate of change of speed) along 3-axis.</p>
+<p>An Inertial Measurement Unit (IMU) is one of the classic sensors used in navigation. Unlike cameras or LiDARs, IMUs do not sense the environment directly. Instead, they measure the motion of the robot itself. The IMUs commonly used in robotics measure six values: i) Angular velocity (how fast the robot is rotating) around 3 axes ii) Linear acceleration (how fast its speed is changing) along 3 axes. So in total, we get 3D angular velocity plus 3D linear acceleration.</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
   <img src="images/imu_animation.gif" alt="1" style="width:70%; height:300px ">
   <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
@@ -1420,18 +1422,35 @@ The vertical resolution is limited, so the pointcloud can be sparse, and thin ob
   </div>
 </div>
 
-<p>Why these 6 values are important? If you integrate (summing the values up over time) the linear accelerations, you will get the linear velocities. If you integrate the velocities then you will get the position. The same goes for integrated angular velocities that yield the orientation. This approach is called <strong>Dead Reckoning</strong> and seems to solve the robot localization problem. But no, the IMU values are noisy, so when you integrate them, you also integrate the noise, thus the final values are far from the reality. The longer you integrate you robot's IMU, the more inaccurate your position and orientation might get.</p>
-<h3 id="232-benefits-of-imu-addition-to-slam">2.3.2 Benefits of IMU addition to SLAM</h3>
-<p>Despite the above disadvantage, the IMU have a very useful trait that is complementary to other conventional SLAM sensors, and that is their high sampling rate. An IMU sensor data frequency is up to hundreds of samples per second, while a LiDAR is often 10-20 Hz and cameras are usually tens of frames per second. This is why an IMU can fill the gap between the measurements of the environment sensing sensors (LiDAR and camera). Consider the following scenarios that that IMU proves extremely useful as a complementary sensor:</p>
+<p>Why are these 6 values important? In principle, if you integrate the IMU measurements over time:</p>
 <ul>
-<li>The LiDAR and camera-based SLAMs work on the principle of matching features. In certain conditions, the feature matching might not work between two or more consecutive frames. For instance, if the camera or LiDAR's view temporarily is blocked. Or the feature matching algorithm fails to report reliable feature tracks. Or the environment is rather featureless.</li>
-<li>Another scenario is very high speed motions, such that the view in front of the sensor rapidly changes, such that the low frequency sensors can not capture the change adequately, however the high frequency motion data of the IMU can aid, reducing the overal drift of SLAM.</li>
-<li>For visual SLAMs, if we want to have only a monocular camera as a sensor, it would be impossible to have a metric scale output map. However, addition of the IMU sensor can give correct the scaling of the position estimations and output maps.</li>
-<li>In case of the LiDAR SLAMs, a huge problem is distortion of the LiDAR scan due to motion. However, LiDAR sensors can give a time stamp for each point in the pointcloud, thus if we can have an estimation of the short-time motion between the two points, we can deskew the scan to have a rectified pointcloud that more accurately represents the environment.</li>
-<li>IMU fusion in the SLAM pipeline, also can smooth the outputs of the SLAM, reducing the jitters in the estimation of the camera of LiDARs motion, eventually leading to a more robust SLAM.</li>
+<li>Integrating linear acceleration gives you linear velocity.</li>
+<li>Integrating velocity again gives you position.</li>
+<li>Integrating angular velocity gives you orientation (how the robot is rotated).</li>
 </ul>
-<p>Although the IMU, dead reckoning is not ideal for long-time, but it can be used for very short times (tens of milliseconds). The data from IMU is mostly used in the SLAM backend, however, it can also eliminate motion distortions in both image and pointclouds. Most of the SLAM-ready sesnors in the market, including LiDARs and stereo cameras usually are equipped with an IMU sensor as well, providing highly synchronized IMU data along with their main sensor data. If you are looking to build your entire sensor from scratch and you look for an IMU sensor, mainly look for cheap sensor with low <strong>Noise Density</strong>, and <strong>Bias Instability</strong>, however, consider that going for expensive high-grade IMU sensors beats the very purpose of using these sensors in a cheap navigation stack of a robot.
-A few common solutions are the <strong>Bosch BMI270</strong>, <strong>BMI160</strong>, or <strong>InvenSense ICM-20602</strong>.</p>
+<p>This idea is known as <em>Dead Reckoning</em> and, at first glance, it looks like it could solve the full robot localization problem using only the IMU.</p>
+<p>However, in practice, IMU measurements are noisy and have biases. When you integrate them over time, you also integrate the noise and bias. As a result, the estimated position and orientation drift away from reality. The longer you rely on pure IMU integration, the larger this drift becomes, and the more inaccurate your pose estimate will be.</p>
+<h3 id="232-benefits-of-imu-addition-to-slam">2.3.2 Benefits of IMU addition to SLAM</h3>
+<p>Despite the problems of pure dead reckoning, IMUs have a very useful property that perfectly complements other SLAM sensors, and that is their high sampling rate. An IMU often runs at hundreds of samples per second, while LiDAR is usually around 10–20 Hz, and cameras are typically tens of frames per second. Because of this, an IMU can fill the gaps between measurements from environment-sensing sensors (LiDAR and camera). </p>
+<p>Consider the following scenarios where the IMU is extremely useful as a complementary sensor:</p>
+<ul>
+<li>LiDAR and camera-based SLAM systems rely on feature matching between consecutive frames. Sometimes this fails beacause: i) The camera or LiDAR view is temporarily blocked. ii) The feature matching algorithm cannot find reliable matches. iii) The environment is nearly featureless (blank walls, fog, smoke).
+In these cases, IMU measurements can keep tracking the motion for short periods, reducing drift until features reappear.</li>
+<li>
+<p>When the robot moves quickly, the view in front of the sensor changes rapidly. Lower-frequency sensors (cameras, LiDAR) may miss some of that motion, but the high-frequency IMU can capture it. Fusing IMU data with SLAM helps reduce the overall drift and improves stability in dynamic maneuvers.</p>
+</li>
+<li>
+<p>With only a monocular camera, SLAM can usually reconstruct the scene only up to scale (no absolute meters). When you add an IMU, its acceleration and rotation measurements provide extra information that can be used to recover the correct metric scale of the trajectory and the map.</p>
+</li>
+<li>
+<p>A major issue in LiDAR SLAM is scan distortion due to motion. Many LiDARs provide a timestamp for each point in the pointcloud. If we know the short-term motion between these timestamps (from the IMU), we can deskew the scan. We correct each point’s position according to the estimated motion and obtain a pointcloud that more accurately represents the environment.</p>
+</li>
+<li>
+<p>Fusing IMU data in the SLAM pipeline can also smooth the estimated trajectory, reducing jitter in the estimated motion of the camera or LiDAR. This often leads to a more stable and robust SLAM system, especially for control and path planning.</p>
+</li>
+</ul>
+<p>Although IMU-based dead reckoning is not suitable for long durations, it is very useful over short intervals, until a new frame arrives. In SLAM practice, IMU data is mostly used in the SLAM back-end. It is also used in front-end to reduce motion distortion in both images and pointclouds.</p>
+<p>Most SLAM-ready sensors on the market, including many LiDARs and stereo cameras, already come with an integrated IMU, providing tightly synchronized IMU data together with their main measurements. This is very convenient for sensor fusion. However, if you are building your own sensor stack from scratch and you need an IMU, look mainly for low <em>noise density</em>, and <em>low bias instability</em>. While keeping the cost reasonable. Using very expensive, high-grade IMUs often goes against the goal of building a low-cost navigation stack for a typical robot (one of strong motivations of SLAM). A few common IMU choices in low- to mid-cost systems are Bosch BMI270, Bosch BMI160, and InvenSense ICM-20602.</p>
 <!--
 ## 2.4 Other sensors
 
