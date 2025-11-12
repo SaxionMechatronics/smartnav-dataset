@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sensor-calibration-for-slam" class="md-skip">
+        <a href="#chapter-3-sensor-calibration-for-slam" class="md-skip">
           Skip to content
         </a>
       
@@ -360,35 +360,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
+  <a href="#31-objective" class="md-nav__link">
     <span class="md-ellipsis">
-      Objective
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Objective">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-reference-frames-in-sensor-fusion-and-calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Reference Frames in Sensor Fusion and Calibration
+      3.1 Objective
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#camera-callibration" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#32-common-reference-frames-in-sensor-fusion-and-calibration" class="md-nav__link">
     <span class="md-ellipsis">
-      Camera Callibration
+      3.2 Common Reference Frames in Sensor Fusion and Calibration
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#33-camera-callibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Camera Callibration
+    </span>
+  </a>
   
 </li>
       
@@ -481,35 +475,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
+  <a href="#31-objective" class="md-nav__link">
     <span class="md-ellipsis">
-      Objective
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Objective">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#common-reference-frames-in-sensor-fusion-and-calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Reference Frames in Sensor Fusion and Calibration
+      3.1 Objective
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#camera-callibration" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#32-common-reference-frames-in-sensor-fusion-and-calibration" class="md-nav__link">
     <span class="md-ellipsis">
-      Camera Callibration
+      3.2 Common Reference Frames in Sensor Fusion and Calibration
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#33-camera-callibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Camera Callibration
+    </span>
+  </a>
   
 </li>
       
@@ -529,8 +517,8 @@
 
 
 
-<h1 id="sensor-calibration-for-slam">Sensor Calibration for SLAM</h1>
-<h2 id="objective">Objective</h2>
+<h1 id="chapter-3-sensor-calibration-for-slam">Chapter 3: Sensor Calibration for SLAM</h1>
+<h2 id="31-objective">3.1 Objective</h2>
 <ol>
 <li>Understand what sensor calibration is and why it’s critical for localization and mapping.</li>
 <li>Understand What is intrinisic and extrnisic callibration.</li>
@@ -538,7 +526,7 @@
 </ol>
 <p>The fundamental objective of sensor calibration in SLAM systems is to ensure accurate spatial perception by establishing precise mathematical relationships between sensor measurements and the physical world. As SLAM systems increasingly rely on multi-sensor fusion architectures, proper calibration becomes essential for maintaining spatial consistency across different sensing modalities. The goal is to minimize systematic errors that can propagate through the SLAM pipeline, ultimately affecting localization accuracy and map quality.</p>
 <p>Current technological trends indicate a growing complexity in SLAM sensor configurations, with systems commonly integrating LiDAR, cameras, IMUs, wheel encoders, and other specialized sensors. Each sensor type introduces unique calibration challenges related to intrinsic parameters (internal characteristics) and extrinsic parameters (spatial relationships between sensors). The industry is moving toward more robust, automated calibration procedures that can adapt to environmental changes and sensor degradation over time.</p>
-<h3 id="common-reference-frames-in-sensor-fusion-and-calibration">Common Reference Frames in Sensor Fusion and Calibration</h3>
+<h2 id="32-common-reference-frames-in-sensor-fusion-and-calibration">3.2 Common Reference Frames in Sensor Fusion and Calibration</h2>
 <p>In localization, mapping, and multi-sensor fusion, consistent definition and transformation between reference frames is essential. Each frame represents a coordinate system attached to a specific entity (e.g., world, robot, sensor). Below are the most common frames used in SLAM and calibration systems.</p>
 <ol>
 <li>
@@ -558,7 +546,7 @@
 <p><strong>Image (Pixel) Frame</strong>: The Image Frame (I) is a 2D coordinate system on the camera’s image plane, where each point corresponds to a pixel location. The origin (u=0,v=0) is typically at the top-left corner, with the u-axis pointing right and v-axis pointing down. 3D points from the camera frame are projected into this frame using the camera intrinsic matrix (K) and distortion model.</p>
 </li>
 </ol>
-<h3 id="camera-callibration">Camera Callibration</h3>
+<h2 id="33-camera-callibration">3.3 Camera Callibration</h2>
 <p><strong>Intrinsic Callibration</strong> </p>
 <p>Intrinsic calibration estimates the camera’s internal parameters, describing how 3D points in the camera frame are projected onto the 2D image plane.we use camera intrinsic parameter matrix, describes some of the physical properties of the camera lens. It is a 3x3 matrix with the following form:</p>
 <div style="margin-left: 65px;">

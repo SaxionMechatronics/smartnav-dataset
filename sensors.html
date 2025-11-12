@@ -526,6 +526,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#24-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quizes" class="md-nav__link">
     <span class="md-ellipsis">
       Quizes
@@ -831,6 +840,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Summary
+    </span>
+  </a>
   
 </li>
       
@@ -1451,6 +1469,9 @@ In these cases, IMU measurements can keep tracking the motion for short periods,
 </ul>
 <p>Although IMU-based dead reckoning is not suitable for long durations, it is very useful over short intervals, until a new frame arrives. In SLAM practice, IMU data is mostly used in the SLAM back-end. It is also used in front-end to reduce motion distortion in both images and pointclouds.</p>
 <p>Most SLAM-ready sensors on the market, including many LiDARs and stereo cameras, already come with an integrated IMU, providing tightly synchronized IMU data together with their main measurements. This is very convenient for sensor fusion. However, if you are building your own sensor stack from scratch and you need an IMU, look mainly for low <em>noise density</em>, and <em>low bias instability</em>. While keeping the cost reasonable. Using very expensive, high-grade IMUs often goes against the goal of building a low-cost navigation stack for a typical robot (one of strong motivations of SLAM). A few common IMU choices in low to mid-cost systems are <em>Bosch BMI270</em>, <em>Bosch BMI160</em>, and <em>InvenSense ICM-20602</em>.</p>
+<h2 id="24-summary">2.4 Summary</h2>
+<p>This chapter gave a hands-on guide to choosing sensors for SLAM so your pipeline starts with clean, useful data. We covered cameras (color vs. mono, mono vs. stereo), why specs like FOV, resolution, shutter, FPS, dynamic range, bit depth, pixel size, lens/format, connection, drivers matter, and how they affect feature quality, latency, and calibration. We also skimmed LiDAR types (2D planar, 3D multi-beam, non-repetitive, solid-state), their scan patterns and motion distortion, plus the IMU as a high-rate aid for scale, deskewing, and smoothing.</p>
+<p>Bottom line: SLAM robustness is tightly tied to sensor data quality and the sensor’s ability to capture the environment under your real conditions (low light, textureless walls, fast motion, vibration). With the trade-offs and examples here, you should be able to match specs to your robot and task and pick a sensor stack (camera, LiDAR, IMU) that gives your SLAM front-end reliable, information-rich input.</p>
 <!--
 ## 2.4 Other sensors
 
@@ -1482,7 +1503,7 @@ In these cases, IMU measurements can keep tracking the motion for short periods,
 
 <div class="quiz"> <h4>Q8. Which camera characteristic does <em>not</em> improve low-light performance directly?</h4> <div class="choices"> <button class="choice">Modality (mono vs. color)</button> <button class="choice">Shutter type</button> <button class="choice" data-correct="true">Bit depth / bit rate</button> <button class="choice">Pixel size</button> </div> <div class="feedback"></div> <div class="explain">Higher bit depth improves quantization fidelity, not SNR; larger pixels/mono help capture more photons.</div> </div>
 
-<div class="quiz"> <h4>Q9. A floor-cleaning indoor robot (sports arena): which sensor is the most suitable primary mapper?</h4> <div class="choices"> <button class="choice">Monocular camera</button> <button class="choice" data-correct="true">2D planar LiDAR</button> <button class="choice">RGB-D camera</button> <button class="choice">Thermal camera</button> </div> <div class="feedback"></div> <div class="explain">2D LiDAR is a proven workhorse for indoor navigation and coverage in planar spaces.</div> </div>
+<div class="quiz"> <h4>Q9. Assume you are building a wheeled robot for floor-cleaning in sports arenas. And also, you have decided to use SLAM for navigation. Which sensor is the most suitable choice to be used for your SLAM?</h4> <div class="choices"> <button class="choice">Monocular camera</button> <button class="choice" data-correct="true">2D planar LiDAR</button> <button class="choice">RGB-D camera</button> <button class="choice">Thermal camera</button> </div> <div class="feedback"></div> <div class="explain">Since we talk about a ground wheeled robot, it means the robot body has two degrees of freedom and only moves in a 2D plane. Also, you design it for arena floor which is usually perfectly flat. Hence, a planar 2D LiDAR would be sufficient and cost-efficient.</div> </div>
 
 <div class="quiz"> <h4>Q10. Which combo typically yields the most accurate and robust VIO/SLAM?</h4> <div class="choices"> <button class="choice" data-correct="true">Stereo camera + IMU</button> <button class="choice">Planar LiDAR + IMU</button> <button class="choice">Monocular camera + IMU</button> <button class="choice">3D LiDAR (alone)</button> </div> <div class="feedback"></div> <div class="explain">Stereo offers metric scale per frame; IMU stabilizes fast motion—this pairing is widely adopted.</div> </div>
 

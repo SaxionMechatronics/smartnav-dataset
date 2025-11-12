@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deployment-of-slam" class="md-skip">
+        <a href="#chapter-4-deployment-of-slam" class="md-skip">
           Skip to content
         </a>
       
@@ -342,6 +342,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Deployment of SLAM Algorithms
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="deployment.html" class="md-nav__link md-nav__link--active">
         
   
@@ -353,6 +366,244 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-available-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Available datasets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-what-is-a-high-quality-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 What is a high-quality input
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-available-slam-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Available SLAM approaches
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Available SLAM approaches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-optimization-based-one-example-for-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.1 Optimization-based (one example for each)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-filter-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.2 Filter-based
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-loosely-coupled" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.3 Loosely coupled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-tightly-coupled" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.4 Tightly coupled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#445-deep-learning-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.5 Deep learning-based
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-deploying-a-camera-imu-slam" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Deploying a camera-IMU SLAM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#451-a-camera-imu-odom-method-using-a-smartnav-bag-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.1 A camera-IMU odom method using a SMARTNav bag file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#452-odom-loop-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.2 Odom + loop closure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#453-parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.3 Parameter tuning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-deploying-a-lidar-imu-slam" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Deploying a LiDAR-IMU SLAM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Deploying a LiDAR-IMU SLAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-running-fastlio" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.1 Running FASTLIO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-running-glim-or-lego-loam" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.2 Running GLIM or Lego-LOAM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#463-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.3 Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-practical-consideration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 Practical consideration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#471-processing-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.1 Processing unit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#472-standalone-or-ros-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.2 Standalone or ROS-based
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#473-qos-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.3 QoS in ROS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#474-being-real-time-and-low-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.4 Being real-time and low delay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#475-using-in-control-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.5 Using in control loops
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -409,6 +660,233 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-available-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Available datasets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-what-is-a-high-quality-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 What is a high-quality input
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-available-slam-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Available SLAM approaches
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Available SLAM approaches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-optimization-based-one-example-for-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.1 Optimization-based (one example for each)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-filter-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.2 Filter-based
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-loosely-coupled" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.3 Loosely coupled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-tightly-coupled" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.4 Tightly coupled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#445-deep-learning-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.5 Deep learning-based
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-deploying-a-camera-imu-slam" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Deploying a camera-IMU SLAM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#451-a-camera-imu-odom-method-using-a-smartnav-bag-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.1 A camera-IMU odom method using a SMARTNav bag file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#452-odom-loop-closure" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.2 Odom + loop closure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#453-parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.3 Parameter tuning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-deploying-a-lidar-imu-slam" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Deploying a LiDAR-IMU SLAM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Deploying a LiDAR-IMU SLAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-running-fastlio" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.1 Running FASTLIO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-running-glim-or-lego-loam" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.2 Running GLIM or Lego-LOAM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#463-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.3 Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-practical-consideration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 Practical consideration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#471-processing-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.1 Processing unit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#472-standalone-or-ros-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.2 Standalone or ROS-based
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#473-qos-in-ros" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.3 QoS in ROS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#474-being-real-time-and-low-delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.4 Being real-time and low delay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#475-using-in-control-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7.5 Using in control loops
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -423,7 +901,31 @@
 
 
 
-<h1 id="deployment-of-slam">Deployment of SLAM</h1>
+<h1 id="chapter-4-deployment-of-slam">Chapter 4: Deployment of SLAM</h1>
+<h2 id="41-objectives">4.1 Objectives</h2>
+<h2 id="42-available-datasets">4.2 Available datasets</h2>
+<h2 id="43-what-is-a-high-quality-input">4.3 What is a high-quality input</h2>
+<h2 id="44-available-slam-approaches">4.4 Available SLAM approaches</h2>
+<h3 id="441-optimization-based-one-example-for-each">4.4.1 Optimization-based (one example for each)</h3>
+<h3 id="442-filter-based">4.4.2 Filter-based</h3>
+<h3 id="443-loosely-coupled">4.4.3 Loosely coupled</h3>
+<h3 id="444-tightly-coupled">4.4.4 Tightly coupled</h3>
+<h3 id="445-deep-learning-based">4.4.5 Deep learning-based</h3>
+<h2 id="45-deploying-a-camera-imu-slam">4.5 Deploying a camera-IMU SLAM</h2>
+<h2 id="451-a-camera-imu-odom-method-using-a-smartnav-bag-file">4.5.1 A camera-IMU odom method using a SMARTNav bag file</h2>
+<h2 id="452-odom-loop-closure">4.5.2 Odom + loop closure</h2>
+<h2 id="453-parameter-tuning">4.5.3 Parameter tuning</h2>
+<h2 id="46-deploying-a-lidar-imu-slam">4.6 Deploying a LiDAR-IMU SLAM</h2>
+<h3 id="461-running-fastlio">4.6.1 Running FASTLIO</h3>
+<h3 id="462-running-glim-or-lego-loam">4.6.2 Running GLIM or Lego-LOAM</h3>
+<h3 id="463-parameters">4.6.3 Parameters</h3>
+<h3 id="47-practical-consideration">4.7 Practical consideration</h3>
+<h3 id="471-processing-unit">4.7.1 Processing unit</h3>
+<h3 id="472-standalone-or-ros-based">4.7.2 Standalone or ROS-based</h3>
+<h3 id="473-qos-in-ros">4.7.3 QoS in ROS</h3>
+<h3 id="474-being-real-time-and-low-delay">4.7.4 Being real-time and low delay</h3>
+<h3 id="475-using-in-control-loops">4.7.5 Using in control loops</h3>
+<!-- Coordinate systems -->
 
 
 
