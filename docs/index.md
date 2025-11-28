@@ -2,10 +2,11 @@
 
 ![Alt text](images/dataset_page.drawio.png)
 
-In this webpage, we present the SMARTNav dataset, which stores the raw sensor data recorded by aerial and ground robots. The data was collected as part of our projects that address the challenges of autonomous navigation in industries where autonomous robots are needed. This data was mainly recorded for the evaluation of Visual-Inertial Odometry (VIO) algorithms; however, it can be used generally for vision or LiDAR-based SLAM and fusion algorithms. 
+On this page we present the SMARTNav dataset, containing raw sensor data recorded by aerial and ground robots. Collected across multiple projects targeting autonomous navigation in industrial settings, the dataset primarily supports evaluation of Visual-Inertial Odometry (VIO). More broadly, it is suitable for vision and LiDAR-based SLAM as well as multi-sensor fusion research.
 
 ## Downloads
-The sequences of the dataset were recorded in ROS2 bag format, and can be downloaded from the following links. Since each sequence is recorded on a different hardware and for a different project, the content of each bag file is different, but inclusion of stereo images and IMU is constant in all bag files. Currently, all the bag files are only accessible through Saxion Research Cloud Drive (SRCD).
+
+All sequences are provided as ROS 2 bag files. Because each sequence was captured with different hardware for different projects, the available topics vary; however, stereo images and IMU data are included in every sequence. Currently, all bag files are available exclusively via the Saxion Research Cloud Drive (SRCD).
 
 Note: For those sequences of this dataset containing RTK data, px4-msgs (it must be release/1.15 branch) is needed. This dependency will be removed in future versions of dataset. 
 

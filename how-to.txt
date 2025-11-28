@@ -33,3 +33,11 @@
 
 # Deploying and updating the website after commiting changes:
   mkdocs gh-deploy --force
+
+# Creating a pdf from a page:
+
+  cd smartnav-dataset
+
+  http://127.0.0.1:8001/sensors.html
+  
+  chromium-browser --headless --disable-gpu --print-to-pdf=output.pdf http://127.0.0.1:8001/sensors.html
