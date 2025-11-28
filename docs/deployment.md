@@ -91,7 +91,7 @@ The other parameter passed in the above command (`bag_folder`) is the path to a 
 At the end, you should be able to see the `RViz` visualization tool opened similar to the following video:
 
 <video width="800" controls>
-  <source src="images/VIO.webm" type="video/webm">
+  <source src="images/VIO_small.webm" type="video/webm">
   Your browser does not support the video tag.
 </video>
 
@@ -279,7 +279,7 @@ ros2 launch vins vins_lc_rviz.launch.py config:=VINS-Fusion-ROS2/config/zed2_gra
 You should be able to see the `RViz` openned and the result should look something like the following video:
 
 <video width="800" controls>
-  <source src="images/VIO+Loop.webm" type="video/webm">
+  <source src="images/VIO+Loop_small.webm" type="video/webm">
   Your browser does not support the video tag.
 </video>
 
