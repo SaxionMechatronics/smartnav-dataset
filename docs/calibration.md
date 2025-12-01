@@ -364,39 +364,43 @@ C. **IMU noise parameters**: Kalibr requires IMU noise parameters such as noise 
   ```
 
 Save this file as` imu-params.yaml`, which we will use as the input for the IMU calibration. After saving it, we can follow the steps below to run the calibration inside our Docker container.
+
 1. To start first clone the docker container along with all its submodules (kaliber packages).This will build the Docker container with ROS 2 and all necessary dependencies for `Kaliber` package.
-      ```
-        
-        git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git # Clone the repository with all submodules (only if you haven't cloned it yet)
-        cd slam-tutorial-practical/camera_imu_cal_ws/
-        docker compose up --build -d 
-        
-      ```
+    ```
+    git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git # Clone the repository with all submodules (only if you haven't cloned it yet)
+    cd slam-tutorial-practical/camera_imu_cal_ws/
+    docker compose up --build -d  
+    ```
 
 2. Then opens a shell inside the Docker container, builds the Kalibr workspace and  sources the setup file.
-      ```     
-        cd slam-tutorial-practical/camera_imu_cal_ws/
-        docker compose exec callibration bash --login
-        catkin build -DCMAKE_BUILD_TYPE=Release -j4
-        source devel/setup.bash
-      ```
-      check all packages are installed with out error.
+
+    ```     
+    cd slam-tutorial-practical/camera_imu_cal_ws/
+    docker compose exec callibration bash --login
+    catkin build -DCMAKE_BUILD_TYPE=Release -j4
+    source devel/setup.bash
+    ```
+
+    check all packages are installed with out error.
 
 3. The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
 Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder.Put also the configuration files `april-grid.yaml` and `imu_param.yaml` inside `/camera_imu_cal_ws/resources`.
 
-      check for the bag file if it contains left and right camera topics as well as imu-raw topic.
-      ```
-      cd resources/
-      rosbag info kaliber_ros1.bag 
-      ```
+check for the bag file if it contains left and right camera topics as well as imu-raw topic.
+    
+    ```
+    acd resources/
+    rosbag info kaliber_ros1.bag 
+    ```
 
 4. The kaliber imu-camera calibration requires the intrinisic and extinisic callibration of both cameras.We can use other camera callibration and put it the [Kalibr YAML format documentation](https://github.com/ethz-asl/kalibr/wiki/yaml-formats) or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:
 
-      run the kalibr camera calibration node
-      ```
-      rosrun kalibr kalibr_calibrate_cameras --bag resources/kalib_ros1.bag --topics /zed/zed_node/left/color/rect/image /zed/zed_node/right/color/rect/image --models pinhole-radtan pinhole-radtan --target resources/april-grid.yaml --show-extraction 
-      ```
+    run the kalibr camera calibration node
+
+    ```
+    rosrun kalibr kalibr_calibrate_cameras --bag resources/kalib_ros1.bag --topics /zed/zed_node/left/color/rect/image /zed/zed_node/right/color/rect/image --models pinhole-radtan pinhole-radtan --target resources/april-grid.yaml --show-extraction 
+    ```
+    
     When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file `kalib_ros1-camchain.yaml` and a full PDF report of the result of the calibration inside ~/callibration_ros1_ws/resources folder.
 
     The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots. In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.Since the points are tightly clustered around zero and the error stays below about 0.5 pixels with a Gaussian-like distribution, this indicates a good and reliable calibration.
