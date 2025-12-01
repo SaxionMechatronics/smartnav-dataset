@@ -999,6 +999,7 @@ When the calibration is complete (it takes many minutes according to the number 
             [1   0,  0 ]]
 
   ```
+
   The rotation matrix tells us how the IMU is oriented relative to the camera. From this result, we can see that the IMU’s X-axis is pointing in the same direction as the camera’s forward Z-axis, meaning both sensors face the same way. The IMU’s Y and Z axes are rotated so they line up with the camera’s horizontal and vertical directions. In simple terms, the IMU is mounted in a way that its forward axis matches the camera’s viewing direction, while the other axes are rotated to properly align the two coordinate frames
 
   Checking the translation part of the transformation matrix.
