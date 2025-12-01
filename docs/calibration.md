@@ -422,40 +422,40 @@ rosrun kalibr  kalibr_calibrate_imu_camera --bag resources/kaliber_ros1.bag --ca
 ```
       After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.
 
-```yaml
-cam0:
-  T_cam_imu:
-  - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
-  - [0.0012353350482965375, -0.008914091742802915, -0.9999595056379624, 0.0019871949034301313]
-  - [0.9999985085863826, -0.001195909314175625, 0.0012460441090049457, -0.004969454993572966]
-  - [0.0, 0.0, 0.0, 1.0]
-  timeshift_cam_imu: 0.008473177395364007
-cam1:
-  T_cam_imu:
-  - [0.007688606532579134, -0.9999287036348504, 0.00913635467321633, -0.09582559937006864]
-  - [0.0012368931016336626, -0.009127107873462909, -0.9999575820990215, 0.0020721431219515286]
-  - [0.9999696772527866, 0.007699581092098007, 0.001166630174431943, -0.004792821181560303]
-  - [0.0, 0.0, 0.0, 1.0]
-  T_cn_cnm1:
-  - [0.999960408866058, -0.00021303049677720928, 0.00889580341679349, -0.1195210465345488]
-  - [0.00021302277813165302, 0.9999999773089986, 1.8151958025746858e-06, 7.989990659499038e-05]
-  - [-0.008895803601630881, 7.98848206438656e-08, 0.9999604315563049, 0.0003876324506602702]
-  - [0.0, 0.0, 0.0, 1.0]
-  timeshift_cam_imu: 0.008706209697421906
-```
+      ```yaml
+      cam0:
+        T_cam_imu:
+        - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
+        - [0.0012353350482965375, -0.008914091742802915, -0.9999595056379624, 0.0019871949034301313]
+        - [0.9999985085863826, -0.001195909314175625, 0.0012460441090049457, -0.004969454993572966]
+        - [0.0, 0.0, 0.0, 1.0]
+        timeshift_cam_imu: 0.008473177395364007
+      cam1:
+        T_cam_imu:
+        - [0.007688606532579134, -0.9999287036348504, 0.00913635467321633, -0.09582559937006864]
+        - [0.0012368931016336626, -0.009127107873462909, -0.9999575820990215, 0.0020721431219515286]
+        - [0.9999696772527866, 0.007699581092098007, 0.001166630174431943, -0.004792821181560303]
+        - [0.0, 0.0, 0.0, 1.0]
+        T_cn_cnm1:
+        - [0.999960408866058, -0.00021303049677720928, 0.00889580341679349, -0.1195210465345488]
+        - [0.00021302277813165302, 0.9999999773089986, 1.8151958025746858e-06, 7.989990659499038e-05]
+        - [-0.008895803601630881, 7.98848206438656e-08, 0.9999604315563049, 0.0003876324506602702]
+        - [0.0, 0.0, 0.0, 1.0]
+        timeshift_cam_imu: 0.008706209697421906
+      ```
       
       Lets get the 3x3 rounded roation matrix from transformation matrix.
 
-```yaml
-cam0_imu:[[0, -1,  0 ]
-          [0,  0, -1 ]
-          [1   0,  0 ]]   
-          
-cam1_imu:[[0, -1,  0 ]
-          [0,  0, -1 ]
-          [1   0,  0 ]]
+      ```yaml
+      cam0_imu:[[0, -1,  0 ]
+                [0,  0, -1 ]
+                [1   0,  0 ]]   
+                
+      cam1_imu:[[0, -1,  0 ]
+                [0,  0, -1 ]
+                [1   0,  0 ]]
 
-```
+      ```
       The rotation matrix tells us how the IMU is oriented relative to the camera. From this result, we can see that the IMU’s X-axis is pointing in the same direction as the camera’s forward Z-axis, meaning both sensors face the same way. The IMU’s Y and Z axes are rotated so they line up with the camera’s horizontal and vertical directions. In simple terms, the IMU is mounted in a way that its forward axis matches the camera’s viewing direction, while the other axes are rotated to properly align the two coordinate frames
       
       Checking the translation part of the transformation matrix.
