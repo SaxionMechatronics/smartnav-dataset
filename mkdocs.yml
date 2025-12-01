@@ -1,13 +1,13 @@
 site_name: SMARTNav Dataset
-
+site_url: https://yourusername.github.io/your-repo/
 use_directory_urls: false
 
 nav:
   - Home: index.md
-  - Practical Guide to SLAM: 
+  - Practical Guide to SLAM:
     - Introduction: introduction.md
     - Sensor Selection for SLAM: sensors.md
-    - Calibtation of Sensors: calibration.md
+    - Calibration of Sensors: calibration.md
     - Deployment of SLAM Algorithms: deployment.md
     - Interpretation of SLAM Results: interpretation.md
 
@@ -15,14 +15,46 @@ theme:
   name: material
   features:
     - content.code.annotate
+    - content.code.copy
     - navigation.tabs
     - navigation.sections
+    - navigation.expand
     - toc.integrate
+    - toc.follow
   logo: images/SMART-RG-White-transparent.png
-
   palette:
-    scheme: default     
-    primary: teal        
+    scheme: default
+    primary: teal
+
+# CRITICAL: Add these markdown extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.uslugify
+        kwds:
+          case: lower
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_css:
   - css/custom.css
+
+# Optional: Add extra JavaScript for better code blocks
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js
+  - js/extra.js
