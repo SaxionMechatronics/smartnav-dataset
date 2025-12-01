@@ -418,7 +418,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     Then run the camera–IMU calibration node:
 
-    ```
+    ```bash
     rosrun kalibr kalibr_calibrate_imu_camera \
       --bag resources/kaliber_ros1.bag \
       --cam resources/kalib_ros1-camchain.yaml \
@@ -430,7 +430,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     Example calibration output:
 
-    ```
+    ```yaml
     cam0:
       T_cam_imu:
         - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
@@ -455,7 +455,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     **Rounded rotation matrices:**
 
-    ```
+    ```yaml
     cam0_imu:
       [[0, -1,  0],
        [0,  0, -1],
@@ -473,7 +473,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     **Checking the translation part:**
 
-    ```
+    ```yaml
     cam0_imu:  [ 0.02374,   0, 0 ]
     cam1_imu:  [-0.0958,    0, 0 ]
     cam0_cam1: [-0.11952,   0, 0 ]
