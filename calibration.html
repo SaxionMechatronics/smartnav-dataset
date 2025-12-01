@@ -959,14 +959,15 @@ When the calibration is complete (it takes many minutes according to the number 
 <li>
 <p>Put the IMU noise parameter file <code>imu-params.yaml</code> in <code>camera_imu_cal_ws/resources</code>.</p>
 <p>Then run the camera–IMU calibration node:</p>
-<p><code>rosrun kalibr kalibr_calibrate_imu_camera \
+<p><code>bash
+rosrun kalibr kalibr_calibrate_imu_camera \
   --bag resources/kaliber_ros1.bag \
   --cam resources/kalib_ros1-camchain.yaml \
   --imu resources/imu-params.yaml \
   --target resources/april-grid.yaml</code></p>
 <p>After running the <code>kalibr_calibrate_imu_camera</code> node, the camera calibration YAML will be extended with IMU–camera transformations. A PDF report will also be generated containing the final calibration result and analysis.</p>
 <p>Example calibration output:</p>
-<p>```
+<p>```yaml
 cam0:
   T_cam_imu:
     - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
@@ -988,7 +989,7 @@ cam0:
   timeshift_cam_imu: 0.008706209697421906
 ```</p>
 <p><strong>Rounded rotation matrices:</strong></p>
-<p>```
+<p>```yaml
 cam0_imu:
   [[0, -1,  0],
    [0,  0, -1],
@@ -1002,7 +1003,8 @@ cam0_imu:
 The IMU’s X-axis aligns with the camera’s forward Z-axis, meaning both sensors face the same direction.<br />
 The Y and Z axes are rotated to align properly with the camera frame.</p>
 <p><strong>Checking the translation part:</strong></p>
-<p><code>cam0_imu:  [ 0.02374,   0, 0 ]
+<p><code>yaml
+cam0_imu:  [ 0.02374,   0, 0 ]
 cam1_imu:  [-0.0958,    0, 0 ]
 cam0_cam1: [-0.11952,   0, 0 ]</code></p>
 <ul>
