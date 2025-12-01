@@ -670,35 +670,37 @@
 <p>There are a number of camera calibration tools available to do this calibration, but if you’re already working in ROS, one of the easier options is the <code>camera_calibration</code> package.</p>
 <ol>
 <li>
-<p>To start first install docker and setup environment.This docker environment installs <code>camera_callibration</code> package with in <code>ros2-humble</code>.
-      <code>git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git #Clone the repository with all submodules (only if you haven't cloned it yet)
-        cd slam-tutorial-practical/camera_callibration_ws/
-        docker compose up --build -d 
-        docker compose exec callibration bash --login
-        source /opt/ros/humble/setup.bash
-        colcon build</code></p>
+<p>To start first install docker and setup environment.This docker environment installs <code>camera_callibration</code> package with in <code>ros2-humble</code>.</p>
+<p><code>git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git #Clone the repository with all submodules (only if you haven't cloned it yet)
+cd slam-tutorial-practical/camera_callibration_ws/
+docker compose up --build -d 
+docker compose exec callibration bash --login
+source /opt/ros/humble/setup.bash
+colcon build</code></p>
 </li>
 <li>
 <p>The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
 Download <code>rosbag2_callibration1</code> file and put it <code>camera_callibration_ws/resources</code> folder.</p>
-<p>In the first one, run the first rosbag file on loop inside docker environment.<br />
-<code>docker compose exec callibration bash --login
-  cd ~/callibration_ws/resources
-  ros2 bag play rosbag2_callibration1</code>
-  In the second terminal, run the camera calibration node</p>
+<p>In the first one, run the first rosbag file on loop inside docker environment.  </p>
 <p><code>docker compose exec callibration bash --login
-  source install/setup.bash
-  ros2 run camera_calibration cameracalibrator  --size 8x6 --square 0.023 --ros-args --remap image:=/zed/zed_node/left/color/raw/image  --remap camera:=zed/zed_node/left/color/raw</code>
-We use the above command to calibrate the ZED camera’s left lens using the raw image topic <code>/zed/zed_node/left/color/raw/image</code>. The <code>--size 8x6</code> option specifies that the checkerboard used has 8 inner corners horizontally and 6 vertically, and <code>--square 0.023</code> sets the square size to 0.023 meters. The <code>--remap</code> arguments link the calibration node to the correct image and camera topics <code>namespace</code> recorded in the bag file.</p>
+cd ~/callibration_ws/resources
+ros2 bag play rosbag2_callibration1</code></p>
+<p>In the second terminal, run the camera calibration node</p>
+<p><code>docker compose exec callibration bash --login
+source install/setup.bash
+ros2 run camera_calibration cameracalibrator  --size 8x6 --square 0.023 --ros-args --remap image:=/zed/zed_node/left/color/raw/image  --remap camera:=zed/zed_node/left/color/raw</code></p>
+<p>We use the above command to calibrate the ZED camera’s left lens using the raw image topic <code>/zed/zed_node/left/color/raw/image</code>. The <code>--size 8x6</code> option specifies that the checkerboard used has 8 inner corners horizontally and 6 vertically, and <code>--square 0.023</code> sets the square size to 0.023 meters. The <code>--remap</code> arguments link the calibration node to the correct image and camera topics <code>namespace</code> recorded in the bag file.</p>
 </li>
 <li>
 <p>You should see a pop-up.In order to get a good calibration you will need to move the checkerboard around in the camera frame such that:checkerboard on the camera’s left, right, top and bottom of field of view</p>
-</li>
+<ul>
 <li>X bar - left/right in field of view</li>
 <li>Y bar - top/bottom in field of view</li>
 <li>Size bar - toward/away and tilt from the camera</li>
 <li>checkerboard filling the whole field of view</li>
 <li>checkerboard tilted to the left, right, top and bottom (Skew)</li>
+</ul>
+</li>
 </ol>
 <table>
   <tr>
