@@ -414,32 +414,94 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
         </tr>
     </table>
 
+5. Put the IMU noise parameter file `imu-params.yaml` in `camera_imu_cal_ws/resources`.
 
-When the calibration is complete (this may take many minutes depending on the number of images acquired), you will get the file:
+    Then run the camera–IMU calibration node:
 
-- `kalib_ros1-camchain.yaml`
-- a full PDF report
+    ```bash
+    rosrun kalibr kalibr_calibrate_imu_camera \
+      --bag resources/kaliber_ros1.bag \
+      --cam resources/kalib_ros1-camchain.yaml \
+      --imu resources/imu-params.yaml \
+      --target resources/april-grid.yaml
+    ```
 
-Both will be inside the `~/callibration_ros1_ws/resources` folder.
+    After running the `kalibr_calibrate_imu_camera` node, the camera calibration YAML will be extended with IMU–camera transformations. A PDF report will also be generated containing the final calibration result and analysis.
 
----
+    Example calibration output:
 
-### Calibration Quality Check
+    ```yaml
+    cam0:
+      T_cam_imu:
+        - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
+        - [0.0012353350482965375, -0.008914091742802915, -0.9999595056379624, 0.0019871949034301313]
+        - [0.9999985085863826, -0.001195909314175625, 0.0012460441090049457, -0.004969454993572966]
+        - [0.0, 0.0, 0.0, 1.0]
+      timeshift_cam_imu: 0.008473177395364007
 
-The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots.  
-In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.
+    cam1:
+      T_cam_imu:
+        - [0.007688606532579134, -0.9999287036348504, 0.00913635467321633, -0.09582559937006864]
+        - [0.0012368931016336626, -0.009127107873462909, -0.9999575820990215, 0.0020721431219515286]
+        - [0.9999696772527866, 0.007699581092098007, 0.001166630174431943, -0.004792821181560303]
+        - [0.0, 0.0, 0.0, 1.0]
+      T_cn_cnm1:
+        - [0.999960408866058, -0.00021303049677720928, 0.00889580341679349, -0.1195210465345488]
+        - [0.00021302277813165302, 0.9999999773089986, 1.8151958025746858e-06, 7.989990659499038e-05]
+        - [-0.008895803601630881, 7.98848206438656e-08, 0.9999604315563049, 0.0003876324506602702]
+        - [0.0, 0.0, 0.0, 1.0]
+      timeshift_cam_imu: 0.008706209697421906
+    ```
 
-Since the points are tightly clustered around zero and the error stays below about 0.5 pixels with a Gaussian-like distribution, this indicates a **good and reliable calibration**.
+    **Rounded rotation matrices:**
 
-<table style="border-collapse: collapse; width: 100%; border: none;">
-  <tr>
-    <td style="padding: 0; vertical-align: top;">
-      <figure style="margin: 0;">
-        <img src="images/calib/kaliber_camera.png" alt="Alt 2" height="300" width="500" style="margin: 1; padding: 2; display: block;"/>
-        <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
-          <strong>Camera reprojection error</strong>
-        </figcaption>
-      </figure>
-    </td>
-  </tr>
-</table>
+    ```yaml
+    cam0_imu:
+      [[0, -1,  0],
+       [0,  0, -1],
+       [1,  0,  0]]
+
+    cam1_imu:
+      [[0, -1,  0],
+       [0,  0, -1],
+       [1,  0,  0]]
+    ```
+
+    The rotation matrix shows how the IMU is oriented relative to the camera.  
+    The IMU’s X-axis aligns with the camera’s forward Z-axis, meaning both sensors face the same direction.  
+    The Y and Z axes are rotated to align properly with the camera frame.
+
+    **Checking the translation part:**
+
+    ```yaml
+    cam0_imu:  [ 0.02374,   0, 0 ]
+    cam1_imu:  [-0.0958,    0, 0 ]
+    cam0_cam1: [-0.11952,   0, 0 ]
+    ```
+
+    - `cam0_imu = +0.02374 m`: IMU is 2.3 cm to the right of the left camera  
+    - `cam1_imu = -0.0958 m`: IMU is 9.6 cm to the left of the right camera  
+    - Combined = stereo baseline ≈ **0.1195 m**, matching the ZED camera’s 12 cm baseline  
+
+    **Calibration quality** is assessed using the reprojection error scatter plots:  
+    - Errors should lie within the 3-sigma bounds  
+    - Points should be tightly clustered around zero  
+    - Fewer outliers indicates good calibration  
+
+    In our result, most points remain close to zero, confirming an accurate calibration.
+
+    <table style="border-collapse: collapse; width: 100%; border: none;">
+      <tr>
+        <td style="padding: 0; vertical-align: top;">
+          <figure style="margin: 0;">
+            <img src="images/calib/reprojection-3-sigma.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
+            <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
+              <strong>Reprojection error</strong>
+            </figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    For more details on IMU–camera calibration using the Kalibr package, refer to this  
+    [video tutorial](https://www.youtube.com/watch?v=BtzmsuJemgI).
