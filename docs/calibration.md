@@ -68,49 +68,46 @@ This tutorial uses a 8x6 checkerboard with 0.23cm squares. Calibration uses the 
 
 There are a number of camera calibration tools available to do this calibration, but if you’re already working in ROS, one of the easier options is the `camera_calibration` package.
 
-1. To start first install docker and setup environment.This docker environment installs `camera_callibration` package with in `ros2-humble`.
+1. To start first install docker and setup environment. This docker environment installs `camera_callibration` package within `ros2-humble`.
 
-    ```
-    git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git #Clone the repository with all submodules (only if you haven't cloned it yet)
+    ```bash
+    git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git
     cd slam-tutorial-practical/camera_callibration_ws/
     docker compose up --build -d 
     docker compose exec callibration bash --login
     source /opt/ros/humble/setup.bash
-    colcon build 
+    colcon build
     ```
 
-
 2. The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
-Download `rosbag2_callibration1` file and put it `camera_callibration_ws/resources` folder.
+   Download `rosbag2_callibration1` file and put it `camera_callibration_ws/resources` folder.
 
     In the first one, run the first rosbag file on loop inside docker environment.  
     
-    ```
+    ```bash
     docker compose exec callibration bash --login
     cd ~/callibration_ws/resources
-    ros2 bag play rosbag2_callibration1 
+    ros2 bag play rosbag2_callibration1
     ```
      
     In the second terminal, run the camera calibration node
 
-    ```
+    ```bash
     docker compose exec callibration bash --login
     source install/setup.bash
-    ros2 run camera_calibration cameracalibrator  --size 8x6 --square 0.023 --ros-args --remap image:=/zed/zed_node/left/color/raw/image  --remap camera:=zed/zed_node/left/color/raw
+    ros2 run camera_calibration cameracalibrator --size 8x6 --square 0.023 --ros-args --remap image:=/zed/zed_node/left/color/raw/image --remap camera:=zed/zed_node/left/color/raw
     ```
 
-    We use the above command to calibrate the ZED camera’s left lens using the raw image topic `/zed/zed_node/left/color/raw/image`. The `--size 8x6` option specifies that the checkerboard used has 8 inner corners horizontally and 6 vertically, and `--square 0.023` sets the square size to 0.023 meters. The `--remap` arguments link the calibration node to the correct image and camera topics `namespace` recorded in the bag file.
+    We use the above command to calibrate the ZED camera's left lens using the raw image topic `/zed/zed_node/left/color/raw/image`. The `--size 8x6` option specifies that the checkerboard used has 8 inner corners horizontally and 6 vertically, and `--square 0.023` sets the square size to 0.023 meters. The `--remap` arguments link the calibration node to the correct image and camera topics `namespace` recorded in the bag file.
 
-    
-3. You should see a pop-up.In order to get a good calibration you will need to move the checkerboard around in the camera frame such that:checkerboard on the camera’s left, right, top and bottom of field of view
+3. You should see a pop-up. In order to get a good calibration you will need to move the checkerboard around in the camera frame such that: checkerboard on the camera's left, right, top and bottom of field of view
     
     - X bar - left/right in field of view
     - Y bar - top/bottom in field of view
     - Size bar - toward/away and tilt from the camera
     - checkerboard filling the whole field of view
     - checkerboard tilted to the left, right, top and bottom (Skew)
-
-
+    
 
 <table>
   <tr>
