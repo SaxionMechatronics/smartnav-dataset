@@ -8,6 +8,8 @@
       
       
       
+        <link rel="canonical" href="https://yourusername.github.io/your-repo/deployment.html">
+      
       
         <link rel="prev" href="calibration.html">
       
@@ -86,7 +88,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="SMARTNav Dataset" class="md-header__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -169,56 +173,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="index.html" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="introduction.html" class="md-tabs__link">
-          
-  
-  
-  Practical Guide to SLAM
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -232,12 +186,10 @@
                     
 
 
-  
-
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="SMARTNav Dataset" class="md-nav__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -290,9 +242,6 @@
     
       
         
-        
-      
-      
         
       
     
@@ -403,7 +352,7 @@
   <span class="md-ellipsis">
     
   
-    Calibtation of Sensors
+    Calibration of Sensors
   
 
     
@@ -743,8 +692,8 @@
 
 
 
-<h1 id="chapter-4-deployment-of-slam">Chapter 4: Deployment of SLAM</h1>
-<h2 id="41-objectives">4.1 Objectives</h2>
+<h1 id="chapter-4-deployment-of-slam">Chapter 4: Deployment of SLAM<a class="headerlink" href="#chapter-4-deployment-of-slam" title="Permanent link">&para;</a></h1>
+<h2 id="41-objectives">4.1 Objectives<a class="headerlink" href="#41-objectives" title="Permanent link">&para;</a></h2>
 <p>In this chapter, we will be running SLAM algorithms on some pre-recorded data. At the end, you should get some insights on:</p>
 <ul>
 <li>How does the real-time sensor data inputted to SLAM look like</li>
@@ -753,11 +702,11 @@
 <li>How to interpret SLAM results</li>
 <li>How to mitigate SLAM failures </li>
 </ul>
-<h2 id="42-deploying-a-camera-imu-slam">4.2 Deploying a camera-IMU SLAM</h2>
+<h2 id="42-deploying-a-camera-imu-slam">4.2 Deploying a camera-IMU SLAM<a class="headerlink" href="#42-deploying-a-camera-imu-slam" title="Permanent link">&para;</a></h2>
 <p>In previous chapters, we discussed camera sensors suitable for SLAM. We also explored different modality and configuration of cameras. When it comes to visual SLAM, one of the most repeatedly used sensor configurations is combination of a stereo-camera and IMU sensor. Of course, there many other possible additions to this setup, such as adding wheel odometry, GPS, LiDAR, or more number of cameras. However, the most repeatedly supported sensor configuration is still stereo+IMU setup. That is why there are many commercially ready to use setup follow this configuration. </p>
 <p>Why is this sensor setup ideal? First, stereo camera pair are able to understand the scene depth up to a certain distance. Increasing the range of depth estimation depends on how far the two cameras are from each other (baseline). Adding the IMU sensor, will make the position estimation in the SLAM more smoth and more reliable. Researches in SLAM prove better accuracy of IMU-aided visual SLAM compared to camera only.</p>
 <p>Let us assume that we have acquired a stere+IMU sensor setup ideal for our application based on the instructions of chapter 2. Also, let us assume that we have calibrated our sensors according to the instructions in chapter 3. Now, we want to use this information to run a SLAM on our robot. If you dont have a robot already, no worries. We have prepared some data recorded on our real robots within SMARTNav dataset. The data is recorded in ROS2 bag format, meaning that by playing back the bag file, it is as if you are getting real-time stream of sensor data just like in a real robot.</p>
-<h3 id="421-vins-fusion-algorithm">4.2.1 VINS-Fusion algorithm</h3>
+<h3 id="421-vins-fusion-algorithm">4.2.1 VINS-Fusion algorithm<a class="headerlink" href="#421-vins-fusion-algorithm" title="Permanent link">&para;</a></h3>
 <p><strong>VINS-Fusion</strong> is widely used in research and sometomes adopted in industry because it is relatively mature, open-source, and has good performance in many real-world scenarios.
 It is designed to work with several sensor setups, but the most common configuration (and the one we use in this chapter) is a stereo camera + IMU. By fusing these two sources of information, VINS-Fusion can produce smoother and more robust trajectories than a camera-only SLAM system, especially during fast motions, rotations, or in low-texture regions.</p>
 <p>At a high level, VINS-Fusion has three main components:</p>
@@ -776,12 +725,12 @@ Over time, any odometry system will accumulate drift. VINS-Fusion includes a loo
 </li>
 </ul>
 <p>From a user perspective, you can think of VINS-Fusion as a pipeline with tunable parameters rather than a black box. You can configure camera intrinsics, stereo baseline, IMU noise parameters, feature detection thresholds, and loop closure options. In this chapter, we will not go deep into the underlying mathematics, but we will see how these parameters affect the behavior of the system when we run it on real data. The goal is that by the end, you will know how to launch VINS-Fusion on a dataset (or real-time stream of data from your robot's sensors), how to recognize when it works well or fails, and which basic parameters you can adjust to improve robustness for your own application.</p>
-<h3 id="422-running-a-demo">4.2.2 Running a demo</h3>
+<h3 id="422-running-a-demo">4.2.2 Running a demo<a class="headerlink" href="#422-running-a-demo" title="Permanent link">&para;</a></h3>
 <p>To run the VINS-Fusion algorithm, we have tried to simplify the proecess of prerequisite installation, compilation, and fixing compatibility issues, often encountered when working with open-source software. To resolve this, please make sure you have docker and Visual Studio Code installed on your system.
 https://code.visualstudio.com/docs/devcontainers/containers</p>
-<p>Next, you should clone the github repository that we prepared for this course. You can use the following command in a terminal (if you already have it cloned in the previous chapter, you can skip this step):</p>
-<pre><code class="language-bash">git clone --recursive https://github.com/SaxionMechatronics/slam-tutorial-practical.git
-</code></pre>
+<p>Next, you should clone the github repository that we prepared for this course. You can use the following command in a terminal (if you already have it cloned in the previous chapter, you can skip this step):
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/SaxionMechatronics/slam-tutorial-practical.git
+</code></pre></div></p>
 <p>Next, navigate to the <code>slam-tutorial-practical/slam_deployment</code> folder and open the VS Code. Inside the VS Code you can usually see a pop-up at the bottom-right corner, suggesting that the folder is a docker container and that you can set up the container. Choose the <strong>Reopen in Container</strong> option.</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
   <img src="images/reopen_container.png" alt="1" style="width:40%">
@@ -812,9 +761,9 @@ If all goes well, you will be notified by this message at the VS Code's terminal
 </div>
 
 <p>After you download the zipped file of the sequence, extract it in the <code>slam-tutorial-practical/slam_deployment</code> directory. We extracted it under a folder named <code>data</code>.
-In the newly opened terminal, use the following launch command to start the SLAM running on the prerecorded sequence:</p>
-<pre><code class="language-bash">ros2 launch vins vins_rviz.launch.py config:=VINS-Fusion-ROS2/config/zed2_gray/main_conf.yaml bag_folder:=data/optitrack_handheld_3/
-</code></pre>
+In the newly opened terminal, use the following launch command to start the SLAM running on the prerecorded sequence:
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>vins<span class="w"> </span>vins_rviz.launch.py<span class="w"> </span>config:<span class="o">=</span>VINS-Fusion-ROS2/config/zed2_gray/main_conf.yaml<span class="w"> </span>bag_folder:<span class="o">=</span>data/optitrack_handheld_3/
+</code></pre></div></p>
 <p>In the above command, there are two parameters that you can change. First one is the <code>config</code> argument, which is the path to a file that all the configurations needed by VINS-Fusion are stored. These configurations contain descriptions of the you sensors and the calibration info needed by the SLAM algorithm to run properly. Additionally, some other algorithm-related parameters are specified in these files. If you want to run this SLAM for your custom setup, you need to prepare a custom config file, which we will talk more about it in the next sections.</p>
 <p>The other parameter passed in the above command (<code>bag_folder</code>) is the path to a ROS2 bag file, which already downloaded and placed in the workspace. If you wanted to use another sequence you can change this parameter. Note that the sensors used to record this data should be the same sensors that are described in the config file.</p>
 <p>At the end, you should be able to see the <code>RViz</code> visualization tool opened similar to the following video:</p>
@@ -827,7 +776,7 @@ In the newly opened terminal, use the following launch command to start the SLAM
 <p>After the features are successfully tracked, the algorithm tries estimating the 3D position of these features in the environment, and keeps refining their position. Their 3D positions are drawn with white points cubes in the 3D interactive viewport.</p>
 <p>The camera's position and orientation is visible by the 3 axes in the viewport. The red axis is the x direction of the camera (front), the green one is the y axis (left), and the blue axis is the the z (up) direction. As the robot is carried in the environment, the history of its positions (its path) is drawn as a curve green. </p>
 <p>What you saw in this demo, is basically known as the Visual-Inertial Odometry. Our algorithm is fusing the camera image information (through the features it is tracking) with the IMU sensor's data and is estimation the motion of the camera in the environment. If at some point of the estimation, something goes wrong (featureless environment or very noisy IMU), and we get few inaccurate motion estimations, that inaccuracy will bias our estimation position of the camera forever. In other words, the position estimation will deviate from reality, and the odometry method does not have a solution for that. To fix this, we will later discuss the loop closure mechanism that rectifies such drifts.</p>
-<h3 id="423-preparing-a-custom-config-file-using-calibration-output">4.2.3 Preparing a custom config file using calibration output</h3>
+<h3 id="423-preparing-a-custom-config-file-using-calibration-output">4.2.3 Preparing a custom config file using calibration output<a class="headerlink" href="#423-preparing-a-custom-config-file-using-calibration-output" title="Permanent link">&para;</a></h3>
 <p>Each open-source SLAM usually uses a slightly different format. Since we introduced the Kalibr package for calibrating the camera-imu, we should be careful about how we should use the value outputted by the calibrator. Since we chose VINS-Fusion as a visual SLAM method in this chapter due to its common use and relative robustness, we should convert Kalibr outputs into VINS-Fusion format. This step is slightly different in different open-source SLAM algorithms. Sometime the algorithms can directly read the Kalibr output and sometime some re-formatting is needed. Generally it is a good idea for our knowledge if we transfer these values manually (as done in this chapter) so that we can also get a sense of how the calibration results go into a SLAM.</p>
 <p>Here we want to use a sample data recorded using a camera-imu installed on a drone that is flying in indoor environment. You can find the recorded file (ROS2 bag) in SMARTNav dataset, named <code>optitrack_hanfheld_3</code>. This configuration has a stereo camera (<code>cam0</code> and <code>cam1</code>) and an IMU. For the specific case of VINS-Fusion algorithm, for every robot setup we need 3 configuration files required.
  These 3 files are:
@@ -836,134 +785,133 @@ In the newly opened terminal, use the following launch command to start the SLAM
  - camera-imu and camera-camera extrinsic calibration info along with the algorithm's parameters</p>
 <p>For preparing these files, the easiest way to to use a previously created config file, and only change the entries according to your sensor setup calibration. In the dev container that we shared with you, there is a config folder for our camera called <code>zed2_gray</code>. You can create a similar folder there and rename it to your custom setup and start modifying the files inside it as we describe below.</p>
 <p>Let's start with preparing the camera intrinsic file. We will name this file <code>left.yaml</code>. This file has the following format:</p>
-<pre><code class="language-yaml">%YAML:1.0
----
-model_type: PINHOLE
-camera_name: camera
-image_width: ...
-image_height: ...
-distortion_parameters:
-   k1: ...
-   k2: ...
-   p1: ...
-   p2: ...
-projection_parameters:
-   fx: ...
-   fy: ...
-   cx: ...
-   cy: ...
- ```
+<p><div class="highlight"><pre><span></span><code><span class="err">%</span><span class="l l-Scalar l-Scalar-Plain">YAML:1.0</span>
+<span class="nn">---</span>
+<span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PINHOLE</span>
+<span class="nt">camera_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">camera</span>
+<span class="nt">image_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">image_height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">distortion_parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">k1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">   </span><span class="nt">k2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">   </span><span class="nt">p1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">   </span><span class="nt">p2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">projection_parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">fx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">   </span><span class="nt">fy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">   </span><span class="nt">cx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">   </span><span class="nt">cy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w w-Error"> </span><span class="err">```</span>
 
-As can be seen, there are some parameters in the file that need to filled in according to the sensor's calibration. We can find these parameters in the output of Kalibr package (usually a file named `*-camchain.yaml`). In case of a stereo camera calibration, the file has a format like below, and the params needed to prepare `left.yaml` can be found in this file from `cam0` field.:
- ```
-cam0:
-    distortion_coeffs: [d1, d2, p1, p2]
-    intrinsics: [fx, fy, cx, cy]
-    resolution: [image_width, image_height]
-    ... some other paramters ...
+<span class="l l-Scalar l-Scalar-Plain">As can be seen, there are some parameters in the file that need to filled in according to the sensor&#39;s calibration. We can find these parameters in the output of Kalibr package (usually a file named `*-camchain.yaml`). In case of a stereo camera calibration, the file has a format like below, and the params needed to prepare `left.yaml` can be found in this file from `cam0` field.</span><span class="p p-Indicator">:</span>
+<span class="w"> </span><span class="err">```</span>
+<span class="nt">cam0</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">distortion_coeffs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">d1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">d2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">p1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">p2</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">intrinsics</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">fx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">fy</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cy</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resolution</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">image_width</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">image_height</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">... some other paramters ...</span>
 
-cam1:
-    distortion_coeffs: [d1, d2, p1, p2]
-    intrinsics: [fx, fy, cx, cy]
-    resolution: [image_width, image_height]
-    ... some other paramters ...
- ```
+<span class="nt">cam1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">distortion_coeffs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">d1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">d2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">p1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">p2</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">intrinsics</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">fx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">fy</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cy</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resolution</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">image_width</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">image_height</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">... some other paramters ...</span>
+<span class="w w-Error"> </span><span class="err">```</span>
 
-Similarly, you can create/modify a `right.yaml` and you can fill it up based on the `cam1` parameters.
+<span class="l l-Scalar l-Scalar-Plain">Similarly, you can create/modify a `right.yaml` and you can fill it up based on the `cam1` parameters.</span>
 
-The above format is assuming that in the calibration phase, you have used the default pinhole camera model and radial-tangential dostortion model. If you need to know more about these models and about each of these parameters are, you can revisit the calibration chapter. 
+<span class="l l-Scalar l-Scalar-Plain">The above format is assuming that in the calibration phase, you have used the default pinhole camera model and radial-tangential dostortion model. If you need to know more about these models and about each of these parameters are, you can revisit the calibration chapter.</span><span class="w"> </span>
 
-There is a third file require by the VINS-Fusion which is the most important one. We create this file and will name it `main_conf.yaml`. Inside this file, there are many important paramters to be set. Let's start by filling those that related to sensors and we obtained them from Kalibr package.
+<span class="l l-Scalar l-Scalar-Plain">There is a third file require by the VINS-Fusion which is the most important one. We create this file and will name it `main_conf.yaml`. Inside this file, there are many important paramters to be set. Let&#39;s start by filling those that related to sensors and we obtained them from Kalibr package.</span>
 
-In the main config file, first introduce the individual camera configuration file that you just created. The configurations for that are:
-```yaml
-cam0_calib: &quot;left.yaml&quot;
-cam1_calib: &quot;right.yaml&quot;
-</code></pre>
-<p>Then, enter the image resolution parameter. A very important note is that the camera resolution when you performed the sensor calibration should be the same resolution for images that you want to use in SLAM run time. If for instance you want to feed images of size 640x480 to the SLAM, make sure during the calibration the image resolution is the same and whenever the input reslution to SLAM changed, repeat the calibration with the new resolution.</p>
-<pre><code class="language-yaml">image_width: 672
-image_height: 376
-</code></pre>
-<p>Next, there is an extrinsics matrix required in this file with the following format:</p>
-<pre><code class="language-yaml">body_T_cam0: !!opencv-matrix
-   rows: 4
-   cols: 4
-   dt: d
-   data:  [r1, r2, r3, t1,
-           r4, r5, r6, t2,
-           r7, r8, r9, t3,
-           0 , 0 , 0 , 1.0]
-</code></pre>
+<span class="l l-Scalar l-Scalar-Plain">In the main config file, first introduce the individual camera configuration file that you just created. The configurations for that are</span><span class="p p-Indicator">:</span>
+<span class="err">```</span><span class="l l-Scalar l-Scalar-Plain">yaml</span>
+<span class="nt">cam0_calib</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;left.yaml&quot;</span>
+<span class="nt">cam1_calib</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;right.yaml&quot;</span>
+</code></pre></div>
+Then, enter the image resolution parameter. A very important note is that the camera resolution when you performed the sensor calibration should be the same resolution for images that you want to use in SLAM run time. If for instance you want to feed images of size 640x480 to the SLAM, make sure during the calibration the image resolution is the same and whenever the input reslution to SLAM changed, repeat the calibration with the new resolution.
+<div class="highlight"><pre><span></span><code><span class="nt">image_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">672</span>
+<span class="nt">image_height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">376</span>
+</code></pre></div></p>
+<p>Next, there is an extrinsics matrix required in this file with the following format:
+<div class="highlight"><pre><span></span><code><span class="nt">body_T_cam0</span><span class="p">:</span><span class="w"> </span><span class="kt">!!opencv-matrix</span>
+<span class="w">   </span><span class="nt">rows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">   </span><span class="nt">cols</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">   </span><span class="nt">dt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">d</span>
+<span class="w">   </span><span class="nt">data</span><span class="p">:</span><span class="w">  </span><span class="p p-Indicator">[</span><span class="nv">r1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">t1</span><span class="p p-Indicator">,</span>
+<span class="w">           </span><span class="nv">r4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">t2</span><span class="p p-Indicator">,</span>
+<span class="w">           </span><span class="nv">r7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r9</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">t3</span><span class="p p-Indicator">,</span>
+<span class="w">           </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+</code></pre></div></p>
 <p>The matrix requried in <code>body_T_cam0</code> is a 4x4 matrix. This matrix contains the rotation and translation between the left camera and the IMU sensor (transforming camera to IMU). You can find these information in the outputs of Kalibr package, in a file usually named like <code>*-camchain-imucam.yaml</code>. This file hase this format:</p>
-<pre><code class="language-yaml">cam0:
-  T_cam_imu:
-  - [r1, r2, r3, t1]
-  - [r4, r5, r6, t2]
-  - [r7, r8, r9, t3]
-  - [0 , 0 , 0 , 1.0]
+<div class="highlight"><pre><span></span><code><span class="nt">cam0</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">T_cam_imu</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">r1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">t1</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">r4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">t2</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">r7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">r9</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">t3</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
 
-  ...
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 
-  timeshift_cam_imu: td
-
-</code></pre>
+<span class="w">  </span><span class="nt">timeshift_cam_imu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">td</span>
+</code></pre></div>
 <p>The value from <code>T_cam_imu</code> should be transferred to the <code>body_T_cam0</code>. By convention, transformation matrices in SLAM algorithms are shown is similar formats, such that the <code>T_cam_imu</code> is read "transformation from <code>imu</code> coordinate frame to the <code>cam</code> frame". Similarly, the <code>body_T_cam0</code> is read as "transoformation from <code>cam0</code> to <code>body</code> (body frame is sometimes referred to the imu frame)".</p>
 <p>If you follow what the above transformations mean, you will notice that they have the inverse effect of each other. Thus, the output of Kalibr should be inversed and then placed in VINS-Fusion algorithm. We have provided the following interactive python script where you can input any 4x4 transformation matrix and get its inverted version. Use the inverted values inside the <code>main_conf.yaml</code> file that you are creating.</p>
 <iframe src="https://trinket.io/embed/python/8541092e4859?runOption=run" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
 <p>The described procedure should be repeated for both cameras and you should create two entries in the <code>main_conf.yaml</code> file named <code>body_T_cam0</code> and <code>body_T_cam1</code>.</p>
-<p>After that, also import the estimated time offset between the camera and IMU, measured during calibration. This time offset is very important since it shows the delay in which the camera understands motion compared to IMU. In Kalibr output file (<code>*-camchain-imucam.yaml</code>), the parameter is named <code>timeshift_cam_imu</code>. Take the value and put it in our config file:</p>
-<pre><code class="language-yaml">td: 0.008 
-</code></pre>
+<p>After that, also import the estimated time offset between the camera and IMU, measured during calibration. This time offset is very important since it shows the delay in which the camera understands motion compared to IMU. In Kalibr output file (<code>*-camchain-imucam.yaml</code>), the parameter is named <code>timeshift_cam_imu</code>. Take the value and put it in our config file:
+<div class="highlight"><pre><span></span><code><span class="nt">td</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.008</span><span class="w"> </span>
+</code></pre></div></p>
 <p>The last sensor-specific parameter to introduce to almost all SLAM algorithms, is the IMU noise characteristics. As discussed in chapter 2, all IMUs have imperfections in their data. The angular velocity and linear acceleration that they produce is either biased against the real value or has a random noise on it. The SLAM method should be able about the extent of the bias and noise. Since, it allows the SLAM to know how much can it rely on the IMU during the fusion. You can change these value in 2 ways. 
    - First, you can do IMU calibration. In this course, we did not cover this calibration in chapter 3, however, if you want to know the exact noise characteristic of the IMU, tools like <em>Allan Variance</em> calibrators might help you. This step is mostly advisable if you have a high-grade IMU sensor that you know is relatively reliable.
-   - Second, for most of the cheap IMU sensors usually used in SLAM systems, using the default values used by SLAM implementations, usually yields a good trade-off. You can slightly change these value by either increasing them or decreasing them if you want to tune them for your application.</p>
-<pre><code class="language-yaml">acc_n: 0.1          
-gyr_n: 0.01         
-acc_w: 0.001         
-gyr_w: 0.0001       
-g_norm: 9.805        
-</code></pre>
-<p>So far, we have introduced all the parameters specific to our sensor setup. All sensor intrinsic and exterinsic calibrations and the time offsets. However, the VINS-Fusion algorithm is a capable SLAM that can also estimate and enhance the sensor extrinsics and time offsets in real-time. Unless you are very confident about your calibration, it is a good idea to allow the VINS to use your calibration info as an initial estimate and improve it on the go. For that, enable these two configs:</p>
-<pre><code class="language-yaml"># Set the values to 0 for disabling and to 1 for enabling 
-estimate_extrinsic: 1   
-estimate_td: 1 
-</code></pre>
-<p>Lastly, we should make sure our sensor data stream (or data from replaying a bag file) is correctly introduced to the algorithm, so that when we run the SLAM, it starts estimating the state using the sensor data. For that, make sure these parameters are correct:</p>
-<pre><code class="language-yaml">imu_topic: &quot;some imu topic name&quot;
-image0_topic: &quot;left camera topic name&quot;
-image1_topic: &quot;right camera topic name&quot;
-</code></pre>
-<h3 id="424-vins-fusion-algorithm-parameters">4.2.4 VINS-Fusion algorithm parameters</h3>
+   - Second, for most of the cheap IMU sensors usually used in SLAM systems, using the default values used by SLAM implementations, usually yields a good trade-off. You can slightly change these value by either increasing them or decreasing them if you want to tune them for your application.
+<div class="highlight"><pre><span></span><code><span class="nt">acc_n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w">          </span>
+<span class="nt">gyr_n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span><span class="w">         </span>
+<span class="nt">acc_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w">         </span>
+<span class="nt">gyr_w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span><span class="w">       </span>
+<span class="nt">g_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9.805</span><span class="w">        </span>
+</code></pre></div></p>
+<p>So far, we have introduced all the parameters specific to our sensor setup. All sensor intrinsic and exterinsic calibrations and the time offsets. However, the VINS-Fusion algorithm is a capable SLAM that can also estimate and enhance the sensor extrinsics and time offsets in real-time. Unless you are very confident about your calibration, it is a good idea to allow the VINS to use your calibration info as an initial estimate and improve it on the go. For that, enable these two configs:
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the values to 0 for disabling and to 1 for enabling </span>
+<span class="nt">estimate_extrinsic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">   </span>
+<span class="nt">estimate_td</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"> </span>
+</code></pre></div></p>
+<p>Lastly, we should make sure our sensor data stream (or data from replaying a bag file) is correctly introduced to the algorithm, so that when we run the SLAM, it starts estimating the state using the sensor data. For that, make sure these parameters are correct:
+<div class="highlight"><pre><span></span><code><span class="nt">imu_topic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;some</span><span class="nv"> </span><span class="s">imu</span><span class="nv"> </span><span class="s">topic</span><span class="nv"> </span><span class="s">name&quot;</span>
+<span class="nt">image0_topic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;left</span><span class="nv"> </span><span class="s">camera</span><span class="nv"> </span><span class="s">topic</span><span class="nv"> </span><span class="s">name&quot;</span>
+<span class="nt">image1_topic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;right</span><span class="nv"> </span><span class="s">camera</span><span class="nv"> </span><span class="s">topic</span><span class="nv"> </span><span class="s">name&quot;</span>
+</code></pre></div></p>
+<h3 id="424-vins-fusion-algorithm-parameters">4.2.4 VINS-Fusion algorithm parameters<a class="headerlink" href="#424-vins-fusion-algorithm-parameters" title="Permanent link">&para;</a></h3>
 <p>Other than the sensor-specific parameters, there are some other parameters that are used in VINS-Fusion and they affect the internal algorithm. Although these are specific to this algorithm, but knowing about them is useful since many other open-source algorithms share similar concepts/parameters.</p>
 <p>The VINS-Fusion supports 3 different sensor configurations:
    - Stereo camera
    - Monocular camera + IMU
    - Stereo camera + IMU
 It can be controlled via the following parameters:</p>
-<pre><code class="language-yaml">#support: 1 imu 1 cam; 1 imu 2 cam: 2 cam; 
-imu: 1        
-num_of_cam: 2  
-</code></pre>
-<p>Then, the front-end performance of the SLAM can be adjusted using the following parameters.</p>
-<pre><code class="language-yaml">#feature traker paprameters
-max_cnt: 150            # max feature number in feature tracking
-min_dist: 15            # min distance between two features 
-freq: 10                # frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image 
-F_threshold: 1.0        # ransac threshold (pixel)
-show_track: 1           # publish tracking image as topic
-flow_back: 1            # perform forward and backward optical flow to improve feature tracking accuracy
-</code></pre>
-<pre><code class="language-yaml">#optimization parameters
-max_solver_time: 0.04  # max solver itration time (ms), to guarantee real time
-max_num_iterations: 8   # max solver itrations, to guarantee real time
-keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
-</code></pre>
-<h3 id="425-loop-closure">4.2.5 Loop closure</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#support: 1 imu 1 cam; 1 imu 2 cam: 2 cam; </span>
+<span class="nt">imu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">        </span>
+<span class="nt">num_of_cam</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">  </span>
+</code></pre></div>
+<p>Then, the front-end performance of the SLAM can be adjusted using the following parameters.
+<div class="highlight"><pre><span></span><code><span class="c1">#feature traker paprameters</span>
+<span class="nt">max_cnt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150</span><span class="w">            </span><span class="c1"># max feature number in feature tracking</span>
+<span class="nt">min_dist</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span><span class="w">            </span><span class="c1"># min distance between two features </span>
+<span class="nt">freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w">                </span><span class="c1"># frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image </span>
+<span class="nt">F_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w">        </span><span class="c1"># ransac threshold (pixel)</span>
+<span class="nt">show_track</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">           </span><span class="c1"># publish tracking image as topic</span>
+<span class="nt">flow_back</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">            </span><span class="c1"># perform forward and backward optical flow to improve feature tracking accuracy</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="c1">#optimization parameters</span>
+<span class="nt">max_solver_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span><span class="w">  </span><span class="c1"># max solver itration time (ms), to guarantee real time</span>
+<span class="nt">max_num_iterations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w">   </span><span class="c1"># max solver itrations, to guarantee real time</span>
+<span class="nt">keyframe_parallax</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span><span class="w"> </span><span class="c1"># keyframe selection threshold (pixel)</span>
+</code></pre></div>
+<h3 id="425-loop-closure">4.2.5 Loop closure<a class="headerlink" href="#425-loop-closure" title="Permanent link">&para;</a></h3>
 <p>As previously discussed, when you only run visual-inertial odometry, you will inevitably deal with the drift problem. This is why, visual-inertial odometry, alone can not be a very reliable source of navigation for your robot, and you will require some other accurate sensor that once a while, corrects the drifts of odometry. Examples of such sensors can be GPS for outdoor robots, or wireless beacons for indoor robots.</p>
-<p>The purely vision-based solution to this is the <strong>Loop Closure</strong>. It is only applicable if you have a robot that may revisit the same location multiple times. Loop closure is basically the ability to identify a previously seen area and based on that, correct the odometry estimation (to zero the accumulated error and drift). To put this into perspective, let's redo out demo, this time not only running the odometry, but also the loop closure enable. To this end, you can use the following launch command inside the container:</p>
-<pre><code class="language-bash">ros2 launch vins vins_lc_rviz.launch.py config:=VINS-Fusion-ROS2/config/zed2_gray/main_conf.yaml bag_folder:=data/optitrack_handheld_3/
-</code></pre>
+<p>The purely vision-based solution to this is the <strong>Loop Closure</strong>. It is only applicable if you have a robot that may revisit the same location multiple times. Loop closure is basically the ability to identify a previously seen area and based on that, correct the odometry estimation (to zero the accumulated error and drift). To put this into perspective, let's redo out demo, this time not only running the odometry, but also the loop closure enable. To this end, you can use the following launch command inside the container:
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>vins<span class="w"> </span>vins_lc_rviz.launch.py<span class="w"> </span>config:<span class="o">=</span>VINS-Fusion-ROS2/config/zed2_gray/main_conf.yaml<span class="w"> </span>bag_folder:<span class="o">=</span>data/optitrack_handheld_3/
+</code></pre></div></p>
 <p>You should be able to see the <code>RViz</code> openned and the result should look something like the following video:</p>
 <video width="800" controls>
   <source src="images/VIO+Loop_small.webm" type="video/webm">
@@ -972,16 +920,16 @@ keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
 
 <p>The difference is that now, there are two axes displayed in 3D viewport. One is thinner and that is the same odometry estimated position and another is a thicker one which is the corrected position of the odometry by loop closure. There is also a new path visualized, which is the corrected path after each loop detection. As you can see, at the beginning, the two position estimations match each other almost perfectly, but as time passes, the green trajectory is drifting from the rectangular path that camera is going on, while the blue curve, corrects itself every while and remains closer to rectangular path that it is supposed to be.</p>
 <p>Although the above observation intuitivly shows how the loop closure improves the quality of your localization, it is not a definitive and numeric measure of accuracy. We can go over such analysis in the next sections.</p>
-<h2 id="45-deploying-a-lidar-imu-slam">4.5 Deploying a LiDAR-IMU SLAM</h2>
-<h3 id="451-running-fastlio">4.5.1 Running FASTLIO</h3>
-<h3 id="452-running-glim-or-lego-loam">4.5.2 Running GLIM or Lego-LOAM</h3>
-<h3 id="453-parameters">4.5.3 Parameters</h3>
-<h3 id="46-practical-consideration">4.6 Practical consideration</h3>
-<h3 id="461-processing-unit">4.6.1 Processing unit</h3>
-<h3 id="462-standalone-or-ros-based">4.6.2 Standalone or ROS-based</h3>
-<h3 id="463-qos-in-ros">4.6.3 QoS in ROS</h3>
-<h3 id="464-being-real-time-and-low-delay">4.6.4 Being real-time and low delay</h3>
-<h3 id="465-using-in-control-loops">4.6.5 Using in control loops</h3>
+<h2 id="45-deploying-a-lidar-imu-slam">4.5 Deploying a LiDAR-IMU SLAM<a class="headerlink" href="#45-deploying-a-lidar-imu-slam" title="Permanent link">&para;</a></h2>
+<h3 id="451-running-fastlio">4.5.1 Running FASTLIO<a class="headerlink" href="#451-running-fastlio" title="Permanent link">&para;</a></h3>
+<h3 id="452-running-glim-or-lego-loam">4.5.2 Running GLIM or Lego-LOAM<a class="headerlink" href="#452-running-glim-or-lego-loam" title="Permanent link">&para;</a></h3>
+<h3 id="453-parameters">4.5.3 Parameters<a class="headerlink" href="#453-parameters" title="Permanent link">&para;</a></h3>
+<h3 id="46-practical-consideration">4.6 Practical consideration<a class="headerlink" href="#46-practical-consideration" title="Permanent link">&para;</a></h3>
+<h3 id="461-processing-unit">4.6.1 Processing unit<a class="headerlink" href="#461-processing-unit" title="Permanent link">&para;</a></h3>
+<h3 id="462-standalone-or-ros-based">4.6.2 Standalone or ROS-based<a class="headerlink" href="#462-standalone-or-ros-based" title="Permanent link">&para;</a></h3>
+<h3 id="463-qos-in-ros">4.6.3 QoS in ROS<a class="headerlink" href="#463-qos-in-ros" title="Permanent link">&para;</a></h3>
+<h3 id="464-being-real-time-and-low-delay">4.6.4 Being real-time and low delay<a class="headerlink" href="#464-being-real-time-and-low-delay" title="Permanent link">&para;</a></h3>
+<h3 id="465-using-in-control-loops">4.6.5 Using in control loops<a class="headerlink" href="#465-using-in-control-loops" title="Permanent link">&para;</a></h3>
 <!-- Coordinate systems -->
 
 
@@ -1032,10 +980,14 @@ keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "navigation.tabs", "navigation.sections", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "content.code.copy", "navigation.sections", "navigation.expand", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="js/extra.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

@@ -8,6 +8,8 @@
       
       
       
+        <link rel="canonical" href="https://yourusername.github.io/your-repo/sensors.html">
+      
       
         <link rel="prev" href="introduction.html">
       
@@ -86,7 +88,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="SMARTNav Dataset" class="md-header__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -169,56 +173,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="index.html" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="introduction.html" class="md-tabs__link">
-          
-  
-  
-  Practical Guide to SLAM
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -232,12 +186,10 @@
                     
 
 
-  
-
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="SMARTNav Dataset" class="md-nav__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -290,9 +242,6 @@
     
       
         
-        
-      
-      
         
       
     
@@ -699,7 +648,7 @@
   <span class="md-ellipsis">
     
   
-    Calibtation of Sensors
+    Calibration of Sensors
   
 
     
@@ -830,8 +779,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<h1 id="chapter-2-sensor-selection-for-slam">Chapter 2: Sensor Selection for SLAM</h1>
-<h2 id="objectives">Objectives</h2>
+<h1 id="chapter-2-sensor-selection-for-slam">Chapter 2: Sensor Selection for SLAM<a class="headerlink" href="#chapter-2-sensor-selection-for-slam" title="Permanent link">&para;</a></h1>
+<h2 id="objectives">Objectives<a class="headerlink" href="#objectives" title="Permanent link">&para;</a></h2>
 <p>In this chapter, you will meet the most common sensor types used in SLAM and see where each one shines or struggles. By the end, you are expected to:</p>
 <ul>
 <li>What the common sensors are and what information do they offer.</li>
@@ -839,15 +788,15 @@ document.addEventListener('DOMContentLoaded', () => {
 <li>Weigh the usual trade-offs: accuracy vs. cost, compute load, environment, and how mature the open-source algorithms for your application are.</li>
 <li>Spot the key specifications that matter when buying or configuring sensors for SLAM.</li>
 </ul>
-<h2 id="role-of-sensors-in-slam-architecture">Role of Sensors in SLAM Architecture</h2>
+<h2 id="role-of-sensors-in-slam-architecture">Role of Sensors in SLAM Architecture<a class="headerlink" href="#role-of-sensors-in-slam-architecture" title="Permanent link">&para;</a></h2>
 <p>SLAM is usually split into two parts: a <em>front-end</em> and a <em>back-end</em>.</p>
 <p><strong>Front-end</strong>: It is the part of SLAM that turns raw sensor measurements into compact, useful cues about motion and the scene.
 If we use a camera for a SLAM algorithm, we will have <em>visual</em> SLAM.
-Assuming that the camera gives us images of $640\times480$, we will end up with 307200 pixels. This is an enormous amount of information that is very difficult to comprehend and use. The front-end reduces this load by extracting just the most informative bits, so the rest of the system has something manageable to work with.</p>
+Assuming that the camera gives us images of <span class="arithmatex"><span class="MathJax_Preview">640\times480</span><script type="math/tex">640\times480</script></span>, we will end up with 307200 pixels. This is an enormous amount of information that is very difficult to comprehend and use. The front-end reduces this load by extracting just the most informative bits, so the rest of the system has something manageable to work with.</p>
 <p><strong>Back-end</strong>: It is the core algorithm, that estimates the robot’s pose and builds the map from those cues.</p>
 <p>Your sensor choice largely shapes the front-end: what you can extract, how robust it is, and how much computation it needs. In short, the sensor defines the front-end’s job, and through that, it influences the back-end’s workload and accuracy.</p>
-<h2 id="21-cameras-for-slam">2.1 Cameras for SLAM</h2>
-<h3 id="211-image">2.1.1 Image</h3>
+<h2 id="21-cameras-for-slam">2.1 Cameras for SLAM<a class="headerlink" href="#21-cameras-for-slam" title="Permanent link">&para;</a></h2>
+<h3 id="211-image">2.1.1 Image<a class="headerlink" href="#211-image" title="Permanent link">&para;</a></h3>
 <p>If you’re new to computer vision, here’s the core idea: an image is a matrix of numbers.  Each cell is a pixel, a tiny dot with a color  that defines how a small part of the scene looks like. It should be clear that by increasing the number of pixels, more detail we be captured about the scene.</p>
 <!--
 | ![Pixels concept](images/image_pixels.png) |
@@ -855,7 +804,7 @@ Assuming that the camera gives us images of $640\times480$, we will end up with 
 |*Figure 1: Pixels, the building blocks of an image.*|
 -->
 
-<h3 id="212-camera-based-slam-front-end">2.1.2 Camera-based SLAM Front-end</h3>
+<h3 id="212-camera-based-slam-front-end">2.1.2 Camera-based SLAM Front-end<a class="headerlink" href="#212-camera-based-slam-front-end" title="Permanent link">&para;</a></h3>
 <p>Cameras provide the richest information among the common sensors used for SLAM. The real challenge in using cameras is not getting the data, but extracting the useful information from all those pixels.</p>
 <p>When you choose cameras for your SLAM problem, you will often end up with a similar front-end architecture. Having a basic understanding of this architecture is very useful, since it gives you an idea of why specific sensors are better and more suitable to SLAM while others are not. A general example is shown in Figure 1. This does not mean that all SLAM algorithms follow this architecture exactly, but it gives a good overall idea of what typically happens in camera-based SLAM.</p>
 <table>
@@ -881,7 +830,7 @@ Assuming that the camera gives us images of $640\times480$, we will end up with 
 <p>The robustness of SLAM methods is tightly related to the success of the feature extraction and tracking. Our choice of camera sensors can affect this. Generally, having an image with minmum blurring and sharper details that maintains a constant color composure of the details, regardless of light intensity, helps a lot. Moreover, the field of view should be large enough so that you do not lose the features you were teacking with a rapid motion. But we will touch on these requirement later on.</p>
 <p>Although tracking the features in the environment is essential for SLAM and provides a sense of relative motion with respect to the scene, it is not enough to measure motion in full 3D. The feature points should not only be tracked in the 2D image; we also need to estimate their 3D locations in space.</p>
 <p>For each feature point, we would like to estimate a 3D position based on the images. This is not trivial, but it is achievable using either monocular or stereo-based camera configurations. In Figure 1, this “uplifting” of 2D features from the image plane into 3D space is visualized: from this, a metric distance between the camera and the 3D position of that feature becomes available. Note that this step is highly dependent on correct knowledge about the camera's physical paramters such as its <em>Focal Length</em>. These estimates usaully come from precise calibration of the sensor that we will discuss in later chaters.</p>
-<h3 id="213-camera-modalities">2.1.3 Camera modalities</h3>
+<h3 id="213-camera-modalities">2.1.3 Camera modalities<a class="headerlink" href="#213-camera-modalities" title="Permanent link">&para;</a></h3>
 <p>The term modality is referring to what kind of light does a camera measure and how it measures it. Most of the cameras capture the <em>visible light</em>, which is a small part of electromagnetic spectrum. In Figure 2, we display this spectrum and the visible light is highlited by rainbow colors. Here, the <em>color</em>, <em>monochrome</em>, <em>NIR</em>, and <em>thermal</em> cameras are more interesting for us, since they are often used for SLAM.</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
   <img src="images/light_spectrum.drawio.png" alt="1" style="width:80%">
@@ -919,7 +868,7 @@ Assuming that the camera gives us images of $640\times480$, we will end up with 
   </div>
 </div>
 
-<h3 id="214-camera-configurations">2.1.4 Camera configurations</h3>
+<h3 id="214-camera-configurations">2.1.4 Camera configurations<a class="headerlink" href="#214-camera-configurations" title="Permanent link">&para;</a></h3>
 <p><strong>Monocular camera</strong>: A monocular camera is simply a camera with a single lens. It captures one image at a time, just like the camera on your phone. From a robotics and SLAM point of view, this setup has some clear benefits. It is compact, cheap, consumes minimal power, and makes the design easy. The main drawback is that it makes 3D understanding of the scene more difficult.</p>
 <p>Intuitively, if you only see the world from a single point of view, it is hard to tell how far away things are. This “how far?” question is called <em>Depth Estimation</em>. To reliably estimate depth using pure geometry, you normally need to see the same object from at least two different viewpoints. This 3D understanding of the surroundings is central to most SLAM systems.</p>
 <p>So at first glance, using only one camera seems to prevent us from knowing the distance to objects in the scene. Fortunately, there are a couple of tricks that help.</p>
@@ -957,7 +906,7 @@ From the difference in their positions (called disparity) and the known distance
 
 <p>However, there is an important limitation. With a single camera, all distances are only determined up to a scale factor. In other words: we can reconstruct the shape of the scene and the relative distances between objects correctly, but we do not know the true metric values (distances in meters) just from the camera alone. This is known as the scale ambiguity in monocular SLAM. To recover the true metric scale, we need an extra hint, such as using a complementary sensor capable of metric measurments (IMU, wheel odometry, or LiDAR).</p>
 <p>With a stereo camera, we also form a triangle between the two camera centers and the scene point. But now we know one side of the triangle exactly: the baseline (the distance between the two cameras), because we physically measured it and calibrated the system. This makes some big differences. Firstly, depth can be computed in a single time instant. Moreover, the result is directly in metric units (e.g., meters), without needing extra sensors for scale. This is why stereo cameras are very attractive for SLAM when you want both real-time and metric depth with a relatively simple sensor setup.</p>
-<h3 id="215-sensor-requirements">2.1.5 Sensor requirements</h3>
+<h3 id="215-sensor-requirements">2.1.5 Sensor requirements<a class="headerlink" href="#215-sensor-requirements" title="Permanent link">&para;</a></h3>
 <p>The camera used in SLAM should have some specific characteristics. Knowing about these characteristics might help you choosing the best option for running SLAM on your robot.</p>
 <ul>
 <li><strong>Field of View (FOV)</strong>:</li>
@@ -1022,9 +971,9 @@ From the difference in their positions (called disparity) and the known distance
 <ul>
 <li><strong>Bit-rate</strong>:</li>
 </ul>
-<p>The normal image data given by most cameras is an array of 8-bit pixels. This means that each pixel value is represented by 8 bits (8 zeros or ones). As a result, each pixel can take $2^8 = 256$ different values.
+<p>The normal image data given by most cameras is an array of 8-bit pixels. This means that each pixel value is represented by 8 bits (8 zeros or ones). As a result, each pixel can take <span class="arithmatex"><span class="MathJax_Preview">2^8 = 256</span><script type="math/tex">2^8 = 256</script></span> different values.
 In simpler terms, a standard 8-bit camera can represent each color channel in 256 different shades.</p>
-<p>If we use a higher bit depth, such as 10-bit, the number of possible values per pixel jumps to $2^10 = 1024$. This means the camera can represent much finer differences in intensity. This is especially useful when the lighting is very uniform (for example, a dark hallway), or the textures in the scene have colors that are very close to each other.</p>
+<p>If we use a higher bit depth, such as 10-bit, the number of possible values per pixel jumps to <span class="arithmatex"><span class="MathJax_Preview">2^10 = 1024</span><script type="math/tex">2^10 = 1024</script></span>. This means the camera can represent much finer differences in intensity. This is especially useful when the lighting is very uniform (for example, a dark hallway), or the textures in the scene have colors that are very close to each other.</p>
 <p>In Figure 8, the left image was captured and converted to 8-bit format (256 shades). Below or next to this image, a histogram of pixel values is shown. This histogram shows how many times a particular color intensity has repeated among all the pixels. As you can see in the histogram, most pixel values are concentrated in a small region: all colors in the image are very similar, giving the image a generally dark appearance with little detail.</p>
 <p>On the right side, a 10-bit image (1024 shades) from the same environment is shown. The key point to note is that our displays and most standard computer vision libraries still work internally with 8-bit images.
 This means that when using 10-bit data, we almost always need an algorithm to map or compress the 10-bit range back into 8 bits, while preserving and enhancing as much detail as possible.</p>
@@ -1080,7 +1029,7 @@ If the sensor is larger than the lens’s image circle, you may get dark corners
 <li><strong>Driver</strong>:</li>
 </ul>
 <p>When buying a camera, it is better to check whether the vendor provides i) a driver that supports embedded computers (often with aarch64 / arm64 architectures, as opposed to amd64 on typical desktops), and preferrably ii) a ROS2 wrapper or ROS2 driver package for the sensor. If both are available, integration becomes much easier and the camera is often close to plug-and-play for robotics applications and trying many open-source SLAM algorithms. Otherwise, you may need to write your own drivers or ROS wrappers, which takes time and expertise.</p>
-<h3 id="216-available-solutions">2.1.6 Available solutions</h3>
+<h3 id="216-available-solutions">2.1.6 Available solutions<a class="headerlink" href="#216-available-solutions" title="Permanent link">&para;</a></h3>
 <p>Now, let’s put the knowledge we have gained about cameras into a small sensor selection exercise. Consider the following imaginary robotic application:</p>
 <p><em>We want to use SLAM as the main source of navigation information for a small quadcopter drone. The drone will get its local position from the SLAM localization output and will use the generated map to plan collision-free trajectories. We should pick a camera sensor that best fits this application.</em></p>
 <p>In the table below, we list a few examples of commonly available cameras on the market and compare them based on the criteria discussed in the previous sections, assuming the above application. Note that the specs in the table are approximate and may change with firmware versions and product revisions. The goal here is not exact numbers, but how to think about the trade-offs.</p>
@@ -1097,7 +1046,7 @@ If the sensor is larger than the lens’s image circle, you may get dark corners
 <th style="text-align: left;">Max bit rate</th>
 <th style="text-align: left;">Lens</th>
 <th style="text-align: left;">Connection</th>
-<th style="text-align: left;">Pixel size ($µm^2$)</th>
+<th style="text-align: left;">Pixel size (<span class="arithmatex"><span class="MathJax_Preview">µm^2</span><script type="math/tex">µm^2</script></span>)</th>
 <th style="text-align: left;">Driver</th>
 </tr>
 </thead>
@@ -1180,7 +1129,7 @@ If the sensor is larger than the lens’s image circle, you may get dark corners
 <p>There are also practical considerations that are not fully captured in the table. For instance, cameras like ZED or Intel RealSense often ship with their own SDKs and out-of-the-box depth estimation, which can be directly used or combined with SLAM methods. However, some of these solutions typically require a GPU-equipped embedded computer, which adds to cost and power consumption.</p>
 <p>In a nutshell, for a beginner-level introduction to SLAM or computer vision on a small drone, ready-to-use options like the ZED cameras or Intel RealSense D455 are attractive choices. They are well-documented, come with SDKs, and already integrate with ROS2.
 For more advanced users who want tighter control over the sensor setup and better customization to their robot (choice of lens, baseline, FOV, etc.), custom sensor boards such as the Arducam solutions become very attractive, especially when you want to design your own stereo or multi-camera rig.</p>
-<h3 id="217-advantages-and-disadvantages-of-visual-slam">2.1.7 Advantages and disadvantages of visual SLAM</h3>
+<h3 id="217-advantages-and-disadvantages-of-visual-slam">2.1.7 Advantages and disadvantages of visual SLAM<a class="headerlink" href="#217-advantages-and-disadvantages-of-visual-slam" title="Permanent link">&para;</a></h3>
 <p>There are many advantages to the cameras, that make them a suitable choice for SLAM in robotics. </p>
 <ul>
 <li>They are rich. They see almost everything that a human does.</li>
@@ -1198,9 +1147,9 @@ For more advanced users who want tighter control over the sensor setup and bette
 <li>In the environments with no texture (uniform, or reflective surfaces), the visual SLAM perfroms poorly.</li>
 </ul>
 <hr />
-<h2 id="22-lidar-for-slam">2.2 LiDAR for SLAM</h2>
+<h2 id="22-lidar-for-slam">2.2 LiDAR for SLAM<a class="headerlink" href="#22-lidar-for-slam" title="Permanent link">&para;</a></h2>
 <p>LiDAR stands for Light Detection and Ranging. Compared to cameras, it is a less general-purpose sensor. LiDAR does not see texture or color, but it is often more specialized and better suited for many robotic applications where understanding the geometry of environment is the main focus.</p>
-<h3 id="221-lidar-mechanism">2.2.1 LiDAR Mechanism</h3>
+<h3 id="221-lidar-mechanism">2.2.1 LiDAR Mechanism<a class="headerlink" href="#221-lidar-mechanism" title="Permanent link">&para;</a></h3>
 <p>LiDAR operates by sending out a laser beam in a very specific and narrow direction in space, then waiting for the reflection of that beam. Based on the travel time of the light (also known as Time of Flight, or ToF), and knowing the speed of light, the sensor can measure the distance to the nearest object in that direction. This ToF-based range measurement is repeated many times in many different directions, giving an estimate of the geometric shape of the environment.</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
   <img src="images/lidar_mech1.gif" alt="1" style="width:30%; height:250px ">
@@ -1211,8 +1160,8 @@ For more advanced users who want tighter control over the sensor setup and bette
   </div>
 </div>
 
-<h3 id="222-pointcloud">2.2.2 Pointcloud</h3>
-<p>Just like cameras output images as their data format, LiDARs output <em>pointclouds</em>. A pointcloud is a set of 3D points in space. Each point has $x, y, z$ coordinates. 
+<h3 id="222-pointcloud">2.2.2 Pointcloud<a class="headerlink" href="#222-pointcloud" title="Permanent link">&para;</a></h3>
+<p>Just like cameras output images as their data format, LiDARs output <em>pointclouds</em>. A pointcloud is a set of 3D points in space. Each point has <span class="arithmatex"><span class="MathJax_Preview">x, y, z</span><script type="math/tex">x, y, z</script></span> coordinates. 
 These coordinates are expressed in the sensor’s own coordinate frame, meaning they are defined relative to the LiDAR itself. At this stage, they do not yet have any spatial meaning with respect to a fixed, world-related reference frame. One of the key tasks of SLAM is to estimate the motion of the sensor and transform these points so that they are expressed in a global (world) coordinate frame.</p>
 <p>The immediate outputs of a LiDAR sensor are illustrated in Figure 12. The top-left image is a camera image, included to give an intuitive view of what the environment in front of the robot looks like.</p>
 <p>The top-right image shows the 3D pointcloud of the environment. This pointcloud was captured by a LiDAR sensor with a 360° field of view, so it sees much more than just the front of the robot (unlike the camera). The robot is located at the center of the empty circular region.</p>
@@ -1230,7 +1179,7 @@ These coordinates are expressed in the sensor’s own coordinate frame, meaning 
 </div>
 
 <p>This geometric, 3D-centric data format (pointclouds) is what makes LiDAR particularly powerful for SLAM, especially when accurate distance measurements and obstacle shapes are more important than texture or color.</p>
-<h3 id="223-configurations-and-examples">2.2.3 Configurations and Examples</h3>
+<h3 id="223-configurations-and-examples">2.2.3 Configurations and Examples<a class="headerlink" href="#223-configurations-and-examples" title="Permanent link">&para;</a></h3>
 <p>LiDAR technology can be implemented in different design configurations. Having a general understanding of these designs helps you identify the best option for each application.</p>
 <ul>
 <li><strong>LiDAR Range Finders</strong>:</li>
@@ -1319,7 +1268,7 @@ The vertical resolution is limited, so the pointcloud can be sparse, and thin ob
   </div>
 </div>
 
-<h3 id="224-lidar-based-front-end-architecture">2.2.4 LiDAR-based front-end architecture</h3>
+<h3 id="224-lidar-based-front-end-architecture">2.2.4 LiDAR-based front-end architecture<a class="headerlink" href="#224-lidar-based-front-end-architecture" title="Permanent link">&para;</a></h3>
 <p>An overall architecture of LiDAR-based SLAM methods looks like Figure 19. Compared to visual SLAM, this architecture is a bit simpler, because we do not need any step to infer 3D positions of features: the sensor data is already in an accurate 3D format (the pointcloud).</p>
 <p>Similar to visual SLAM, we still need to estimate how consecutive scans are related to each other. It is usually simpler and faster to do this not on the raw pointcloud directly, but on some extracted features. Feature extraction is therefore useful here as well. It speeds up processing and focuses the computation on the most informative parts of the data.</p>
 <p>Unlike images, features in pointclouds are less intuitive. One example of a popular feature representation is shown in Figure 19, known as <em>Scan Context</em>. The idea is to convert a 3D pointcloud into a 2D descriptor (a kind of image-like projection). This 2D representation can then be compared more easily and quickly with other scans using efficient vision-style methods.</p>
@@ -1331,7 +1280,7 @@ The vertical resolution is limited, so the pointcloud can be sparse, and thin ob
   </div>
 </div>
 
-<h3 id="226-advantages-and-disadvantages">2.2.6 Advantages and Disadvantages</h3>
+<h3 id="226-advantages-and-disadvantages">2.2.6 Advantages and Disadvantages<a class="headerlink" href="#226-advantages-and-disadvantages" title="Permanent link">&para;</a></h3>
 <p>LiDAR sensors have many advantages over the cameras, which makes them the most reliable senor for SLAM:</p>
 <ul>
 <li>They capture the metric geometry of the scene directly, without any need for estimating the depth. They work even if the scene has few visual features, as long as there is some geometric structure.</li>
@@ -1346,8 +1295,8 @@ The vertical resolution is limited, so the pointcloud can be sparse, and thin ob
 <li>Many LiDARs are mechanically complex, often relying on rotating mechanisms, which may reduce robust long-term use.</li>
 <li>Motion distortion is usually more severe than in global-shutter cameras. Because a LiDAR scan is built over a certain time window, fast motion of the robot or the environment can warp the pointcloud. As a result, strong deskewing (motion compensation) is often needed in dynamic environments.</li>
 </ul>
-<h2 id="23-imu">2.3 IMU</h2>
-<h3 id="231-concept">2.3.1 Concept</h3>
+<h2 id="23-imu">2.3 IMU<a class="headerlink" href="#23-imu" title="Permanent link">&para;</a></h2>
+<h3 id="231-concept">2.3.1 Concept<a class="headerlink" href="#231-concept" title="Permanent link">&para;</a></h3>
 <p>An Inertial Measurement Unit (IMU) is one of the classic sensors used in navigation. Unlike cameras or LiDARs, IMUs do not sense the environment directly. Instead, they measure the motion of the robot itself. The IMUs commonly used in robotics measure six values: i) Angular velocity (how fast the robot is rotating) around 3 axes ii) Linear acceleration (how fast its speed is changing) along 3 axes. So in total, we get 3D angular velocity plus 3D linear acceleration.</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
   <img src="images/imu_animation.gif" alt="1" style="width:70%; height:300px ">
@@ -1364,7 +1313,7 @@ The vertical resolution is limited, so the pointcloud can be sparse, and thin ob
 </ul>
 <p>This idea is known as <em>Dead Reckoning</em> and, at first glance, it looks like it could solve the full robot localization problem using only the IMU.</p>
 <p>However, in practice, IMU measurements are noisy and have biases. When you integrate them over time, you also integrate the noise and bias. As a result, the estimated position and orientation drift away from reality. The longer you rely on pure IMU integration, the larger this drift becomes, and the more inaccurate your pose estimate will be.</p>
-<h3 id="232-benefits-of-imu-addition-to-slam">2.3.2 Benefits of IMU addition to SLAM</h3>
+<h3 id="232-benefits-of-imu-addition-to-slam">2.3.2 Benefits of IMU addition to SLAM<a class="headerlink" href="#232-benefits-of-imu-addition-to-slam" title="Permanent link">&para;</a></h3>
 <p>Despite the problems of pure dead reckoning, IMUs have a very useful property that perfectly complements other SLAM sensors, and that is their high sampling rate. An IMU often runs at hundreds of samples per second, while LiDAR is usually around 10–20 Hz, and cameras are typically tens of frames per second. Because of this, an IMU can fill the gaps between measurements from environment-sensing sensors (LiDAR and camera). </p>
 <p>Consider the following scenarios where the IMU is extremely useful as a complementary sensor:</p>
 <ul>
@@ -1385,7 +1334,7 @@ In these cases, IMU measurements can keep tracking the motion for short periods,
 </ul>
 <p>Although IMU-based dead reckoning is not suitable for long durations, it is very useful over short intervals, until a new frame arrives. In SLAM practice, IMU data is mostly used in the SLAM back-end. It is also used in front-end to reduce motion distortion in both images and pointclouds.</p>
 <p>Most SLAM-ready sensors on the market, including many LiDARs and stereo cameras, already come with an integrated IMU, providing tightly synchronized IMU data together with their main measurements. This is very convenient for sensor fusion. However, if you are building your own sensor stack from scratch and you need an IMU, look mainly for low <em>noise density</em>, and <em>low bias instability</em>. While keeping the cost reasonable. Using very expensive, high-grade IMUs often goes against the goal of building a low-cost navigation stack for a typical robot (one of strong motivations of SLAM). A few common IMU choices in low to mid-cost systems are <em>Bosch BMI270</em>, <em>Bosch BMI160</em>, and <em>InvenSense ICM-20602</em>.</p>
-<h2 id="24-summary">2.4 Summary</h2>
+<h2 id="24-summary">2.4 Summary<a class="headerlink" href="#24-summary" title="Permanent link">&para;</a></h2>
 <p>This chapter gave a hands-on guide to choosing sensors for SLAM so your pipeline starts with clean, useful data. We covered cameras (color vs. mono, mono vs. stereo), why specs like FOV, resolution, shutter, FPS, dynamic range, bit depth, pixel size, lens/format, connection, drivers matter, and how they affect feature quality, latency, and calibration. We also skimmed LiDAR types (2D planar, 3D multi-beam, non-repetitive, solid-state), their scan patterns and motion distortion, plus the IMU as a high-rate aid for scale, deskewing, and smoothing.</p>
 <p>Bottom line: SLAM robustness is tightly tied to sensor data quality and the sensor’s ability to capture the environment under your real conditions (low light, textureless walls, fast motion, vibration). With the trade-offs and examples here, you should be able to match specs to your robot and task and pick a sensor stack (camera, LiDAR, IMU) that gives your SLAM front-end reliable, information-rich input.</p>
 <!--
@@ -1402,7 +1351,7 @@ In these cases, IMU measurements can keep tracking the motion for short periods,
 ### 2.4.5 GNSS
 -->
 
-<h2 id="quizzes">Quizzes</h2>
+<h2 id="quizzes">Quizzes<a class="headerlink" href="#quizzes" title="Permanent link">&para;</a></h2>
 <div class="quiz"> <h4>Q1. Which of these sensors does <em>not</em> directly measure the external environment?</h4> <div class="choices"> <button class="choice">2D planar LiDAR</button> <button class="choice">Monocular camera</button> <button class="choice" data-correct="true">IMU</button> <button class="choice">Thermal camera</button> </div> <div class="feedback"></div> <div class="explain">IMU measures the platform’s motion (accelerations/rotation), not scene geometry or appearance. </div> </div>
 
 <div class="quiz"> <h4>Q2. In a SLAM system, which part extracts useful information (features) from raw images?</h4> <div class="choices"> <button class="choice" data-correct="true">Front-end</button> <button class="choice">Back-end</button> <button class="choice">Loop closer</button> <button class="choice">Map optimizer</button> </div> <div class="feedback"></div> <div class="explain">Your text defines the front-end as turning raw measurements into compact cues (features, lines, etc.).</div> </div>
@@ -1495,10 +1444,14 @@ In these cases, IMU measurements can keep tracking the motion for short periods,
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "navigation.tabs", "navigation.sections", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "content.code.copy", "navigation.sections", "navigation.expand", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="js/extra.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

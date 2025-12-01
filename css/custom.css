@@ -8,7 +8,7 @@ header.md-header {
 }
 
 /* Top-align the inner wrapper */
-header.md-header > .md-header__inner {
+header.md-header>.md-header__inner {
   align-items: flex-start !important;
 }
 
@@ -28,14 +28,49 @@ header.md-header .md-logo img {
 /* Page title: push down from the very top, then slide right */
 header.md-header .md-header-nav__title {
   margin: 0 !important;
-  padding-top: 0.75rem !important;   /* vertical position */
-  margin-left: 2rem !important;      /* horizontal offset */
+  padding-top: 0.75rem !important;
+  /* vertical position */
+  margin-left: 2rem !important;
+  /* horizontal offset */
   line-height: 1 !important;
   align-self: flex-start !important;
 }
 
 /* Mobile hamburger: keep it aligned with the title */
 .md-nav__toggle {
-  margin-top: 0.75rem !important; 
+  margin-top: 0.75rem !important;
   line-height: 4rem !important;
-} 
+}
+
+
+/* Fix code block indentation in lists */
+.md-typeset ol li code,
+.md-typeset ul li code {
+  margin: 0.5em 0;
+}
+
+.md-typeset pre {
+  margin: 0.5em 0;
+  border-radius: 4px;
+}
+
+/* Ensure proper spacing for nested lists with code blocks */
+li>pre {
+  margin: 1em 0 !important;
+}
+
+/* Fix for code blocks inside list items */
+.md-typeset li>.highlight,
+.md-typeset li>pre {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Better code block styling */
+.highlight .hll {
+  background-color: #ffc;
+}
+
+.highlight {
+  background: #f8f8f8;
+}

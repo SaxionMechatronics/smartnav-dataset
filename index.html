@@ -8,6 +8,8 @@
       
       
       
+        <link rel="canonical" href="https://yourusername.github.io/your-repo/index.html">
+      
       
       
         <link rel="next" href="introduction.html">
@@ -84,7 +86,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="SMARTNav Dataset" class="md-header__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -167,56 +171,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-    
-  
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="index.html" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="introduction.html" class="md-tabs__link">
-          
-  
-  
-  Practical Guide to SLAM
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -230,12 +184,10 @@
                     
 
 
-  
-
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="SMARTNav Dataset" class="md-nav__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -365,19 +317,21 @@
     
     
       
-      
+        
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -476,7 +430,7 @@
   <span class="md-ellipsis">
     
   
-    Calibtation of Sensors
+    Calibration of Sensors
   
 
     
@@ -570,10 +524,10 @@
 
 
 
-<h1 id="smartnav-a-visual-inertial-dataset-for-reliable-robotic-state-estimation">SMARTNav: A Visual-Inertial Dataset for Reliable Robotic State Estimation</h1>
+<h1 id="smartnav-a-visual-inertial-dataset-for-reliable-robotic-state-estimation">SMARTNav: A Visual-Inertial Dataset for Reliable Robotic State Estimation<a class="headerlink" href="#smartnav-a-visual-inertial-dataset-for-reliable-robotic-state-estimation" title="Permanent link">&para;</a></h1>
 <p><img alt="Alt text" src="images/dataset_page.drawio.png" /></p>
 <p>On this page we present the SMARTNav dataset, containing raw sensor data recorded by aerial and ground robots. Collected across multiple projects targeting autonomous navigation in industrial settings, the dataset primarily supports evaluation of Visual-Inertial Odometry (VIO). More broadly, it is suitable for vision and LiDAR-based SLAM as well as multi-sensor fusion research.</p>
-<h2 id="downloads">Downloads</h2>
+<h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link">&para;</a></h2>
 <p>All sequences are provided as ROS 2 bag files. Because each sequence was captured with different hardware for different projects, the available topics vary; however, stereo images and IMU data are included in every sequence. Currently, all bag files are available exclusively via the Saxion Research Cloud Drive (SRCD).</p>
 <p>Note: For those sequences of this dataset containing RTK data, px4-msgs (it must be release/1.15 branch) is needed. This dependency will be removed in future versions of dataset. </p>
 <table>
@@ -697,7 +651,7 @@
 <!-- | sidewalk_ground_1    | 35.9|  Topics: <br>&emsp; stereo images <br>&emsp; camera IMU <br>&emsp; LiDAR pointcloud <br>&emsp; LiDAR IMU <br>&emsp; GPS <br><br>Sensors: <br>&emsp; ZEDX camera <br>&emsp; Holybro H-RTK F9P <br>&emsp; Ouster OS1-128 | [SRCD](https://saxion.data.surf.nl/s/nFdt4KLQiNpt5ap)    | <img src="gifs/sidewalk_ground_1" alt="sidewalk_ground_1" width="150" /> | -->
 <!-- | corridor_ground_1    | 25.8|  Topics: <br>&emsp; stereo images <br>&emsp; camera IMU <br>&emsp; LiDAR pointcloud <br>&emsp; LiDAR IMU <br><br>Sensors: <br>&emsp; ZEDX camera  <br>&emsp; Ouster OS1-128 | [SRCD](https://saxion.data.surf.nl/s/799dYzRYwaXZrmi)    | <img src="gifs/corridor_ground_1" alt="corridor_ground_1" width="150" /> | -->
 
-<h2 id="ground-truth-and-calibration">Ground Truth and Calibration</h2>
+<h2 id="ground-truth-and-calibration">Ground Truth and Calibration<a class="headerlink" href="#ground-truth-and-calibration" title="Permanent link">&para;</a></h2>
 <p>In the table below, for each sequence, a bag file containing ground-truth topic and well as the sensor calibration data are provided. The GT topic type and calibration for each sequence may differ. Our evaluation tool can handle and compare these different topic types.</p>
 <table>
 <thead>
@@ -801,7 +755,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="acknowledgements">Acknowledgements</h2>
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
 <p>This work was partly supported by the Netherlands Organization for Scientific Research (NWO) via SIA RAAK-Public project (Van bestrijden naar beheersen van de EPR, No.10.015) and SIA RAAK-MKB project (Smart Greenhouses, No.17.014).</p>
 
 
@@ -852,10 +806,14 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "navigation.tabs", "navigation.sections", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "content.code.copy", "navigation.sections", "navigation.expand", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="js/extra.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

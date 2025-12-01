@@ -8,6 +8,8 @@
       
       
       
+        <link rel="canonical" href="https://yourusername.github.io/your-repo/introduction.html">
+      
       
         <link rel="prev" href="index.html">
       
@@ -86,7 +88,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="SMARTNav Dataset" class="md-header__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -169,56 +173,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="index.html" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="introduction.html" class="md-tabs__link">
-          
-  
-  
-  Practical Guide to SLAM
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -232,12 +186,10 @@
                     
 
 
-  
-
 
   
 
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="SMARTNav Dataset" class="md-nav__button md-logo" aria-label="SMARTNav Dataset" data-md-component="logo">
       
@@ -290,9 +242,6 @@
     
       
         
-        
-      
-      
         
       
     
@@ -549,7 +498,7 @@
   <span class="md-ellipsis">
     
   
-    Calibtation of Sensors
+    Calibration of Sensors
   
 
     
@@ -643,8 +592,8 @@
 
 
 
-<h1 id="chapter-1-introduction-to-slam">Chapter 1: Introduction to SLAM</h1>
-<h2 id="11-objective">1.1 Objective</h2>
+<h1 id="chapter-1-introduction-to-slam">Chapter 1: Introduction to SLAM<a class="headerlink" href="#chapter-1-introduction-to-slam" title="Permanent link">&para;</a></h1>
+<h2 id="11-objective">1.1 Objective<a class="headerlink" href="#11-objective" title="Permanent link">&para;</a></h2>
 <p>Figure 1 illustrates the topics that will be discussed in this chapter. After completing this chapter, participants will be able to:</p>
 <ul>
 <li>
@@ -667,7 +616,7 @@
   </div>
 </div>
 
-<h2 id="12-introduction-the-need-for-slam">1.2 Introduction: The Need for SLAM</h2>
+<h2 id="12-introduction-the-need-for-slam">1.2 Introduction: The Need for SLAM<a class="headerlink" href="#12-introduction-the-need-for-slam" title="Permanent link">&para;</a></h2>
 <p>Autonomous navigation has become one of the central capabilities of modern robotics. Whether it is a drone flying indoors, a warehouse robot delivering packages, or an autonomous robots driving through city streets, they faces the same two fundamental questions:</p>
 <p><em>Where am I? (</em><em>localization</em><em>)</em></p>
 <p><em>What does my environment look like? (</em><em>mapping</em><em>)</em></p>
@@ -680,7 +629,7 @@
   </div>
 </div>
 
-<h2 id="13-the-concept-of-slam">1.3 The Concept of SLAM</h2>
+<h2 id="13-the-concept-of-slam">1.3 The Concept of SLAM<a class="headerlink" href="#13-the-concept-of-slam" title="Permanent link">&para;</a></h2>
 <p>SLAM is fundamentally a state estimation problem. It involves estimating the robot’s pose (position and orientation) and a model of the surrounding environment from sequential sensor data/frames. Thus, the SLAM process involves two tasks as shown in Figure 3:</p>
 <ul>
 <li>
@@ -709,7 +658,7 @@
   </div>
 </div>
 
-<h2 id="14-slam-pipeline">1.4 SLAM Pipeline</h2>
+<h2 id="14-slam-pipeline">1.4 SLAM Pipeline<a class="headerlink" href="#14-slam-pipeline" title="Permanent link">&para;</a></h2>
 <p>The SLAM system is generally divided into two main processes that work together:</p>
 <p><strong>The Front-End (Real-Time)</strong></p>
 <p>It is responsible for data ingestion, feature extraction, and local motion estimation to estimate the robot's pose (position and orientation) and construct the initial local map structure. This process needs to be fast and accurate.</p>
@@ -722,7 +671,7 @@
   </div>
 </div>
 
-<h2 id="15-slam-importance">1.5 SLAM Importance</h2>
+<h2 id="15-slam-importance">1.5 SLAM Importance<a class="headerlink" href="#15-slam-importance" title="Permanent link">&para;</a></h2>
 <p>SLAM is the foundation of autonomous perception and navigation. Without it, robots cannot move intelligently in unknown areas. It provides the spatial awareness required for tasks like path planning, obstacle avoidance, and environment understanding.</p>
 <p><strong>Practical applications include:</strong></p>
 <ul>
@@ -746,7 +695,7 @@
   </div>
 </div>
 
-<h2 id="16-challenges-in-slam">1.6 Challenges in SLAM</h2>
+<h2 id="16-challenges-in-slam">1.6 Challenges in SLAM<a class="headerlink" href="#16-challenges-in-slam" title="Permanent link">&para;</a></h2>
 <p>Although SLAM may seem a straightforward conceptually, real-world conditions make it challenging such as introducing uncertainty, noise, and dynamic changes that complicate both the trajectory estimation. Engineers and researchers should deal with uncertainty, noise, and incomplete data to produce reliable, robust and scalable applications. </p>
 <p><strong>Common challenges include:</strong></p>
 <ul>
@@ -773,7 +722,7 @@
   </div>
 </div>
 
-<h2 id="17-limitations-in-slam">1.7 Limitations in SLAM</h2>
+<h2 id="17-limitations-in-slam">1.7 Limitations in SLAM<a class="headerlink" href="#17-limitations-in-slam" title="Permanent link">&para;</a></h2>
 <p>Even with advanced algorithms, SLAM has inherent limitations that engineers must understand before deploying it in real systems.</p>
 <ul>
 <li>
@@ -794,7 +743,7 @@ Calibration ensures to produce geometric consistency by sensors such as camera o
 </li>
 </ul>
 <p><strong>Understanding these limitations helps engineers to design systems that work with SLAM rather than expecting it to solve all navigation problems perfectly.</strong></p>
-<h2 id="18-the-role-of-data-preparation">1.8 The Role of Data Preparation</h2>
+<h2 id="18-the-role-of-data-preparation">1.8 The Role of Data Preparation<a class="headerlink" href="#18-the-role-of-data-preparation" title="Permanent link">&para;</a></h2>
 <p>The most underestimated aspect of SLAM is <strong>data preparation</strong>. The success of any SLAM system depends critically on the quality of the input data. A well-prepared dataset makes SLAM robust, while poor data can make even the best algorithm fail.</p>
 <p>In this course, data preparation refers to three main steps: <strong>sensor selection</strong>, <strong>calibration and data collection</strong> strategy.</p>
 <ul>
@@ -847,7 +796,7 @@ A combination (e.g., visual-inertial or LiDAR-inertial) is often used.</p>
   </div>
 </div>
 
-<h2 id="19-summary">1.9 Summary</h2>
+<h2 id="19-summary">1.9 Summary<a class="headerlink" href="#19-summary" title="Permanent link">&para;</a></h2>
 <p>SLAM represents a cornerstone of autonomous navigation and perception. This chapter introduced the brief concept of SLAM, discussed its importance, examined common challenges and limitations, and emphasized the critical role of data preparation. Successful SLAM operation relies not only on algorithmic sophistication but also on well-prepared and accurately calibrated sensory data.</p>
 <p>The subsequent chapters will expand on practical aspects of data acquisition, calibration techniques, and data preperation for ensuring high-quality SLAM performance.</p>
 
@@ -899,10 +848,14 @@ A combination (e.g., visual-inertial or LiDAR-inertial) is often used.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "navigation.tabs", "navigation.sections", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.annotate", "content.code.copy", "navigation.sections", "navigation.expand", "toc.integrate"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="js/extra.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
