@@ -912,36 +912,39 @@ To achieve accurate calibration, perform the following motions while keeping the
     gyroscope_random_walk:      0.00074001958110154640244   #Bias random walk
     rostopic:                    /zed/zed_node/imu/data_raw      #the IMU ROS topic
     update_rate:                 100.0     #Hz (for discretization of the values above)</code></p>
-<p>Save this file as<code>imu-params.yaml</code>, which we will use as the input for the IMU calibration. After saving it, we can follow the steps below to run the calibration inside our Docker container.
-1. To start first clone the docker container along with all its submodules (kaliber packages).This will build the Docker container with ROS 2 and all necessary dependencies for <code>Kaliber</code> package.
-      ```</p>
-<pre><code>    git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git # Clone the repository with all submodules (only if you haven't cloned it yet)
-    cd slam-tutorial-practical/camera_imu_cal_ws/
-    docker compose up --build -d
-
-  ```
-</code></pre>
+<p>Save this file as<code>imu-params.yaml</code>, which we will use as the input for the IMU calibration. After saving it, we can follow the steps below to run the calibration inside our Docker container.</p>
 <ol>
 <li>
-<p>Then opens a shell inside the Docker container, builds the Kalibr workspace and  sources the setup file.
-      <code>cd slam-tutorial-practical/camera_imu_cal_ws/
-        docker compose exec callibration bash --login
-        catkin build -DCMAKE_BUILD_TYPE=Release -j4
-        source devel/setup.bash</code>
-      check all packages are installed with out error.</p>
+<p>To start first clone the docker container along with all its submodules (kaliber packages).This will build the Docker container with ROS 2 and all necessary dependencies for <code>Kaliber</code> package.
+    <code>git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git # Clone the repository with all submodules (only if you haven't cloned it yet)
+    cd slam-tutorial-practical/camera_imu_cal_ws/
+    docker compose up --build -d</code></p>
+</li>
+<li>
+<p>Then opens a shell inside the Docker container, builds the Kalibr workspace and  sources the setup file.</p>
+<p><code>cd slam-tutorial-practical/camera_imu_cal_ws/
+docker compose exec callibration bash --login
+catkin build -DCMAKE_BUILD_TYPE=Release -j4
+source devel/setup.bash</code></p>
+<p>check all packages are installed with out error.</p>
 </li>
 <li>
 <p>The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
 Download <code>kaliber_ros1.bag</code> file and put it <code>camera_imu_cal_ws/resources</code> folder.Put also the configuration files <code>april-grid.yaml</code> and <code>imu_param.yaml</code> inside <code>/camera_imu_cal_ws/resources</code>.</p>
-<p>check for the bag file if it contains left and right camera topics as well as imu-raw topic.
-  <code>cd resources/
-  rosbag info kaliber_ros1.bag</code></p>
 </li>
+</ol>
+<p>check for the bag file if it contains left and right camera topics as well as imu-raw topic.</p>
+<pre><code>```
+acd resources/
+rosbag info kaliber_ros1.bag 
+```
+</code></pre>
+<ol>
 <li>
 <p>The kaliber imu-camera calibration requires the intrinisic and extinisic callibration of both cameras.We can use other camera callibration and put it the <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr YAML format documentation</a> or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:</p>
-<p>run the kalibr camera calibration node
-  <code>rosrun kalibr kalibr_calibrate_cameras --bag resources/kalib_ros1.bag --topics /zed/zed_node/left/color/rect/image /zed/zed_node/right/color/rect/image --models pinhole-radtan pinhole-radtan --target resources/april-grid.yaml --show-extraction</code>
-When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file <code>kalib_ros1-camchain.yaml</code> and a full PDF report of the result of the calibration inside ~/callibration_ros1_ws/resources folder.</p>
+<p>run the kalibr camera calibration node</p>
+<p><code>rosrun kalibr kalibr_calibrate_cameras --bag resources/kalib_ros1.bag --topics /zed/zed_node/left/color/rect/image /zed/zed_node/right/color/rect/image --models pinhole-radtan pinhole-radtan --target resources/april-grid.yaml --show-extraction</code></p>
+<p>When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file <code>kalib_ros1-camchain.yaml</code> and a full PDF report of the result of the calibration inside ~/callibration_ros1_ws/resources folder.</p>
 <p>The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots. In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.Since the points are tightly clustered around zero and the error stays below about 0.5 pixels with a Gaussian-like distribution, this indicates a good and reliable calibration.</p>
 <p><table style="border-collapse: collapse; width: 100%; border: none;">
     <tr>
