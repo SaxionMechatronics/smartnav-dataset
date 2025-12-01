@@ -418,7 +418,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     Then run the camera–IMU calibration node:
 
-    ```bash
+    ```
     rosrun kalibr kalibr_calibrate_imu_camera \
       --bag resources/kaliber_ros1.bag \
       --cam resources/kalib_ros1-camchain.yaml \
@@ -430,7 +430,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     Example calibration output:
 
-    ```yaml
+    ```
     cam0:
       T_cam_imu:
         - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
@@ -455,7 +455,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     **Rounded rotation matrices:**
 
-    ```yaml
+    ```
     cam0_imu:
       [[0, -1,  0],
        [0,  0, -1],
@@ -473,11 +473,35 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
 
     **Checking the translation part:**
 
-    ```yaml
+    ```
     cam0_imu:  [ 0.02374,   0, 0 ]
     cam1_imu:  [-0.0958,    0, 0 ]
     cam0_cam1: [-0.11952,   0, 0 ]
     ```
 
     - `cam0_imu = +0.02374 m`: IMU is 2.3 cm to the right of the left camera  
-    - `cam1_im_
+    - `cam1_imu = -0.0958 m`: IMU is 9.6 cm to the left of the right camera  
+    - Combined = stereo baseline ≈ **0.1195 m**, matching the ZED camera’s 12 cm baseline  
+
+    **Calibration quality** is assessed using the reprojection error scatter plots:  
+    - Errors should lie within the 3-sigma bounds  
+    - Points should be tightly clustered around zero  
+    - Fewer outliers indicates good calibration  
+
+    In our result, most points remain close to zero, confirming an accurate calibration.
+
+    <table style="border-collapse: collapse; width: 100%; border: none;">
+      <tr>
+        <td style="padding: 0; vertical-align: top;">
+          <figure style="margin: 0;">
+            <img src="images/calib/reprojection-3-sigma.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
+            <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
+              <strong>Reprojection error</strong>
+            </figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    For more details on IMU–camera calibration using the Kalibr package, refer to this  
+    [video tutorial](https://www.youtube.com/watch?v=BtzmsuJemgI).
