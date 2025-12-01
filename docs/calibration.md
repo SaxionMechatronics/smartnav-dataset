@@ -109,38 +109,38 @@ There are a number of camera calibration tools available to do this calibration,
     - checkerboard tilted to the left, right, top and bottom (Skew)
     
 
-<table>
-  <tr>
-    <td>
-      <figure>
-        <img src="images/calib/size.gif" alt="Alt 4" width="400"/>
-        <figcaption><strong>Figure 1</strong>- Size bar-toward/away from the camera </figcaption>
-      </figure>
-    </td>
-    <td>
-      <figure>
-        <img src="images/calib/x-bar.gif" alt="Alt 1" width="400"/>
-        <figcaption><strong>Figure 2</strong>- X bar - left/right in field of view</figcaption>
-      </figure>
-    </td>
-    
-  </tr>
-  <tr>
-    <td>
-      <figure>
-        <img src="images/calib/y-bar.gif" alt="Alt 2" width="400"/>
-        <figcaption><strong>Figure 3</strong>- Y bar - top/bottom in field of view</figcaption>
-      </figure>
-    </td>
-    <td>
-      <figure>
-        <img src="images/calib/skew.gif" alt="Alt 3" width="400"/>
-        <figcaption><strong>Figure 4</strong>- Skew bar - checkerboard tilted.</figcaption>
-      </figure>
-    </td>
+    <table>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/calib/size.gif" alt="Alt 4" width="400"/>
+            <figcaption><strong>Figure 1</strong>- Size bar-toward/away from the camera </figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/calib/x-bar.gif" alt="Alt 1" width="400"/>
+            <figcaption><strong>Figure 2</strong>- X bar - left/right in field of view</figcaption>
+          </figure>
+        </td>
+        
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/calib/y-bar.gif" alt="Alt 2" width="400"/>
+            <figcaption><strong>Figure 3</strong>- Y bar - top/bottom in field of view</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/calib/skew.gif" alt="Alt 3" width="400"/>
+            <figcaption><strong>Figure 4</strong>- Skew bar - checkerboard tilted.</figcaption>
+          </figure>
+        </td>
 
-  </tr>
-</table>
+      </tr>
+    </table>
 
 4. When all the 4 bars are green and enough data is available for calibration the **CALIBRATE** button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the **SAVE** and **commit** buttons light up. And you can also see the result in terminal.
 
@@ -150,7 +150,7 @@ There are a number of camera calibration tools available to do this calibration,
 
 5. To record these parameters down, click save.It will save to `/tmp/calibrationdata.tar`.gz.Let’s get the files somewhere we can easily reach them
 
-    ```
+    ```bash
       mkdir ~/calibration_ws/mono_camera
       mv /tmp/calibrationdata.tar.gz ~/calibration_ws/mono_camera
       cd ~/calibration_ws/src/mono_camera
@@ -173,7 +173,7 @@ The calibration results should be applied to the raw image so subsequent image p
 
 1. Copy the calibration YAML file to `camera_pipeline` package.This uses the callibration file to rectify the raw image as `image_rect` topic.  
 
-    ```
+    ```bash
     cp ~/calibration_ws/camera0_cal/calibrationdata/ost.yaml \
       ~/calibration_ws/src/camera_pipeline/config/
 
@@ -221,35 +221,43 @@ As illustrated in the images below, the left (raw) image appears distorted, with
 
   1. First download the two provided ROS 2 bag files:
 
-  - **`stereo_large_board_bagfile.bag`** – recorded using a small checkerboard *(2.3 cm squares)*  
-  - **`stereo_small_board_bagfile.bag`** – recorded using a large checkerboard *(11.8 cm squares)*  
+    - **`stereo_large_board_bagfile.bag`** – recorded using a small checkerboard *(2.3 cm squares)*  
+    - **`stereo_small_board_bagfile.bag`** – recorded using a large checkerboard *(11.8 cm squares)*  
 
     Place both bag files in the `camera_callibration_ws/resources/` directory of the calibration workspace:
 
   2. Run the bag file and camera_calibration tool from the image_pipeline package to perform stereo calibration:
 
       In the first one, run the first rosbag file on loop.  
-      ```
+      ```bash
       docker compose exec callibration bash --login
       cd resources/
       ros2 bag play rosbag2_stereo_large_board
       ```
 
       In the second terminal, run the camera calibration node
-      ```
+
+      ```bash
       docker compose exec callibration bash --login
-      ros2 run camera_calibration cameracalibrator --approximate 0.1 --size 8x6 --square 0.118 --ros-args --remap left:=/zed/zed_node/left/color/raw/image --remap right:=/zed/zed_node/right/color/raw/image    --remap left_camera:=zed/zed_node/left/color/raw --remap right_camera:=zed/zed_node/right/color/raw
+
+      ros2 run camera_calibration cameracalibrator --approximate 0.1 --size 8x6 \
+       --square 0.118 --ros-args --remap left:=/zed/zed_node/left/color/raw/image \ 
+       --remap right:=/zed/zed_node/right/color/raw/image  \
+       --remap left_camera:=zed/zed_node/left/color/raw \
+       --remap right_camera:=zed/zed_node/right/color/raw
       ```
+
   3. You should see a pop-up.In order to get a good calibration you will need to move the checkerboard around in the camera frame.When all the 4 bars are green and enough data is available for calibration the **CALIBRATE** button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the **SAVE** and **COMMIT** buttons light up. And you can also see the result in terminal.
 
   4. To record these parameters down, click save.It will save to `/tmp/calibrationdata.tar`.gz.Let’s get the files somewhere we can easily reach them
 
-      ```
+      ```bash
         mkdir ~/callibration_ws/resources/stereo_camera_large_board_cali/
         mv /tmp/calibrationdata.tar.gz ~/callibration_ws/resources/stereo_camera_large_board_cali/
         cd ~/calibration_ws/src/stereo_camera_large_board_cali
         tar -xvf calibrationdata.tar.gz
       ```
+
       Inside the extracted folder, you will find:`left.yaml`(parameters of the left camera) and `right.yaml`(parameters of the right camera) The structure of these files is similar to those obtained from intrinsic calibration. However, to analyze the extrinsic calibration, we focus on the **projection matrices** (P matrices).
 
       Left Camera Projection Matricx 
@@ -335,7 +343,8 @@ Before starting, print an AprilGrid from the [Kalibr wiki](https://github.com/et
    - Measure the spacing (black border gap) between two tags.
    - Compute tagSpacing = spacing / tagSize.
 For our tutoriall we will use a grid with 44 mm tags and 12.5 mm spacing.
-  ```
+
+  ```yaml
     target_type: 'aprilgrid'  #gridtype
     tagCols: 6                 #number of apriltags
     tagRows: 6                 #number of apriltags
@@ -343,6 +352,7 @@ For our tutoriall we will use a grid with 44 mm tags and 12.5 mm spacing.
     tagSpacing: 0.296          #ratio of space between tags to tagSize
     codeOffset: 0            #code offset for the first tag in the aprilboard
   ```
+
 B. **Record the calibration dataset (rosbag)**: Record a rosbag containing IMU and camera data:
 To achieve accurate calibration, perform the following motions while keeping the target always in view:
 
@@ -356,7 +366,8 @@ To achieve accurate calibration, perform the following motions while keeping the
 C. **IMU noise parameters**: Kalibr requires IMU noise parameters such as noise density and random walk. These can come from the manufacturer’s datasheet or tools, but it is recommended to compute them using an Allan variance calibration, since IMU noise characteristics can change depending on the physical setup, mounting, and environment. A convenient ROS-based Allan variance tool is available here [allan_variance_ros](https://github.com/ori-drs/allan_variance_ros)
        
   For our tutoriall we will use a manufacturing callibration imu parametrs.
-  ```
+  
+  ```yaml
     #Accelerometers
     accelerometer_noise_density: 1.4e-03   #Noise density (continuous-time)
     accelerometer_random_walk:   8.0e-05   #Bias random walk
@@ -423,6 +434,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
           </td>
         </tr>
     </table>
+
 5. Put the imu noise parametr as `imu-params.yaml`  in  `camera_imu_cal_ws/resources`.
     
       Then run the camera-imu callibration node.
@@ -474,9 +486,11 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
       The rotation matrix tells us how the IMU is oriented relative to the camera. From this result, we can see that the IMU’s X-axis is pointing in the same direction as the camera’s forward Z-axis, meaning both sensors face the same way. The IMU’s Y and Z axes are rotated so they line up with the camera’s horizontal and vertical directions. In simple terms, the IMU is mounted in a way that its forward axis matches the camera’s viewing direction, while the other axes are rotated to properly align the two coordinate frames
       
       Checking the translation part of the transformation matrix.
+
       ```yaml
        cam0_imu:[0.02374, 0, 0]   cam1_imu:[-0.0958, 0, 0 ] cam0_cam1:[-0.11952, 0, 0]
       ```
+      
       The translation part of the transformation matrix describes how far the IMU is located from each camera. For cam0, the IMU is shifted by +0.02374 m along the X-axis, meaning the IMU sits about 2.3 cm to the right of the left camera. For cam1, the translation is −0.0958 m, meaning the IMU is about 9.6 cm to the left of the right camera. When we combine these two offsets, we get the total distance between the two cameras. This value is estimated as −0.11952 m, meaning the right camera is approximately 11.95 cm to the right of the left camera, which is the stereo baseline of zed-camera(12 cm)
       
       The quality of the IMU–camera calibration can be assessed by examining the reprojection error scatter plots. A good calibration is indicated when the reprojection errors lie within the 3-sigma bounds and are tightly clustered around zero. Although some outliers may appear, fewer outliers and a stronger concentration near zero generally reflect a more accurate calibration. In our results, the majority of the points remain close to zero, showing that the calibration quality is acceptable and consistent.For more explanation 
