@@ -958,12 +958,14 @@ When the calibration is complete (it takes many minutes according to the number 
 </li>
 <li>
 <p>Put the imu noise parametr as <code>imu-params.yaml</code>  in  <code>camera_imu_cal_ws/resources</code>.</p>
-<p>Then run the camera-imu callibration node.
-  <code>rosrun kalibr  kalibr_calibrate_imu_camera --bag resources/kaliber_ros1.bag --cam resources/kalib_ros1-camchain.yaml --imu resources/imu-params.yaml --target resources/april-grid.yaml</code>
-  After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.</p>
+<p>Then run the camera-imu callibration node.</p>
 </li>
 </ol>
-<pre><code class="language-bash">cam0:
+<pre><code class="language-bash">rosrun kalibr  kalibr_calibrate_imu_camera --bag resources/kaliber_ros1.bag --cam resources/kalib_ros1-camchain.yaml --imu resources/imu-params.yaml --target resources/april-grid.yaml
+</code></pre>
+<pre><code>  After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.
+</code></pre>
+<pre><code class="language-yaml">cam0:
   T_cam_imu:
   - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
   - [0.0012353350482965375, -0.008914091742802915, -0.9999595056379624, 0.0019871949034301313]
@@ -985,7 +987,7 @@ cam1:
 </code></pre>
 <pre><code>  Lets get the 3x3 rounded roation matrix from transformation matrix.
 </code></pre>
-<pre><code class="language-bash">cam0_imu:[[0, -1,  0 ]
+<pre><code class="language-yaml">cam0_imu:[[0, -1,  0 ]
           [0,  0, -1 ]
           [1   0,  0 ]]   
 
