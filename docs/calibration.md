@@ -417,9 +417,11 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
  5. Put the imu noise parametr as `imu-params.yaml`  in  `camera_imu_cal_ws/resources`.
     
       Then run the camera-imu callibration node.
+
 ```bash
 rosrun kalibr  kalibr_calibrate_imu_camera --bag resources/kaliber_ros1.bag --cam resources/kalib_ros1-camchain.yaml --imu resources/imu-params.yaml --target resources/april-grid.yaml
 ```
+
       After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.
 
       ```yaml
@@ -456,6 +458,7 @@ rosrun kalibr  kalibr_calibrate_imu_camera --bag resources/kaliber_ros1.bag --ca
                 [1   0,  0 ]]
 
       ```
+      
       The rotation matrix tells us how the IMU is oriented relative to the camera. From this result, we can see that the IMU’s X-axis is pointing in the same direction as the camera’s forward Z-axis, meaning both sensors face the same way. The IMU’s Y and Z axes are rotated so they line up with the camera’s horizontal and vertical directions. In simple terms, the IMU is mounted in a way that its forward axis matches the camera’s viewing direction, while the other axes are rotated to properly align the two coordinate frames
       
       Checking the translation part of the transformation matrix.
