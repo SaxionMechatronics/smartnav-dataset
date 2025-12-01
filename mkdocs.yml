@@ -13,6 +13,11 @@ nav:
 
 theme:
   name: material
+  features:
+    - content.code.annotate
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
   logo: images/SMART-RG-White-transparent.png
 
   palette:
