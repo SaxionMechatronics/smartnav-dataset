@@ -16,18 +16,18 @@ theme:
   features:
     - content.code.annotate
     - content.code.copy
-    - navigation.tabs
+    # - navigation.tabs
     - navigation.sections
     - navigation.expand
     - toc.integrate
-    - toc.follow
   logo: images/SMART-RG-White-transparent.png
   palette:
     scheme: default
     primary: teal
 
-# CRITICAL: Add these markdown extensions
+# Simplified markdown extensions - remove the problematic slugify
 markdown_extensions:
+  - pymdownx.arithmatex
   - admonition
   - pymdownx.details
   - pymdownx.superfences:
@@ -35,26 +35,20 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
+  - pymdownx.highlight
   - pymdownx.inlinehilite
-  - pymdownx.snippets
   - toc:
       permalink: true
-      slugify: !!python/object/apply:pymdownx.slugs.uslugify
-        kwds:
-          case: lower
   - attr_list
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - def_list
+  - tables
 
 extra_css:
   - css/custom.css
 
-# Optional: Add extra JavaScript for better code blocks
 extra_javascript:
-  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js
   - js/extra.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # Add this line

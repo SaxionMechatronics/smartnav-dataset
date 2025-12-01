@@ -11,7 +11,7 @@ Current technological trends indicate a growing complexity in SLAM sensor config
 
 
 
-### Common Reference Frames in Sensor Fusion and Calibration
+## Common Reference Frames in Sensor Fusion and Calibration
 
 In localization, mapping, and multi-sensor fusion, consistent definition and transformation between reference frames is essential. Each frame represents a coordinate system attached to a specific entity (e.g., world, robot, sensor). Below are the most common frames used in SLAM and calibration systems.
 
@@ -322,7 +322,7 @@ As illustrated in the images below, the left (raw) image appears distorted, with
       </table>
 
 
-### Camera-IMU Callibration
+## Camera-IMU Callibration
 
 The goal of camera-IMU extrinsic calibration is to accurately determine the transformation that defines the spatial relationship between the camera and the IMU.In this tutorial, we use Kalibr, a widely used tool for camera–IMU calibration.
 
@@ -423,95 +423,76 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
           </td>
         </tr>
     </table>
+5. Put the imu noise parametr as `imu-params.yaml`  in  `camera_imu_cal_ws/resources`.
+    
+      Then run the camera-imu callibration node.
 
-5. Put the IMU noise parameter file `imu-params.yaml` in `camera_imu_cal_ws/resources`.
+      ```bash
+        rosrun kalibr kalibr_calibrate_imu_camera \
+        --bag resources/kaliber_ros1.bag \
+        --cam resources/kalib_ros1-camchain.yaml \
+        --imu resources/imu-params.yaml \
+        --target resources/april-grid.yaml
+      ```
 
-    Then run the camera–IMU calibration node:
+      After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.
 
-    ```bash
-    rosrun kalibr kalibr_calibrate_imu_camera \
-      --bag resources/kaliber_ros1.bag \
-      --cam resources/kalib_ros1-camchain.yaml \
-      --imu resources/imu-params.yaml \
-      --target resources/april-grid.yaml
-    ```
+      ```yaml
+        cam0:
+          T_cam_imu:
+          - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
+          - [0.0012353350482965375, -0.008914091742802915, -0.9999595056379624, 0.0019871949034301313]
+          - [0.9999985085863826, -0.001195909314175625, 0.0012460441090049457, -0.004969454993572966]
+          - [0.0, 0.0, 0.0, 1.0]
+          timeshift_cam_imu: 0.008473177395364007
+        cam1:
+          T_cam_imu:
+          - [0.007688606532579134, -0.9999287036348504, 0.00913635467321633, -0.09582559937006864]
+          - [0.0012368931016336626, -0.009127107873462909, -0.9999575820990215, 0.0020721431219515286]
+          - [0.9999696772527866, 0.007699581092098007, 0.001166630174431943, -0.004792821181560303]
+          - [0.0, 0.0, 0.0, 1.0]
+          T_cn_cnm1:
+          - [0.999960408866058, -0.00021303049677720928, 0.00889580341679349, -0.1195210465345488]
+          - [0.00021302277813165302, 0.9999999773089986, 1.8151958025746858e-06, 7.989990659499038e-05]
+          - [-0.008895803601630881, 7.98848206438656e-08, 0.9999604315563049, 0.0003876324506602702]
+          - [0.0, 0.0, 0.0, 1.0]
+          timeshift_cam_imu: 0.008706209697421906
+      ```
+         
+      Lets get the 3x3 rounded roation matrix from transformation matrix.
 
-    After running the `kalibr_calibrate_imu_camera` node, the camera calibration YAML will be extended with IMU–camera transformations. A PDF report will also be generated containing the final calibration result and analysis.
+      ```yaml
+      cam0_imu:[[0, -1,  0 ]
+                [0,  0, -1 ]
+                [1   0,  0 ]]   
+                
+      cam1_imu:[[0, -1,  0 ]
+                [0,  0, -1 ]
+                [1   0,  0 ]]
+      
+      ```
+      The rotation matrix tells us how the IMU is oriented relative to the camera. From this result, we can see that the IMU’s X-axis is pointing in the same direction as the camera’s forward Z-axis, meaning both sensors face the same way. The IMU’s Y and Z axes are rotated so they line up with the camera’s horizontal and vertical directions. In simple terms, the IMU is mounted in a way that its forward axis matches the camera’s viewing direction, while the other axes are rotated to properly align the two coordinate frames
+      
+      Checking the translation part of the transformation matrix.
+      ```yaml
+       cam0_imu:[0.02374, 0, 0]   cam1_imu:[-0.0958, 0, 0 ] cam0_cam1:[-0.11952, 0, 0]
+      ```
+      The translation part of the transformation matrix describes how far the IMU is located from each camera. For cam0, the IMU is shifted by +0.02374 m along the X-axis, meaning the IMU sits about 2.3 cm to the right of the left camera. For cam1, the translation is −0.0958 m, meaning the IMU is about 9.6 cm to the left of the right camera. When we combine these two offsets, we get the total distance between the two cameras. This value is estimated as −0.11952 m, meaning the right camera is approximately 11.95 cm to the right of the left camera, which is the stereo baseline of zed-camera(12 cm)
+      
+      The quality of the IMU–camera calibration can be assessed by examining the reprojection error scatter plots. A good calibration is indicated when the reprojection errors lie within the 3-sigma bounds and are tightly clustered around zero. Although some outliers may appear, fewer outliers and a stronger concentration near zero generally reflect a more accurate calibration. In our results, the majority of the points remain close to zero, showing that the calibration quality is acceptable and consistent.For more explanation 
 
-    Example calibration output:
+      <table style="border-collapse: collapse; width: 100%; border: none;">
+          <tr>
+            <td style="padding: 0; vertical-align: top;">
+              <figure style="margin: 0;">
+                <img src="images/calib/reprojection-3-sigma.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
+                <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
+                  <strong> reprojection error</strong> 
+                </figcaption>
+              </figure>
+            </td>
+          </tr>
+      </table>
 
-    ```yaml
-    cam0:
-      T_cam_imu:
-        - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
-        - [0.0012353350482965375, -0.008914091742802915, -0.9999595056379624, 0.0019871949034301313]
-        - [0.9999985085863826, -0.001195909314175625, 0.0012460441090049457, -0.004969454993572966]
-        - [0.0, 0.0, 0.0, 1.0]
-      timeshift_cam_imu: 0.008473177395364007
 
-    cam1:
-      T_cam_imu:
-        - [0.007688606532579134, -0.9999287036348504, 0.00913635467321633, -0.09582559937006864]
-        - [0.0012368931016336626, -0.009127107873462909, -0.9999575820990215, 0.0020721431219515286]
-        - [0.9999696772527866, 0.007699581092098007, 0.001166630174431943, -0.004792821181560303]
-        - [0.0, 0.0, 0.0, 1.0]
-      T_cn_cnm1:
-        - [0.999960408866058, -0.00021303049677720928, 0.00889580341679349, -0.1195210465345488]
-        - [0.00021302277813165302, 0.9999999773089986, 1.8151958025746858e-06, 7.989990659499038e-05]
-        - [-0.008895803601630881, 7.98848206438656e-08, 0.9999604315563049, 0.0003876324506602702]
-        - [0.0, 0.0, 0.0, 1.0]
-      timeshift_cam_imu: 0.008706209697421906
-    ```
-
-    **Rounded rotation matrices:**
-
-    ```yaml
-    cam0_imu:
-      [[0, -1,  0],
-       [0,  0, -1],
-       [1,  0,  0]]
-
-    cam1_imu:
-      [[0, -1,  0],
-       [0,  0, -1],
-       [1,  0,  0]]
-    ```
-
-    The rotation matrix shows how the IMU is oriented relative to the camera.  
-    The IMU’s X-axis aligns with the camera’s forward Z-axis, meaning both sensors face the same direction.  
-    The Y and Z axes are rotated to align properly with the camera frame.
-
-    **Checking the translation part:**
-
-    ```yaml
-    cam0_imu:  [ 0.02374,   0, 0 ]
-    cam1_imu:  [-0.0958,    0, 0 ]
-    cam0_cam1: [-0.11952,   0, 0 ]
-    ```
-
-    - `cam0_imu = +0.02374 m`: IMU is 2.3 cm to the right of the left camera  
-    - `cam1_imu = -0.0958 m`: IMU is 9.6 cm to the left of the right camera  
-    - Combined = stereo baseline ≈ **0.1195 m**, matching the ZED camera’s 12 cm baseline  
-
-    **Calibration quality** is assessed using the reprojection error scatter plots:  
-    - Errors should lie within the 3-sigma bounds  
-    - Points should be tightly clustered around zero  
-    - Fewer outliers indicates good calibration  
-
-    In our result, most points remain close to zero, confirming an accurate calibration.
-
-    <table style="border-collapse: collapse; width: 100%; border: none;">
-      <tr>
-        <td style="padding: 0; vertical-align: top;">
-          <figure style="margin: 0;">
-            <img src="images/calib/reprojection-3-sigma.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
-            <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
-              <strong>Reprojection error</strong>
-            </figcaption>
-          </figure>
-        </td>
-      </tr>
-    </table>
-
-    For more details on IMU–camera calibration using the Kalibr package, refer to this  
-    [video tutorial](https://www.youtube.com/watch?v=BtzmsuJemgI).
+      For more explanation about imu-camera calibration using kalibr package please refer this [video tutoriall](https://www.youtube.com/watch?v=BtzmsuJemgI)
