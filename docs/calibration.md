@@ -1,6 +1,5 @@
-# Chapter 3: Sensor Calibration for SLAM
 
-## 3.1 Objective 
+## Objective 
 1. Understand what sensor calibration is and why it’s critical for localization and mapping.
 2. Understand What is intrinisic and extrnisic callibration.
 3. Perform intrinsic and extrinsic calibration using open-source tools.
@@ -12,7 +11,7 @@ Current technological trends indicate a growing complexity in SLAM sensor config
 
 
 
-## 3.2 Common Reference Frames in Sensor Fusion and Calibration
+### Common Reference Frames in Sensor Fusion and Calibration
 
 In localization, mapping, and multi-sensor fusion, consistent definition and transformation between reference frames is essential. Each frame represents a coordinate system attached to a specific entity (e.g., world, robot, sensor). Below are the most common frames used in SLAM and calibration systems.
 
@@ -31,7 +30,7 @@ In localization, mapping, and multi-sensor fusion, consistent definition and tra
   5. **Image (Pixel) Frame**: The Image Frame (I) is a 2D coordinate system on the camera’s image plane, where each point corresponds to a pixel location. The origin (u=0,v=0) is typically at the top-left corner, with the u-axis pointing right and v-axis pointing down. 3D points from the camera frame are projected into this frame using the camera intrinsic matrix (K) and distortion model.
 
 
-## 3.3 Camera Callibration 
+###  Camera Callibration 
 
  **Intrinsic Callibration** 
 
@@ -69,24 +68,30 @@ This tutorial uses a 8x6 checkerboard with 0.23cm squares. Calibration uses the 
 
 There are a number of camera calibration tools available to do this calibration, but if you’re already working in ROS, one of the easier options is the `camera_calibration` package.
 
-1. To start first install docker and setup environment.
+1. To start first install docker and setup environment.This docker environment installs `camera_callibration` package with in `ros2-humble`.
       ```
-        docker compose exec demo bash --login
+        git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git #Clone the repository with all submodules (only if you haven't cloned it yet)
+        cd slam-tutorial-practical/camera_callibration_ws/
+        docker compose up --build -d 
+        docker compose exec callibration bash --login
         source /opt/ros/humble/setup.bash
         colcon build 
       ```
 
 2. The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
-Download `rosbag2_callibration1` file and put it `callibration_ws/resources` folder.
+Download `rosbag2_callibration1` file and put it `camera_callibration_ws/resources` folder.
 
-      In the first one, run the first rosbag file on loop.  
+      In the first one, run the first rosbag file on loop inside docker environment.  
       ```
+      docker compose exec callibration bash --login
       cd ~/callibration_ws/resources
       ros2 bag play rosbag2_callibration1 
       ```
       In the second terminal, run the camera calibration node
 
       ```
+      docker compose exec callibration bash --login
+      source install/setup.bash
       ros2 run camera_calibration cameracalibrator  --size 8x6 --square 0.023 --ros-args --remap image:=/zed/zed_node/left/color/raw/image  --remap camera:=zed/zed_node/left/color/raw
       ```
     We use the above command to calibrate the ZED camera’s left lens using the raw image topic `/zed/zed_node/left/color/raw/image`. The `--size 8x6` option specifies that the checkerboard used has 8 inner corners horizontally and 6 vertically, and `--square 0.023` sets the square size to 0.023 meters. The `--remap` arguments link the calibration node to the correct image and camera topics `namespace` recorded in the bag file.
@@ -185,7 +190,7 @@ As illustrated in the images below, the left (raw) image appears distorted, with
       <figure style="margin: 0;">
         <img src="images/calib/1762350158_raw.png" alt="Alt 2" width="600" style="margin: 1; padding: 2; display: block;"/>
         <figcaption style="font-size: 14px; margin-top: 4px;">
-          <strong>Figure 3</strong> – raw image
+          <strong>Figure 5</strong> – raw image
         </figcaption>
       </figure>
     </td>
@@ -193,7 +198,7 @@ As illustrated in the images below, the left (raw) image appears distorted, with
       <figure style="margin: 0;">
         <img src="images/calib/1762350158_rectified_.png" alt="Alt 3" width="600" style="margin: 1; padding: 2; display: block;"/>
         <figcaption style="font-size: 14px; margin-top: 4px;">
-          <strong>Figure 4</strong> – corrected(rectifed) image
+          <strong>Figure 6</strong> – corrected(rectifed) image
         </figcaption>
       </figure>
     </td>
@@ -215,18 +220,20 @@ As illustrated in the images below, the left (raw) image appears distorted, with
   - **`stereo_large_board_bagfile.bag`** – recorded using a small checkerboard *(2.3 cm squares)*  
   - **`stereo_small_board_bagfile.bag`** – recorded using a large checkerboard *(11.8 cm squares)*  
 
-    Place both bag files in the `resources/` directory of the calibration workspace:
+    Place both bag files in the `camera_callibration_ws/resources/` directory of the calibration workspace:
 
   2. Run the bag file and camera_calibration tool from the image_pipeline package to perform stereo calibration:
 
       In the first one, run the first rosbag file on loop.  
       ```
-      cd ~/callibration_ws/resources
+      docker compose exec callibration bash --login
+      cd resources/
       ros2 bag play rosbag2_stereo_large_board
       ```
-      In the second terminal, run the camera calibration node
 
+      In the second terminal, run the camera calibration node
       ```
+      docker compose exec callibration bash --login
       ros2 run camera_calibration cameracalibrator --approximate 0.1 --size 8x6 --square 0.118 --ros-args --remap left:=/zed/zed_node/left/color/raw/image --remap right:=/zed/zed_node/right/color/raw/image    --remap left_camera:=zed/zed_node/left/color/raw --remap right_camera:=zed/zed_node/right/color/raw
       ```
   3. You should see a pop-up.In order to get a good calibration you will need to move the checkerboard around in the camera frame.When all the 4 bars are green and enough data is available for calibration the **CALIBRATE** button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the **SAVE** and **COMMIT** buttons light up. And you can also see the result in terminal.
@@ -275,7 +282,6 @@ As illustrated in the images below, the left (raw) image appears distorted, with
 
       For parallel stereo cameras, the left and right cameras are almost perfectly aligned.This means the **rotation matrix** \(R\) between them is **close to the identity matrix**:which simplifies stereo processing.If the cameras were not parallel, a QR decomposition or SVD on a normalized version of the projection matrix can be used to to separate the rotation component
 
-
       Now consider the `stereo_small_board_bagfile.bag` with a small checkerboard (`--square 0.023` m):
 
       ```
@@ -310,3 +316,168 @@ As illustrated in the images below, the left (raw) image appears distorted, with
           </td>
         </tr>
       </table>
+
+
+### Camera-IMU Callibration
+
+The goal of camera-IMU extrinsic calibration is to accurately determine the transformation that defines the spatial relationship between the camera and the IMU.In this tutorial, we use Kalibr, a widely used tool for camera–IMU calibration.
+
+The following are prerequest to use `kaibr` callibration tool:
+
+A. **Prepare the calibration target:** Kalibr supports multiple target types, but an AprilGrid is strongly recommended. It allows partial visibility of the board while still resolving the pose correctly, making data collection easier.
+Before starting, print an AprilGrid from the [Kalibr wiki](https://github.com/ethz-asl/kalibr/wiki/calibration-targets) and fill out the corresponding aprilgrid.yaml(check [kaliber yaml formats](https://github.com/ethz-asl/kalibr/wiki/yaml-formats)) file:
+   - Count the number of rows and columns, then fill in the values for tagsRows and tagsCols accordingly.
+   - Measure the size of one AprilTag and set it as tagSize (in meters).
+   - Measure the spacing (black border gap) between two tags.
+   - Compute tagSpacing = spacing / tagSize.
+For our tutoriall we will use a grid with 44 mm tags and 12.5 mm spacing.
+  ```
+    target_type: 'aprilgrid'  #gridtype
+    tagCols: 6                 #number of apriltags
+    tagRows: 6                 #number of apriltags
+    tagSize: 0.0445            #size of apriltag, edge to edge [m]
+    tagSpacing: 0.296          #ratio of space between tags to tagSize
+    codeOffset: 0            #code offset for the first tag in the aprilboard
+  ```
+B. **Record the calibration dataset (rosbag)**: Record a rosbag containing IMU and camera data:
+To achieve accurate calibration, perform the following motions while keeping the target always in view:
+
+   - Pitch, yaw, and roll rotations
+   - Up/down, left/right, forward/backward translations
+   - A short sequence of smooth random motion
+
+   Reference motion example: [See this YouTube video as an example:](https://youtu.be/puNXsnrYWTY?t=57)
+
+
+C. **IMU noise parameters**: Kalibr requires IMU noise parameters such as noise density and random walk. These can come from the manufacturer’s datasheet or tools, but it is recommended to compute them using an Allan variance calibration, since IMU noise characteristics can change depending on the physical setup, mounting, and environment. A convenient ROS-based Allan variance tool is available here [allan_variance_ros](https://github.com/ori-drs/allan_variance_ros)
+       
+  For our tutoriall we will use a manufacturing callibration imu parametrs.
+  ```
+    #Accelerometers
+    accelerometer_noise_density: 1.4e-03   #Noise density (continuous-time)
+    accelerometer_random_walk:   8.0e-05   #Bias random walk
+    #Gyroscopes
+    gyroscope_noise_density:    8.712683324559951815e-5   #Noise density (continuous-time)
+    gyroscope_random_walk:      0.00074001958110154640244   #Bias random walk
+    rostopic:                    /zed/zed_node/imu/data_raw      #the IMU ROS topic
+    update_rate:                 100.0     #Hz (for discretization of the values above)
+  ```
+
+Save this file as` imu-params.yaml`, which we will use as the input for the IMU calibration. After saving it, we can follow the steps below to run the calibration inside our Docker container.
+1. To start first clone the docker container along with all its submodules (kaliber packages).This will build the Docker container with ROS 2 and all necessary dependencies for `Kaliber` package.
+      ```
+        
+        git --recurse-submodules clone git@github.com:eliyaskidnae/slam-tutorial-practical.git # Clone the repository with all submodules (only if you haven't cloned it yet)
+        cd slam-tutorial-practical/camera_imu_cal_ws/
+        docker compose up --build -d 
+        
+      ```
+
+2. Then opens a shell inside the Docker container, builds the Kalibr workspace and  sources the setup file.
+      ```     
+        cd slam-tutorial-practical/camera_imu_cal_ws/
+        docker compose exec callibration bash --login
+        catkin build -DCMAKE_BUILD_TYPE=Release -j4
+        source devel/setup.bash
+      ```
+      check all packages are installed with out error.
+
+3. The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
+Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder.Put also the configuration files `april-grid.yaml` and `imu_param.yaml` inside `/camera_imu_cal_ws/resources`.
+
+      check for the bag file if it contains left and right camera topics as well as imu-raw topic.
+      ```
+      cd resources/
+      rosbag info kaliber_ros1.bag 
+      ```
+
+4. The kaliber imu-camera calibration requires the intrinisic and extinisic callibration of both cameras.We can use other camera callibration and put it the [Kalibr YAML format documentation](https://github.com/ethz-asl/kalibr/wiki/yaml-formats) or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:
+
+      run the kalibr camera calibration node
+      ```
+      rosrun kalibr kalibr_calibrate_cameras --bag resources/kalib_ros1.bag --topics /zed/zed_node/left/color/rect/image /zed/zed_node/right/color/rect/image --models pinhole-radtan pinhole-radtan --target resources/april-grid.yaml --show-extraction 
+      ```
+    When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file `kalib_ros1-camchain.yaml` and a full PDF report of the result of the calibration inside ~/callibration_ros1_ws/resources folder.
+
+    The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots. In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.Since the points are tightly clustered around zero and the error stays below about 0.5 pixels with a Gaussian-like distribution, this indicates a good and reliable calibration.
+
+    <table style="border-collapse: collapse; width: 100%; border: none;">
+        <tr>
+          <td style="padding: 0; vertical-align: top;">
+            <figure style="margin: 0;">
+              <img src="images/calib/kaliber_camera.png" alt="Alt 2" height="300" width="500" style="margin: 1; padding: 2; display: block;"/>
+              <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
+                <strong>Camera reprojection error</strong> 
+              </figcaption>
+            </figure>
+          </td>
+        </tr>
+    </table>
+
+ 5. Put the imu noise parametr as `imu-params.yaml`  in  `camera_imu_cal_ws/resources`.
+    
+      Then run the camera-imu callibration node.
+      ```
+      rosrun kalibr  kalibr_calibrate_imu_camera --bag resources/kaliber_ros1.bag --cam resources/kalib_ros1-camchain.yaml --imu resources/imu-params.yaml --target resources/april-grid.yaml
+      ```
+      After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.
+
+      ```
+        cam0:
+          T_cam_imu:
+          - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
+          - [0.0012353350482965375, -0.008914091742802915, -0.9999595056379624, 0.0019871949034301313]
+          - [0.9999985085863826, -0.001195909314175625, 0.0012460441090049457, -0.004969454993572966]
+          - [0.0, 0.0, 0.0, 1.0]
+          timeshift_cam_imu: 0.008473177395364007
+        cam1:
+          T_cam_imu:
+          - [0.007688606532579134, -0.9999287036348504, 0.00913635467321633, -0.09582559937006864]
+          - [0.0012368931016336626, -0.009127107873462909, -0.9999575820990215, 0.0020721431219515286]
+          - [0.9999696772527866, 0.007699581092098007, 0.001166630174431943, -0.004792821181560303]
+          - [0.0, 0.0, 0.0, 1.0]
+          T_cn_cnm1:
+          - [0.999960408866058, -0.00021303049677720928, 0.00889580341679349, -0.1195210465345488]
+          - [0.00021302277813165302, 0.9999999773089986, 1.8151958025746858e-06, 7.989990659499038e-05]
+          - [-0.008895803601630881, 7.98848206438656e-08, 0.9999604315563049, 0.0003876324506602702]
+          - [0.0, 0.0, 0.0, 1.0]
+          timeshift_cam_imu: 0.008706209697421906
+      ```
+         
+      Lets get the 3x3 rounded roation matrix from transformation matrix.
+
+      ```
+      cam0_imu:[[0, -1,  0 ]
+                [0,  0, -1 ]
+                [1   0,  0 ]]   
+                
+      cam1_imu:[[0, -1,  0 ]
+                [0,  0, -1 ]
+                [1   0,  0 ]]
+      
+      ```
+      The rotation matrix tells us how the IMU is oriented relative to the camera. From this result, we can see that the IMU’s X-axis is pointing in the same direction as the camera’s forward Z-axis, meaning both sensors face the same way. The IMU’s Y and Z axes are rotated so they line up with the camera’s horizontal and vertical directions. In simple terms, the IMU is mounted in a way that its forward axis matches the camera’s viewing direction, while the other axes are rotated to properly align the two coordinate frames
+      
+      Checking the translation part of the transformation matrix.
+      ```
+       cam0_imu:[0.02374, 0, 0]   cam1_imu:[-0.0958, 0, 0 ] cam0_cam1:[-0.11952, 0, 0]
+      ```
+      The translation part of the transformation matrix describes how far the IMU is located from each camera. For cam0, the IMU is shifted by +0.02374 m along the X-axis, meaning the IMU sits about 2.3 cm to the right of the left camera. For cam1, the translation is −0.0958 m, meaning the IMU is about 9.6 cm to the left of the right camera. When we combine these two offsets, we get the total distance between the two cameras. This value is estimated as −0.11952 m, meaning the right camera is approximately 11.95 cm to the right of the left camera, which is the stereo baseline of zed-camera(12 cm)
+      
+      The quality of the IMU–camera calibration can be assessed by examining the reprojection error scatter plots. A good calibration is indicated when the reprojection errors lie within the 3-sigma bounds and are tightly clustered around zero. Although some outliers may appear, fewer outliers and a stronger concentration near zero generally reflect a more accurate calibration. In our results, the majority of the points remain close to zero, showing that the calibration quality is acceptable and consistent.For more explanation 
+
+      <table style="border-collapse: collapse; width: 100%; border: none;">
+          <tr>
+            <td style="padding: 0; vertical-align: top;">
+              <figure style="margin: 0;">
+                <img src="images/calib/reprojection-3-sigma.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
+                <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
+                  <strong> reprojection error</strong> 
+                </figcaption>
+              </figure>
+            </td>
+          </tr>
+      </table>
+
+
+      For more explanation about imu-camera calibration using kalibr package please refer this [video tutoriall](https://www.youtube.com/watch?v=BtzmsuJemgI)
