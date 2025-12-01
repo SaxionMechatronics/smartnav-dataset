@@ -422,7 +422,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
       ```
       After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.
 
-      ```
+      ``` bash
         cam0:
           T_cam_imu:
           - [-0.0012069682380942137, -0.999959553566699, 0.00891260109951475, 0.02374101772612174]
@@ -446,7 +446,7 @@ Download `kaliber_ros1.bag` file and put it `camera_imu_cal_ws/resources` folder
          
       Lets get the 3x3 rounded roation matrix from transformation matrix.
 
-      ```
+      ``` bash
       cam0_imu:[[0, -1,  0 ]
                 [0,  0, -1 ]
                 [1   0,  0 ]]   
