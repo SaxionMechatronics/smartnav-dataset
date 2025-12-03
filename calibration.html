@@ -616,7 +616,7 @@ colcon<span class="w"> </span>build
 </li>
 <li>
 <p>The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
-   Download <code>rosbag2_callibration1</code> file and put it <code>camera_callibration_ws/resources</code> folder.</p>
+   Download <a href="https://saxion.data.surf.nl/s/ifDcJqiMds4yydb">rosbag2_callibration1</a> file and put it <code>camera_callibration_ws/resources</code> folder.</p>
 <p>In the first one, run the first rosbag file on loop inside docker environment.  </p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
 <span class="nb">cd</span><span class="w"> </span>~/callibration_ws/resources
@@ -638,9 +638,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
 <li>checkerboard filling the whole field of view</li>
 <li>checkerboard tilted to the left, right, top and bottom (Skew)</li>
 </ul>
-</li>
-</ol>
-<table>
+<p><table>
   <tr>
     <td>
       <figure>
@@ -653,9 +651,8 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
         <img src="images/calib/x-bar.gif" alt="Alt 1" width="400"/>
         <figcaption><strong>Figure 2</strong>- X bar - left/right in field of view</figcaption>
       </figure>
-    </td>
-
-  </tr>
+    </td></p>
+<p></tr>
   <tr>
     <td>
       <figure>
@@ -668,22 +665,20 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
         <img src="images/calib/skew.gif" alt="Alt 3" width="400"/>
         <figcaption><strong>Figure 4</strong>- Skew bar - checkerboard tilted.</figcaption>
       </figure>
-    </td>
-
-  </tr>
-</table>
-
-<ol>
+    </td></p>
+<p></tr>
+</table></p>
+</li>
 <li>
 <p>When all the 4 bars are green and enough data is available for calibration the <strong>CALIBRATE</strong> button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the <strong>SAVE</strong> and <strong>commit</strong> buttons light up. And you can also see the result in terminal.</p>
 <p>A successful calibration typically has a mean reprojection error below 0.3 px.The closer to zero, the better.In our case, the GUI shows a 0.23 px error (displayed as “lin” in Figure 5), indicating accurate calibration.</p>
 </li>
 <li>
 <p>To record these parameters down, click save.It will save to <code>/tmp/calibrationdata.tar</code>.gz.Let’s get the files somewhere we can easily reach them</p>
-<div class="highlight"><pre><span></span><code>  mkdir ~/calibration_ws/mono_camera
-  mv /tmp/calibrationdata.tar.gz ~/calibration_ws/mono_camera
-  cd ~/calibration_ws/src/mono_camera
-  tar -xvf calibrationdata.tar.gz
+<div class="highlight"><pre><span></span><code><span class="w">  </span>mkdir<span class="w"> </span>~/calibration_ws/mono_camera
+<span class="w">  </span>mv<span class="w"> </span>/tmp/calibrationdata.tar.gz<span class="w"> </span>~/calibration_ws/mono_camera
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>~/calibration_ws/src/mono_camera
+<span class="w">  </span>tar<span class="w"> </span>-xvf<span class="w"> </span>calibrationdata.tar.gz
 </code></pre></div>
 </li>
 </ol>
@@ -701,10 +696,10 @@ The main parts are:</p>
 <ol>
 <li>
 <p>Copy the calibration YAML file to <code>camera_pipeline</code> package.This uses the callibration file to rectify the raw image as <code>image_rect</code> topic.  </p>
-<div class="highlight"><pre><span></span><code>cp ~/calibration_ws/camera0_cal/calibrationdata/ost.yaml \
-  ~/calibration_ws/src/camera_pipeline/config/
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>~/calibration_ws/camera0_cal/calibrationdata/ost.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>~/calibration_ws/src/camera_pipeline/config/
 
-ros2 launch camera_pipeline camera_info.launch.py image_raw:=/zed/zed_node/left/color/raw/image
+ros2<span class="w"> </span>launch<span class="w"> </span>camera_pipeline<span class="w"> </span>camera_info.launch.py<span class="w"> </span>image_raw:<span class="o">=</span>/zed/zed_node/left/color/raw/image
 </code></pre></div>
 </li>
 <li>
@@ -743,35 +738,40 @@ As illustrated in the images below, the left (raw) image appears distorted, with
 <ol>
 <li>
 <p>First download the two provided ROS 2 bag files:</p>
-</li>
-<li>
-<p><strong><code>stereo_large_board_bagfile.bag</code></strong> – recorded using a small checkerboard <em>(2.3 cm squares)</em>  </p>
-</li>
-<li>
-<p><strong><code>stereo_small_board_bagfile.bag</code></strong> – recorded using a large checkerboard <em>(11.8 cm squares)</em>  </p>
+<ul>
+<li><a href="https://saxion.data.surf.nl/s/ZjYXD6xpawgeb4Z">stereo_large_board_bagfile.bag</a> – recorded using a small checkerboard <em>(2.3 cm squares)</em>  </li>
+<li><a href="https://saxion.data.surf.nl/s/ZjYXD6xpawgeb4Z">stereo_small_board_bagfile.bag</a> – recorded using a large checkerboard <em>(11.8 cm squares)</em>  </li>
+</ul>
 <p>Place both bag files in the <code>camera_callibration_ws/resources/</code> directory of the calibration workspace:</p>
 </li>
 <li>
 <p>Run the bag file and camera_calibration tool from the image_pipeline package to perform stereo calibration:</p>
 <p>In the first one, run the first rosbag file on loop.<br />
-  <div class="highlight"><pre><span></span><code>docker compose exec callibration bash --login
-cd resources/
-ros2 bag play rosbag2_stereo_large_board
+  <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+<span class="nb">cd</span><span class="w"> </span>resources/
+ros2<span class="w"> </span>bag<span class="w"> </span>play<span class="w"> </span>rosbag2_stereo_large_board
 </code></pre></div></p>
-<p>In the second terminal, run the camera calibration node
-  <div class="highlight"><pre><span></span><code>docker compose exec callibration bash --login
-ros2 run camera_calibration cameracalibrator --approximate 0.1 --size 8x6 --square 0.118 --ros-args --remap left:=/zed/zed_node/left/color/raw/image --remap right:=/zed/zed_node/right/color/raw/image    --remap left_camera:=zed/zed_node/left/color/raw --remap right_camera:=zed/zed_node/right/color/raw
+<p>In the second terminal, run the camera calibration node</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+
+ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span class="w"> </span>cameracalibrator<span class="w"> </span>--approximate<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>--size<span class="w"> </span>8x6<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>--square<span class="w"> </span><span class="m">0</span>.118<span class="w"> </span>--ros-args<span class="w"> </span>--remap<span class="w"> </span>left:<span class="o">=</span>/zed/zed_node/left/color/raw/image<span class="w"> </span><span class="se">\ </span>
+<span class="w"> </span>--remap<span class="w"> </span>right:<span class="o">=</span>/zed/zed_node/right/color/raw/image<span class="w">  </span><span class="se">\</span>
+<span class="w"> </span>--remap<span class="w"> </span>left_camera:<span class="o">=</span>zed/zed_node/left/color/raw<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>--remap<span class="w"> </span>right_camera:<span class="o">=</span>zed/zed_node/right/color/raw
 </code></pre></div>
-  3. You should see a pop-up.In order to get a good calibration you will need to move the checkerboard around in the camera frame.When all the 4 bars are green and enough data is available for calibration the <strong>CALIBRATE</strong> button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the <strong>SAVE</strong> and <strong>COMMIT</strong> buttons light up. And you can also see the result in terminal.</p>
+</li>
+<li>
+<p>You should see a pop-up.In order to get a good calibration you will need to move the checkerboard around in the camera frame.When all the 4 bars are green and enough data is available for calibration the <strong>CALIBRATE</strong> button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the <strong>SAVE</strong> and <strong>COMMIT</strong> buttons light up. And you can also see the result in terminal.</p>
 </li>
 <li>
 <p>To record these parameters down, click save.It will save to <code>/tmp/calibrationdata.tar</code>.gz.Let’s get the files somewhere we can easily reach them</p>
-<p><div class="highlight"><pre><span></span><code>  mkdir ~/callibration_ws/resources/stereo_camera_large_board_cali/
-  mv /tmp/calibrationdata.tar.gz ~/callibration_ws/resources/stereo_camera_large_board_cali/
-  cd ~/calibration_ws/src/stereo_camera_large_board_cali
-  tar -xvf calibrationdata.tar.gz
+<div class="highlight"><pre><span></span><code><span class="w">  </span>mkdir<span class="w"> </span>~/callibration_ws/resources/stereo_camera_large_board_cali/
+<span class="w">  </span>mv<span class="w"> </span>/tmp/calibrationdata.tar.gz<span class="w"> </span>~/callibration_ws/resources/stereo_camera_large_board_cali/
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>~/calibration_ws/src/stereo_camera_large_board_cali
+<span class="w">  </span>tar<span class="w"> </span>-xvf<span class="w"> </span>calibrationdata.tar.gz
 </code></pre></div>
-  Inside the extracted folder, you will find:<code>left.yaml</code>(parameters of the left camera) and <code>right.yaml</code>(parameters of the right camera) The structure of these files is similar to those obtained from intrinsic calibration. However, to analyze the extrinsic calibration, we focus on the <strong>projection matrices</strong> (P matrices).</p>
+<p>Inside the extracted folder, you will find:<code>left.yaml</code>(parameters of the left camera) and <code>right.yaml</code>(parameters of the right camera) The structure of these files is similar to those obtained from intrinsic calibration. However, to analyze the extrinsic calibration, we focus on the <strong>projection matrices</strong> (P matrices).</p>
 <p>Left Camera Projection Matricx </p>
 <div class="highlight"><pre><span></span><code>  data: [ 279.01721 ,   0.      ,  318.71177,   0.   ,       
              0.     , 279.01721 ,  179.75161,   0.   ,     
@@ -834,16 +834,16 @@ Before starting, print an AprilGrid from the <a href="https://github.com/ethz-as
    - Measure the size of one AprilTag and set it as tagSize (in meters).
    - Measure the spacing (black border gap) between two tags.
    - Compute tagSpacing = spacing / tagSize.
-For our tutoriall we will use a grid with 44 mm tags and 12.5 mm spacing.
-  <div class="highlight"><pre><span></span><code>  target_type: &#39;aprilgrid&#39;  #gridtype
-  tagCols: 6                 #number of apriltags
-  tagRows: 6                 #number of apriltags
-  tagSize: 0.0445            #size of apriltag, edge to edge [m]
-  tagSpacing: 0.296          #ratio of space between tags to tagSize
-  codeOffset: 0            #code offset for the first tag in the aprilboard
+For our tutoriall we will use a grid with 44 mm tags and 12.5 mm spacing.</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;aprilgrid&#39;</span><span class="w">  </span><span class="c1">#gridtype</span>
+<span class="w">  </span><span class="nt">tagCols</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">                 </span><span class="c1">#number of apriltags</span>
+<span class="w">  </span><span class="nt">tagRows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">                 </span><span class="c1">#number of apriltags</span>
+<span class="w">  </span><span class="nt">tagSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0445</span><span class="w">            </span><span class="c1">#size of apriltag, edge to edge [m]</span>
+<span class="w">  </span><span class="nt">tagSpacing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.296</span><span class="w">          </span><span class="c1">#ratio of space between tags to tagSize</span>
+<span class="w">  </span><span class="nt">codeOffset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">            </span><span class="c1">#code offset for the first tag in the aprilboard</span>
 </code></pre></div>
-B. <strong>Record the calibration dataset (rosbag)</strong>: Record a rosbag containing IMU and camera data:
-To achieve accurate calibration, perform the following motions while keeping the target always in view:</p>
+<p>B. <strong>Record the calibration dataset (rosbag)</strong>: Record a rosbag containing IMU and camera data:
+To achieve accurate calibration, perform the following motions while keeping the target always in view and  ensure that the calibration board can be seen from different orientations, distances, and in each part of the image plane.</p>
 <ul>
 <li>Pitch, yaw, and roll rotations</li>
 <li>Up/down, left/right, forward/backward translations</li>
@@ -851,16 +851,16 @@ To achieve accurate calibration, perform the following motions while keeping the
 </ul>
 <p>Reference motion example: <a href="https://youtu.be/puNXsnrYWTY?t=57">See this YouTube video as an example:</a></p>
 <p>C. <strong>IMU noise parameters</strong>: Kalibr requires IMU noise parameters such as noise density and random walk. These can come from the manufacturer’s datasheet or tools, but it is recommended to compute them using an Allan variance calibration, since IMU noise characteristics can change depending on the physical setup, mounting, and environment. A convenient ROS-based Allan variance tool is available here <a href="https://github.com/ori-drs/allan_variance_ros">allan_variance_ros</a></p>
-<p>For our tutoriall we will use a manufacturing callibration imu parametrs.
-  <div class="highlight"><pre><span></span><code>  #Accelerometers
-  accelerometer_noise_density: 1.4e-03   #Noise density (continuous-time)
-  accelerometer_random_walk:   8.0e-05   #Bias random walk
-  #Gyroscopes
-  gyroscope_noise_density:    8.712683324559951815e-5   #Noise density (continuous-time)
-  gyroscope_random_walk:      0.00074001958110154640244   #Bias random walk
-  rostopic:                    /zed/zed_node/imu/data_raw      #the IMU ROS topic
-  update_rate:                 100.0     #Hz (for discretization of the values above)
-</code></pre></div></p>
+<p>For our tutoriall we will use a manufacturing callibration imu parametrs.</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="c1">#Accelerometers</span>
+<span class="w">  </span><span class="nt">accelerometer_noise_density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.4e-03</span><span class="w">   </span><span class="c1">#Noise density (continuous-time)</span>
+<span class="w">  </span><span class="nt">accelerometer_random_walk</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">8.0e-05</span><span class="w">   </span><span class="c1">#Bias random walk</span>
+<span class="w">  </span><span class="c1">#Gyroscopes</span>
+<span class="w">  </span><span class="nt">gyroscope_noise_density</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">8.712683324559951815e-5</span><span class="w">   </span><span class="c1">#Noise density (continuous-time)</span>
+<span class="w">  </span><span class="nt">gyroscope_random_walk</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">0.00074001958110154640244</span><span class="w">   </span><span class="c1">#Bias random walk</span>
+<span class="w">  </span><span class="nt">rostopic</span><span class="p">:</span><span class="w">                    </span><span class="l l-Scalar l-Scalar-Plain">/zed/zed_node/imu/data_raw</span><span class="w">      </span><span class="c1">#the IMU ROS topic</span>
+<span class="w">  </span><span class="nt">update_rate</span><span class="p">:</span><span class="w">                 </span><span class="l l-Scalar l-Scalar-Plain">100.0</span><span class="w">     </span><span class="c1">#Hz (for discretization of the values above)</span>
+</code></pre></div>
 <p>Save this file as<code>imu-params.yaml</code>, which we will use as the input for the IMU calibration. After saving it, we can follow the steps below to run the calibration inside our Docker container.</p>
 <ol>
 <li>
@@ -881,59 +881,75 @@ catkin<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<sp
 </li>
 <li>
 <p>The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
-Download <code>kaliber_ros1.bag</code> file and put it <code>camera_imu_cal_ws/resources</code> folder.Put also the configuration files <code>april-grid.yaml</code> and <code>imu_param.yaml</code> inside <code>/camera_imu_cal_ws/resources</code>.</p>
+Download <a href="kalib_ros.zip">kalib_ros.bag</a> file and put it <code>camera_imu_cal_ws/resources</code> folder.Put also the configuration files <code>april-grid.yaml</code> and <code>imu_param.yaml</code> inside <code>/camera_imu_cal_ws/resources</code>.</p>
 <p>check for the bag file if it contains left and right camera topics as well as imu-raw topic.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>resources/
-rosbag<span class="w"> </span>info<span class="w"> </span>kaliber_ros1.bag<span class="w"> </span>
+rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
 </code></pre></div>
 </li>
 <li>
 <p>The kaliber imu-camera calibration requires the intrinisic and extinisic callibration of both cameras.We can use other camera callibration and put it the <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr YAML format documentation</a> or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:</p>
 <p>run the kalibr camera calibration node</p>
-<div class="highlight"><pre><span></span><code>rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_cameras<span class="w"> </span>--bag<span class="w"> </span>resources/kalib_ros1.bag<span class="w"> </span>--topics<span class="w"> </span>/zed/zed_node/left/color/rect/image<span class="w"> </span>/zed/zed_node/right/color/rect/image<span class="w"> </span>--models<span class="w"> </span>pinhole-radtan<span class="w"> </span>pinhole-radtan<span class="w"> </span>--target<span class="w"> </span>resources/april-grid.yaml<span class="w"> </span>--show-extraction<span class="w"> </span>
+<div class="highlight"><pre><span></span><code>rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_cameras<span class="w"> </span>--bag<span class="w"> </span>resources/kalib_ros.bag<span class="w"> </span>--topics<span class="w"> </span>/zed/zed_node/left/color/rect/image<span class="w"> </span>/zed/zed_node/right/color/rect/image<span class="w"> </span>--models<span class="w"> </span>pinhole-radtan<span class="w"> </span>pinhole-radtan<span class="w"> </span>--target<span class="w"> </span>resources/april-grid.yaml<span class="w"> </span>--show-extraction<span class="w"> </span>
 </code></pre></div>
-<p>When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file <code>kalib_ros1-camchain.yaml</code> and a full PDF report of the result of the calibration inside ~/callibration_ros1_ws/resources folder.</p>
-<p>The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots. In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.Since the points are tightly clustered around zero and the error stays below about 0.5 pixels with a Gaussian-like distribution, this indicates a good and reliable calibration.</p>
+<p>When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file <code>kalib_ros-camchain.yaml</code> and a full PDF report of the result of the calibration inside ~/callibration_ros1_ws/resources folder.</p>
+<p>The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots. In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.Since the points are tightly clustered around zero and the error stays below about 1.0 pixels with a Gaussian-like distribution, this indicates a good and reliable calibration.With a good calibration  less than &lt; 0.2-0.5 pixel reprojection errors is expected.</p>
 <p><table style="border-collapse: collapse; width: 100%; border: none;">
     <tr>
       <td style="padding: 0; vertical-align: top;">
         <figure style="margin: 0;">
-          <img src="images/calib/kaliber_camera.png" alt="Alt 2" height="300" width="500" style="margin: 1; padding: 2; display: block;"/>
+          <img src="images/calib/camera_reprojection_erro.png" alt="Alt 2" height="300" width="500" style="margin: 1; padding: 2; display: block;"/>
           <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
             <strong>Camera reprojection error</strong> 
           </figcaption>
         </figure>
       </td>
     </tr>
-</table>
-5. Put the imu noise parametr as <code>imu-params.yaml</code>  in  <code>camera_imu_cal_ws/resources</code>.</p>
+</table></p>
+</li>
+<li>
+<p>Put the imu noise parametr as <code>imu-params.yaml</code>  in  <code>camera_imu_cal_ws/resources</code>.</p>
 <p>Then run the camera-imu callibration node.</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span>rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_imu_camera<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--bag<span class="w"> </span>resources/kaliber_ros1.bag<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cam<span class="w"> </span>resources/kalib_ros1-camchain.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bag<span class="w"> </span>resources/kalib_ros.bag<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cam<span class="w"> </span>resources/kalib_ros-camchain.yaml<span class="se">\</span>
 <span class="w">  </span>--imu<span class="w"> </span>resources/imu-params.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target<span class="w"> </span>resources/april-grid.yaml
 </code></pre></div>
 <p>After running kalibr_calibrate_imu_camera node, the camera calibration yaml will be extended by the imu-camera calibrator with imu-camera transformations.We can get also  a PDF report containing the final calibration result and calibration analyses.</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">cam0</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">T_cam_imu</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.0012069682380942137</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.999959553566699</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00891260109951475</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.02374101772612174</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0012353350482965375</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.008914091742802915</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.9999595056379624</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0019871949034301313</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.9999985085863826</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.001195909314175625</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0012460441090049457</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.004969454993572966</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.006036362046665494</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.9999239384750238</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.010755445032163524</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.022391610383912294</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.0023433046621169074</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.010741466983213238</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.9999395630788445</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0002272267079260322</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.9999790354084946</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.006061200512015419</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.002278287043167876</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0028036703012263207</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">timeshift_cam_imu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.008473177395364007</span>
+<span class="w">    </span><span class="nt">cam_overlaps</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">camera_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pinhole</span>
+<span class="w">    </span><span class="nt">distortion_coeffs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.013906358974869085</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.002773924190176049</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0007394764683732347</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.002260173136216226</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">distortion_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">radtan</span>
+<span class="w">    </span><span class="nt">intrinsics</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">269.91684856827334</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">269.65862976049334</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">342.27630954911905</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">188.31594203230588</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resolution</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">672</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">376</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">rostopic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/zed/zed_node/left/color/rect/image</span>
+<span class="w">    </span><span class="nt">timeshift_cam_imu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.006180185971611793</span>
 <span class="w">  </span><span class="nt">cam1</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">T_cam_imu</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.007688606532579134</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.9999287036348504</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00913635467321633</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.09582559937006864</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0012368931016336626</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.009127107873462909</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.9999575820990215</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0020721431219515286</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.9999696772527866</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.007699581092098007</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001166630174431943</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.004792821181560303</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0037000375290703325</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.9999342469687997</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.010854098821330815</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.09717479095966443</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.0023290320677171183</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.010862760738228006</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.9999382861150842</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00032509469131031287</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.9999904426202839</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0036745296411589967</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.002369071549199575</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0027071447777197864</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">T_cn_cnm1</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.999960408866058</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.00021303049677720928</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00889580341679349</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.1195210465345488</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.00021302277813165302</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.9999999773089986</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.8151958025746858e-06</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">7.989990659499038e-05</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.008895803601630881</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">7.98848206438656e-08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.9999604315563049</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0003876324506602702</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.9999525963422334</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.00012135244900840625</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00973603317629399</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.11959260895189187</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.00012121210899311501</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.9999999925412439</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.5004571660715619e-05</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">9.511178288877542e-05</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.00973603492451681</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1.3823735274610148e-05</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.999952603593217</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00012161600222734961</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">timeshift_cam_imu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.008706209697421906</span>
+<span class="w">    </span><span class="nt">cam_overlaps</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">camera_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pinhole</span>
+<span class="w">    </span><span class="nt">distortion_coeffs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.010210254705281033</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.00061608438342638</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0004491938369714274</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00021575183132482067</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">distortion_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">radtan</span>
+<span class="w">    </span><span class="nt">intrinsics</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">270.25060851678194</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">269.7455366770036</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">339.396953247174</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">188.0375678636518</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resolution</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">672</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">376</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">rostopic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/zed/zed_node/right/color/rect/image</span>
+<span class="w">    </span><span class="nt">timeshift_cam_imu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.006435798701052577</span>
 </code></pre></div>
 <p>Lets get the 3x3 rounded roation matrix from transformation matrix.</p>
 <p><div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">cam0_imu:[[0, -1,  0 ]</span>
@@ -945,16 +961,16 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kaliber_ros1.bag<span 
 <span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">[1   0,  0 ]]</span>
 </code></pre></div>
   The rotation matrix tells us how the IMU is oriented relative to the camera. From this result, we can see that the IMU’s X-axis is pointing in the same direction as the camera’s forward Z-axis, meaning both sensors face the same way. The IMU’s Y and Z axes are rotated so they line up with the camera’s horizontal and vertical directions. In simple terms, the IMU is mounted in a way that its forward axis matches the camera’s viewing direction, while the other axes are rotated to properly align the two coordinate frames</p>
-<p>Checking the translation part of the transformation matrix.
-  <div class="highlight"><pre><span></span><code><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cam0_imu:[0.02374, 0, 0]   cam1_imu:[-0.0958, 0, 0 ] cam0_cam1:[-0.11952, 0, 0]</span>
+<p>Checking the translation part of the transformation matrix.</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cam0_imu:[0.0223, 0, 0]   cam1_imu:[-0.097, 0, 0 ] cam0_cam1:[-0.1195, 0, 0]</span>
 </code></pre></div>
-  The translation part of the transformation matrix describes how far the IMU is located from each camera. For cam0, the IMU is shifted by +0.02374 m along the X-axis, meaning the IMU sits about 2.3 cm to the right of the left camera. For cam1, the translation is −0.0958 m, meaning the IMU is about 9.6 cm to the left of the right camera. When we combine these two offsets, we get the total distance between the two cameras. This value is estimated as −0.11952 m, meaning the right camera is approximately 11.95 cm to the right of the left camera, which is the stereo baseline of zed-camera(12 cm)</p>
+<p>The translation part of the transformation matrix describes how far the IMU is located from each camera. For cam0, the IMU is shifted by +0.0223 m along the X-axis, meaning the IMU sits about 2.23 cm to the right of the left camera. For cam1, the translation is −0.097 m, meaning the IMU is about 9.6 cm to the left of the right camera. When we combine these two offsets, we get the total distance between the two cameras. This value is estimated as −0.1195 m, meaning the right camera is approximately 11.95 cm to the right of the left camera, which is the stereo baseline of zed-camera(12 cm).Your accelerometer and gyroscope errors are within their 3-sigma bounds (if not then your IMU noise or the dataset are incorrect).We can check also final rotation and translation with hand-measured values.</p>
 <p>The quality of the IMU–camera calibration can be assessed by examining the reprojection error scatter plots. A good calibration is indicated when the reprojection errors lie within the 3-sigma bounds and are tightly clustered around zero. Although some outliers may appear, fewer outliers and a stronger concentration near zero generally reflect a more accurate calibration. In our results, the majority of the points remain close to zero, showing that the calibration quality is acceptable and consistent.For more explanation </p>
 <p><table style="border-collapse: collapse; width: 100%; border: none;">
       <tr>
         <td style="padding: 0; vertical-align: top;">
           <figure style="margin: 0;">
-            <img src="images/calib/reprojection-3-sigma.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
+            <img src="images/calib/cam_imu_reprojectionerror.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
             <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
               <strong> reprojection error</strong> 
             </figcaption>
@@ -962,7 +978,41 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kaliber_ros1.bag<span 
         </td>
       </tr>
   </table></p>
+<p>Check also your accelerometer and gyroscope errors are within their 3-sigma bounds (if not then your IMU noise or the dataset are incorrect). Ensure that your estimated biases do not leave your 3-sigma bounds. If they do leave then your trajectory was too dynamic, or your noise values are not good. 
+  The following figure shows angular velocity and bias error with in 3 sigma bound(red lines).
+  <table style="border-collapse: collapse; width: 100%; border: none;">
+    <tr>
+      <td style="padding: 0; text-align: center; vertical-align: top;">
+        <figure style="margin: 0;">
+          <img src="images/calib/angular_velocity_erro.png" alt="Alt 2" width="500" style="margin: 1; padding: 2; display: block;"/>
+          <figcaption style="font-size: 14px; margin-top: 4px;">
+            <strong> angular velocity error</strong> 
+          </figcaption>
+        </figure>
+      </td>
+      <td style="padding: 0; text-align: center; vertical-align: top;">
+         <figure style="margin: 0;">
+          <img src="images/calib/gyroscope_error.png" alt="Alt 2" width="500" style="margin: 1; padding: 2; display: block;"/>
+          <figcaption style="font-size: 14px; margin-top: 4px;">
+            <strong> gyroscope  bias error </strong> 
+          </figcaption>
+        </figure>
+      </td>
+    </tr>
+  </table></p>
 <p>For more explanation about imu-camera calibration using kalibr package please refer this <a href="https://www.youtube.com/watch?v=BtzmsuJemgI">video tutoriall</a></p>
+</li>
+</ol>
+<p>Exercise</p>
+<ol>
+<li>
+<p>Repeat the intrinisic camera callibration using you laptop webcam or any other camera you have. </p>
+<p>Hint: To feed a PC webcam into ROS, you need to create a publisher node that uses a library like OpenCV to capture frames from the camera and cv_bridge to convert them to ROS sensor_msgs/Image messages.<a href="https://github.com/clydemcqueen/opencv_cam">Here is a simple repository</a> that demonstrates how to publish webcam images to a ROS topic.</p>
+</li>
+<li>
+<p>Download the <a href="https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx">kalib_ros_exer.zip</a>  file and perform the camera-IMU callibration using the above steps. Notice the visulization of feature extraction from the callibration target.</p>
+<p>Hint:This bag file was recorded with  clear view of the calibration target.The number of accepted frames should be higher than from previous calibration attempt.
+Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in resources/exercise1.</p>
 </li>
 </ol>
 
