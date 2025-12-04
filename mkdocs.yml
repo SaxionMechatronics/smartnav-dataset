@@ -1,23 +1,54 @@
 site_name: SMARTNav Dataset
-
+site_url: https://yourusername.github.io/your-repo/
 use_directory_urls: false
 
 nav:
   - Home: index.md
-  - Practical Guide to SLAM: 
+  - Practical Guide to SLAM:
     - Introduction: introduction.md
     - Sensor Selection for SLAM: sensors.md
-    - Calibtation of Sensors: calibration.md
+    - Calibration of Sensors: calibration.md
     - Deployment of SLAM Algorithms: deployment.md
     - Interpretation of SLAM Results: interpretation.md
 
 theme:
   name: material
+  features:
+    - content.code.annotate
+    - content.code.copy
+    # - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
   logo: images/SMART-RG-White-transparent.png
-
   palette:
-    scheme: default     
-    primary: teal        
+    scheme: default
+    primary: teal
+
+# Simplified markdown extensions - remove the problematic slugify
+markdown_extensions:
+  - pymdownx.arithmatex
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - def_list
+  - tables
 
 extra_css:
   - css/custom.css
+
+extra_javascript:
+  - js/extra.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # Add this line
