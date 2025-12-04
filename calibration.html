@@ -450,6 +450,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lidar-imu-callibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LIDAR-IMU Callibration
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -826,10 +837,10 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
 </li>
 </ol>
 <h2 id="camera-imu-callibration">Camera-IMU Callibration<a class="headerlink" href="#camera-imu-callibration" title="Permanent link">&para;</a></h2>
-<p>The goal of camera-IMU extrinsic calibration is to accurately determine the transformation that defines the spatial relationship between the camera and the IMU.In this tutorial, we use Kalibr, a widely used tool for camera–IMU calibration.</p>
-<p>The following are prerequest to use <code>kaibr</code> callibration tool:</p>
+<p>The goal of camera-IMU extrinsic calibration is to accurately determine the transformation that defines the spatial relationship between the camera and the IMU.In this tutorial, we use <a href="https://github.com/ethz-asl/kalibr">Kalibr</a>, a widely used tool for camera–IMU calibration. Kalibr uses motion-induced discrepancies between visual and inertial measurements of the same rigid body motion to solve for all unknown spatial, temporal, and intrinsic parameters simultaneously through continuous-time optimization.Camera tracks external AprilTag corners through projective geometry, while IMU senses internal accelerations and rotations. Calibration uses deliberate platform motion to create observable discrepancies between these measurements, revealing their spatial, temporal, and intrinsic relationships through optimization.</p>
+<p>The following are prerequest to use <code>Kalibr</code> callibration tool:</p>
 <p>A. <strong>Prepare the calibration target:</strong> Kalibr supports multiple target types, but an AprilGrid is strongly recommended. It allows partial visibility of the board while still resolving the pose correctly, making data collection easier.
-Before starting, print an AprilGrid from the <a href="https://github.com/ethz-asl/kalibr/wiki/calibration-targets">Kalibr wiki</a> and fill out the corresponding aprilgrid.yaml(check <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">kaliber yaml formats</a>) file:
+Before starting, print an AprilGrid from the <a href="https://github.com/ethz-asl/kalibr/wiki/calibration-targets">Kalibr wiki</a> and fill out the corresponding aprilgrid.yaml(check <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr yaml formats</a>) file:
    - Count the number of rows and columns, then fill in the values for tagsRows and tagsCols accordingly.
    - Measure the size of one AprilTag and set it as tagSize (in meters).
    - Measure the spacing (black border gap) between two tags.
@@ -864,7 +875,7 @@ To achieve accurate calibration, perform the following motions while keeping the
 <p>Save this file as<code>imu-params.yaml</code>, which we will use as the input for the IMU calibration. After saving it, we can follow the steps below to run the calibration inside our Docker container.</p>
 <ol>
 <li>
-<p>To start first clone the docker container along with all its submodules (kaliber packages).This will build the Docker container with ROS 2 and all necessary dependencies for <code>Kaliber</code> package.</p>
+<p>To start first clone the docker container along with all its submodules (kalibr packages).This will build the Docker container with ROS and all necessary dependencies for <code>Kalibr</code> package.</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:eliyaskidnae/slam-tutorial-practical.git<span class="w"> </span><span class="c1"># Clone the repository with all submodules (only if you haven&#39;t cloned it yet)</span>
 <span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/camera_imu_cal_ws/
 docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>--build<span class="w"> </span>-d<span class="w">  </span>
@@ -881,14 +892,14 @@ catkin<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<sp
 </li>
 <li>
 <p>The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
-Download <a href="kalib_ros.zip">kalib_ros.bag</a> file and put it <code>camera_imu_cal_ws/resources</code> folder.Put also the configuration files <code>april-grid.yaml</code> and <code>imu_param.yaml</code> inside <code>/camera_imu_cal_ws/resources</code>.</p>
+Download <a href="https://saxion.data.surf.nl/s/XyAARMGimXCBooQ">kalib_ros.bag</a> file and put it <code>camera_imu_cal_ws/resources</code> folder.Put also the configuration files <code>april-grid.yaml</code> and <code>imu_param.yaml</code> inside <code>/camera_imu_cal_ws/resources</code>.</p>
 <p>check for the bag file if it contains left and right camera topics as well as imu-raw topic.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>resources/
 rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
 </code></pre></div>
 </li>
 <li>
-<p>The kaliber imu-camera calibration requires the intrinisic and extinisic callibration of both cameras.We can use other camera callibration and put it the <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr YAML format documentation</a> or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:</p>
+<p>The kalibr imu-camera calibration requires the intrinisic and extinisic callibration of both cameras.We can use other camera callibration and put it the <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr YAML format documentation</a> or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:</p>
 <p>run the kalibr camera calibration node</p>
 <div class="highlight"><pre><span></span><code>rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_cameras<span class="w"> </span>--bag<span class="w"> </span>resources/kalib_ros.bag<span class="w"> </span>--topics<span class="w"> </span>/zed/zed_node/left/color/rect/image<span class="w"> </span>/zed/zed_node/right/color/rect/image<span class="w"> </span>--models<span class="w"> </span>pinhole-radtan<span class="w"> </span>pinhole-radtan<span class="w"> </span>--target<span class="w"> </span>resources/april-grid.yaml<span class="w"> </span>--show-extraction<span class="w"> </span>
 </code></pre></div>
@@ -1003,7 +1014,131 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
 <p>For more explanation about imu-camera calibration using kalibr package please refer this <a href="https://www.youtube.com/watch?v=BtzmsuJemgI">video tutoriall</a></p>
 </li>
 </ol>
-<p>Exercise</p>
+<h2 id="lidar-imu-callibration">LIDAR-IMU Callibration<a class="headerlink" href="#lidar-imu-callibration" title="Permanent link">&para;</a></h2>
+<p>Lidar-IMU extrinsic calibration aims to determine the precise spatial relationship between a LiDAR sensor and an Inertial Measurement Unit (IMU).For this experiment, we use the <a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> package, which provides tools to callibrate temporal offset and extrinsic parameter between LiDARs and IMUs, and also the gravity vector and IMU bias. The calibration should be done in an environment with some static surfaces, without moving objects in the lidar’s field of view. When recording the bag file, the box must be rotated around all axes (roll, pitch, and yaw).</p>
+<p>Foolow the steps below to run the calibration inside our Docker container.</p>
+<ol>
+<li>
+<p>To start first clone the docker container along with all its submodules (LI-Init package).This will build the Docker container with ROS and all necessary dependencies for <a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> package.</p>
+<p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:eliyaskidnae/slam-tutorial-practical.git<span class="w"> </span><span class="c1"># Clone the repository with all submodules (only if you haven&#39;t cloned it yet)</span>
+<span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/Lidar_imu_cal_ws/
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>--build<span class="w"> </span>-d<span class="w">  </span>
+</code></pre></div>
+2. Then opens a shell inside the Docker container, builds the workspace and  sources the setup file.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/camera_imu_cal_ws/
+docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+catkin_make
+<span class="nb">source</span><span class="w"> </span>devel/setup.bash
+</code></pre></div>
+<p>check all packages are installed with out error.</p>
+</li>
+<li>
+<p>The next thing we need data for the calibration to be run on.We will use dataset provided from in the callibration package repository.
+  There are many dataset provided for different type of LiDAR and IMU in this <a href="https://connecthkuhk-my.sharepoint.com/:f:/g/personal/zhufc_connect_hku_hk/EgdJ_F763sVOnkUNBRv-op8BmNL7eZrxETu2zSEAoiRX4A?e=cbNiJI">link</a> 
+  Download <a href="https://connecthkuhk-my.sharepoint.com/personal/zhufc_connect_hku_hk/_layouts/15/onedrive.aspx?viewid=bbf22c44%2D8348%2D47d9%2D84c3%2De042ccfb2e11&amp;ga=1&amp;id=%2Fpersonal%2Fzhufc%5Fconnect%5Fhku%5Fhk%2FDocuments%2FLidar%20IMU%20Initialization%20Datasets%2FLiDAR%20with%20Pixhawk%20IMU%2FHesai%2FHesai%5Fapartment%2Ebag&amp;parent=%2Fpersonal%2Fzhufc%5Fconnect%5Fhku%5Fhk%2FDocuments%2FLidar%20IMU%20Initialization%20Datasets%2FLiDAR%20with%20Pixhawk%20IMU%2FHesai">Hesai_apartment.bag</a> file and put it <code>Lidar_imu_cal_ws/resources</code> folder.</p>
+<p>check for the bag file if it contains lidar, imu topics and thier topic names.</p>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>resources/
+rosbag<span class="w"> </span>info<span class="w"> </span>Hesai_apartment.bag
+</code></pre></div>
+for this dataset the topics are <code>/hesai/pandar</code> for lidar and <code>/mavros/imu/data_raw</code> for imu. The package containes a configuration and launch file for different lidar type and their parameters. go to <code>Lidar_imu_cal_ws/src/LiDAR_IMU_Init/config</code> folder and check for the configuration file that matches your lidar type.For this dataset we will use <code>pandar.yaml</code> file which is configured for Hesai Pandar lidar. Configure the parameters in the <code>pandar.yaml</code> config file as follows:</p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">common</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">lid_topic</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;/hesai/pandar&quot;</span>
+<span class="w">    </span><span class="nt">imu_topic</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;/mavros/imu/data_raw</span><span class="nv"> </span><span class="s">&quot;</span>
+
+<span class="nt">preprocess</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">lidar_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w">                </span><span class="c1"># Hesai PandarXT</span>
+<span class="w">    </span><span class="nt">scan_line</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">    </span><span class="nt">blind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">feature_extract_en</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">initialization</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cut_frame_num</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"> </span><span class="c1"># must be positive integer</span>
+<span class="w">    </span><span class="nt">orig_odom_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">mean_acc_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9.805</span>
+<span class="w">    </span><span class="nt">online_refine_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10  .0</span>
+<span class="w">    </span><span class="nt">data_accum_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+<span class="w">    </span><span class="nt">Rot_LI_cov</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">0.00005</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00005</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00005</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">Trans_LI_cov</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">0.00001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.00000001</span><span class="w"> </span><span class="p p-Indicator">]</span>
+
+<span class="nt">mapping</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">filter_size_surf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">filter_size_map</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">gyr_cov</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">    </span><span class="nt">acc_cov</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">b_acc_cov</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
+<span class="w">    </span><span class="nt">b_gyr_cov</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
+<span class="w">    </span><span class="nt">det_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120.0</span>
+
+<span class="nt">publish</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path_en</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">scan_publish_en</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">       </span><span class="c1"># false: close all the point cloud output</span>
+<span class="w">    </span><span class="nt">dense_publish_en</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">       </span><span class="c1"># false: low down the points number in a global-frame point clouds scan.</span>
+<span class="w">    </span><span class="nt">scan_bodyframe_pub_en</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># true: output the point cloud scans in IMU-body-frame</span>
+
+<span class="nt">pcd_save</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pcd_save_en</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span><span class="w">                 </span><span class="c1"># how many LiDAR frames saved in each pcd file; </span>
+<span class="w">                                </span><span class="c1"># -1 : all frames will be saved in ONE pcd file, may lead to memory crash when having too much frames.</span>
+</code></pre></div>
+  - The <code>lid_topic</code> and <code>imu_topic</code> should match the topics in the bag file.
+  - The <code>lidar_type</code> should match your lidar type(check the documentation for more details about different lidar type). <code>1</code> is for livox series(avia, mid360 and horizon LiDAR), <code>2</code> is for Velodyne LiDAR , <code>3</code> is for Ouster LiDAR , and <code>5</code> is for Hesai PandarXT.
+  - The <code>scan_line</code> is the number of laser beams in your lidar. For Hesai PandarXT it is <code>32</code>.
+  - The <code>cut_frame_num</code> determines the numberof to split one frame into subframe to improve odom frequency and must be positive integer.The <code>orig_odom_freq</code> is  Original LiDAR input frequency. For most LiDARs, the input frequency is 10 Hz.
+  - <code>mean_acc_norm (m/s^2)</code> is the acceleration norm when IMU is stationary. Usually, 9.805 for normal IMU, 1 for livox built-in IMU.
+  - <code>filter_size_surf (meter)</code> it recommended that <code>0.05~0.15m</code> for indoor scenes or <code>0.5m</code> for outdoor scenes.</p>
+</li>
+<li>
+<p>First allow docker to access your display for visualization.This should be done in your host machine terminal.</p>
+<p><div class="highlight"><pre><span></span><code>xhost<span class="w"> </span>+local:docker
+</code></pre></div>
+4. Now we are ready to run the LiDAR-IMU callibration node.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+roslaunch<span class="w"> </span>LiDAR_IMU_Init<span class="w"> </span>lidar_imu_init.launch<span class="w"> </span><span class="se">\</span>
+</code></pre></div>
+<p>in another terminal, play the rosbag file</p>
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+ros2<span class="w"> </span>bag<span class="w"> </span>play<span class="w"> </span>resources/Hesai_apartment.bag
+</code></pre></div>
+During callibration there are progress bars in the terminal that reach 100% when the excitation around each axis is enough. This makes sure the box is rotated sufficiently around each axis.After initialization and refinement finished, the result would be written into <code>catkin_ws/src/LiDAR_IMU_Init/result/Initialization_result.txt</code></p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">Initialization result</span><span class="p">:</span>
+<span class="l l-Scalar l-Scalar-Plain">Rotation LiDAR to IMU (degree)     =  0.453906   -1.875376 -179.619277</span>
+<span class="l l-Scalar l-Scalar-Plain">Translation LiDAR to IMU (meter)   =  0.116992 -0.043558  0.131183</span>
+<span class="l l-Scalar l-Scalar-Plain">Time Lag IMU to LiDAR (second)     =  50574455.962522</span>
+<span class="l l-Scalar l-Scalar-Plain">Bias of Gyroscope  (rad/s)         =  0.000009 0.004068 0.001166</span>
+<span class="l l-Scalar l-Scalar-Plain">Bias of Accelerometer (meters/s^2) = -0.009681 -0.010146 -0.009607</span>
+<span class="l l-Scalar l-Scalar-Plain">Gravity in World Frame(meters/s^2) = -0.065864 -0.229451 -9.807095</span>
+
+<span class="nt">Homogeneous Transformation Matrix from LiDAR to IMU</span><span class="p">:</span><span class="w"> </span>
+<span class="l l-Scalar l-Scalar-Plain">-0.999441  0.007135  0.032667  0.116992</span>
+<span class="l l-Scalar l-Scalar-Plain">-0.006872 -0.999943  0.008146 -0.043558</span>
+<span class="l l-Scalar l-Scalar-Plain">0.032723  0.007917  0.999433  0.131183</span>
+<span class="l l-Scalar l-Scalar-Plain">0.000000  0.000000  0.000000  1.000000</span>
+
+
+<span class="nt">Refinement result</span><span class="p">:</span>
+<span class="l l-Scalar l-Scalar-Plain">Rotation LiDAR to IMU (degree)     = 0.425575   -1.947652 -179.426096</span>
+<span class="l l-Scalar l-Scalar-Plain">Translation LiDAR to IMU (meter)   = 0.141320 -0.045165  0.106415</span>
+<span class="l l-Scalar l-Scalar-Plain">Time Lag IMU to LiDAR (second)     = 50574455.962522</span>
+<span class="l l-Scalar l-Scalar-Plain">Bias of Gyroscope  (rad/s)         = -0.000145 -0.013387 -0.017624</span>
+<span class="l l-Scalar l-Scalar-Plain">Bias of Accelerometer (meters/s^2) = -0.000731 -0.002866 -0.017448</span>
+<span class="l l-Scalar l-Scalar-Plain">Gravity in World Frame(meters/s^2) = -0.057362 -0.222786 -9.799158</span>
+
+<span class="nt">Homogeneous Transformation Matrix from LiDAR to IMU</span><span class="p">:</span><span class="w"> </span>
+<span class="l l-Scalar l-Scalar-Plain">-0.999370  0.010499  0.033905  0.141320</span>
+<span class="l l-Scalar l-Scalar-Plain">-0.010241 -0.999917  0.007775 -0.045165</span>
+<span class="l l-Scalar l-Scalar-Plain">0.033984  0.007423  0.999395  0.106415</span>
+<span class="l l-Scalar l-Scalar-Plain">0.000000  0.000000  0.000000  1.000000</span>
+</code></pre></div>
+The rotation and translation parameters specify how the LiDAR sensor is physically mounted relative to the IMU, with the angles indicating a near-180-degree rotation around one z-axis. The translation vector shows the LiDAR is positioned approximately 14.13 cm forward, 4.52 cm to the left, and 10.64 cm above the IMU. The gyroscope and accelerometer biases indicate small systematic errors in the IMU measurements, which should be accounted for in sensor fusion algorithms. Overall, these parameters provide a comprehensive understanding of the spatial and temporal relationship between the LiDAR and IMU, essential for accurate data integration in robotics applications.</p>
+</li>
+</ol>
+<p><a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> callibration package does not provide evaluation for the calibration result.The following are some suggestion to evaluate the calibration result:</p>
+<ol>
+<li>Do the callibration multiple times with different dataset and check the consistency of the result.</li>
+<li>Compare the callibration result with hand-measured values of the sensor mounting or CAD model if available.</li>
+<li>Use the calibration result in a lidar-inertial odometry system and check the trajectory accuracy compared to ground truth.</li>
+</ol>
+<p>### Exercise</p>
 <ol>
 <li>
 <p>Repeat the intrinisic camera callibration using you laptop webcam or any other camera you have. </p>
@@ -1012,7 +1147,7 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
 <li>
 <p>Download the <a href="https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx">kalib_ros_exer.zip</a>  file and perform the camera-IMU callibration using the above steps. Notice the visulization of feature extraction from the callibration target.</p>
 <p>Hint:This bag file was recorded with  clear view of the calibration target.The number of accepted frames should be higher than from previous calibration attempt.
-Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in resources/exercise1.</p>
+  Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in resources/exercise1.</p>
 </li>
 </ol>
 
