@@ -695,17 +695,16 @@ Foolow the steps below to run the calibration inside our Docker container.
    2. Compare the callibration result with hand-measured values of the sensor mounting or CAD model if available.
    3. Use the calibration result in a lidar-inertial odometry system and check the trajectory accuracy compared to ground truth.
 
-
+   Although [LiDAR_IMU_Init](https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md) supports multiple LiDAR types for calibration, if your LiDAR’s data fields differ from the formats provided by the package, you must create an intermediate (middleware) node to convert your LiDAR messages into the expected format before passing them to the calibration node.
 
    
-  ### Exercise
+## Exercise
 
   1. Repeat the intrinisic camera callibration using you laptop webcam or any other camera you have. 
 
       Hint: To feed a PC webcam into ROS, you need to create a publisher node that uses a library like OpenCV to capture frames from the camera and cv_bridge to convert them to ROS sensor_msgs/Image messages.[Here is a simple repository](https://github.com/clydemcqueen/opencv_cam) that demonstrates how to publish webcam images to a ROS topic.
 
-  2. Download the [kalib_ros_exer.zip](https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx)  file and perform the camera-IMU callibration using the above steps. Notice the visulization of feature extraction from the callibration target.
-
+  2. Download the [kalib_ros_exer.zip](https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx)  file and perform the camera-IMU callibration using the above steps(camera-imu callibration steps). Notice the visulization of feature extraction from the april target callibration target and number frames accepted for callibration compare it with previous callibration attempt [kalib_ros.bag](https://saxion.data.surf.nl/s/XyAARMGimXCBooQ).
 
       Hint:This bag file was recorded with  clear view of the calibration target.The number of accepted frames should be higher than from previous calibration attempt.
-      Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in resources/exercise1.
+      Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in `resources/exercise1`.
