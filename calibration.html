@@ -461,6 +461,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1138,16 +1149,17 @@ The rotation and translation parameters specify how the LiDAR sensor is physical
 <li>Compare the callibration result with hand-measured values of the sensor mounting or CAD model if available.</li>
 <li>Use the calibration result in a lidar-inertial odometry system and check the trajectory accuracy compared to ground truth.</li>
 </ol>
-<p>## Exercise</p>
+<p>Although <a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> supports multiple LiDAR types for calibration, if your LiDAR’s data fields differ from the formats provided by the package, you must create an intermediate (middleware) node to convert your LiDAR messages into the expected format before passing them to the calibration node.</p>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Repeat the intrinisic camera callibration using you laptop webcam or any other camera you have. </p>
 <p>Hint: To feed a PC webcam into ROS, you need to create a publisher node that uses a library like OpenCV to capture frames from the camera and cv_bridge to convert them to ROS sensor_msgs/Image messages.<a href="https://github.com/clydemcqueen/opencv_cam">Here is a simple repository</a> that demonstrates how to publish webcam images to a ROS topic.</p>
 </li>
 <li>
-<p>Download the <a href="https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx">kalib_ros_exer.zip</a>  file and perform the camera-IMU callibration using the above steps. Notice the visulization of feature extraction from the callibration target.</p>
+<p>Download the <a href="https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx">kalib_ros_exer.zip</a>  file and perform the camera-IMU callibration using the above steps(camera-imu callibration steps). Notice the visulization of feature extraction from the april target callibration target and number frames accepted for callibration compare it with previous callibration attempt <a href="https://saxion.data.surf.nl/s/XyAARMGimXCBooQ">kalib_ros.bag</a>.</p>
 <p>Hint:This bag file was recorded with  clear view of the calibration target.The number of accepted frames should be higher than from previous calibration attempt.
-  Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in resources/exercise1.</p>
+  Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in <code>resources/exercise1</code>.</p>
 </li>
 </ol>
 
