@@ -108,19 +108,18 @@ There are a number of camera calibration tools available to do this calibration,
     - checkerboard filling the whole field of view
     - checkerboard tilted to the left, right, top and bottom (Skew)
     
-
     <table>
       <tr>
         <td>
           <figure>
             <img src="images/calib/size.gif" alt="Alt 4" width="400"/>
-            <figcaption><strong>Figure 1</strong>- Size bar-toward/away from the camera </figcaption>
+            <figcaption>a) Size bar-toward/away from the camera </figcaption>
           </figure>
         </td>
         <td>
           <figure>
             <img src="images/calib/x-bar.gif" alt="Alt 1" width="400"/>
-            <figcaption><strong>Figure 2</strong>- X bar - left/right in field of view</figcaption>
+            <figcaption>b) X bar - left/right in field of view</figcaption>
           </figure>
         </td>
         
@@ -129,23 +128,25 @@ There are a number of camera calibration tools available to do this calibration,
         <td>
           <figure>
             <img src="images/calib/y-bar.gif" alt="Alt 2" width="400"/>
-            <figcaption><strong>Figure 3</strong>- Y bar - top/bottom in field of view</figcaption>
+            <figcaption>c) Y bar - top/bottom in field of view</figcaption>
           </figure>
         </td>
         <td>
           <figure>
             <img src="images/calib/skew.gif" alt="Alt 3" width="400"/>
-            <figcaption><strong>Figure 4</strong>- Skew bar - checkerboard tilted.</figcaption>
+            <figcaption>d) Skew bar - checkerboard tilted.</figcaption>
           </figure>
         </td>
 
       </tr>
+      
     </table>
 
+    <p style="text-align:center;"><strong>Figure 1: Required Camera Motions During Calibration</strong></p>
+    
 4. When all the 4 bars are green and enough data is available for calibration the **CALIBRATE** button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the **SAVE** and **commit** buttons light up. And you can also see the result in terminal.
 
     A successful calibration typically has a mean reprojection error below 0.3 px.The closer to zero, the better.In our case, the GUI shows a 0.23 px error (displayed as “lin” in Figure 5), indicating accurate calibration.
-
 
 
 5. To record these parameters down, click save.It will save to `/tmp/calibrationdata.tar`.gz.Let’s get the files somewhere we can easily reach them
@@ -194,7 +195,7 @@ As illustrated in the images below, the left (raw) image appears distorted, with
       <figure style="margin: 0;">
         <img src="images/calib/1762350158_raw.png" alt="Alt 2" width="600" style="margin: 1; padding: 2; display: block;"/>
         <figcaption style="font-size: 14px; margin-top: 4px;">
-          <strong>Figure 5</strong> – raw image
+         a) raw image
         </figcaption>
       </figure>
     </td>
@@ -202,13 +203,14 @@ As illustrated in the images below, the left (raw) image appears distorted, with
       <figure style="margin: 0;">
         <img src="images/calib/1762350158_rectified_.png" alt="Alt 3" width="600" style="margin: 1; padding: 2; display: block;"/>
         <figcaption style="font-size: 14px; margin-top: 4px;">
-          <strong>Figure 6</strong> – corrected(rectifed) image
+         b) corrected(rectifed) image
         </figcaption>
       </figure>
     </td>
   </tr>
 </table>
 
+<p style="text-align:center;"><strong>Figure 2: Comparison of Raw and Rectified Images</strong></p>
 
 **Extrinisic Callibration**
 
@@ -306,7 +308,7 @@ As illustrated in the images below, the left (raw) image appears distorted, with
       \text{Baseline} = -\frac{-34.89335}{284.05017} \approx 0.123 \, \text{m}
       $$
 
-      Using a large checkerboard, the reprojection error is very low, less than 0.2 pixels, whereas using a small checkerboard results in a much higher error, greater than 1.2 pixels. The manufacturer-specified baseline for the ZED stereo camera is 12 cm, which is closely matched by the baseline obtained with the large checkerboard. In contrast, the high epipolar reprojection error observed with the small checkerboard indicates that this calibration is poor, and the resulting baseline does not align with the expected manufacturer value.
+      Using a large checkerboard, the reprojection error is very low, less than 0.2 pixels, whereas using a small checkerboard results is a much higher error, greater than 1.2 pixels. The manufacturer-specified baseline for the ZED stereo camera is 12 cm, which is closely matched by the baseline obtained with the large checkerboard. In contrast, the high epipolar reprojection error observed with the small checkerboard indicates that this calibration is poor, and the resulting baseline does not align with the expected manufacturer value.
 
       <table style="border-collapse: collapse; width: 100%; border: none;">
         <tr>
@@ -314,20 +316,27 @@ As illustrated in the images below, the left (raw) image appears distorted, with
             <figure style="margin: 0;">
               <img src="images/calib/big_board_projection_error.png" alt="Alt 2" width="500" style="margin: 1; padding: 2; display: block;"/>
               <figcaption style="font-size: 14px; margin-top: 4px;">
-                <strong>Epipolar reprojection error with large checkerboard</strong> 
+                a) shows an epipolar reprojection error of 0.12 pixels
               </figcaption>
             </figure>
           </td>
           <td style="padding: 0; text-align: center; vertical-align: top;">
-             <figure style="margin: 0;">
+            <figure style="margin: 0;">
               <img src="images/calib/small_board_projection_error.png" alt="Alt 2" width="500" style="margin: 1; padding: 2; display: block;"/>
               <figcaption style="font-size: 14px; margin-top: 4px;">
-                <strong>Epipolar reprojection error with small checkerboard</strong> 
+                b) shows epipolar reprojection error of 1.37 pixels
               </figcaption>
             </figure>
           </td>
+           <figcaption style="font-size: 14px; margin-top: 4px;">
+                <strong> </strong> 
+           </figcaption>
         </tr>
+
+
       </table>
+      
+      <p style="text-align:center;"><strong>Figure 3: Calibration results using different checkerboard sizes</strong></p>
 
 
 ## Camera-IMU Callibration
@@ -428,12 +437,14 @@ Download [kalib_ros.bag](https://saxion.data.surf.nl/s/XyAARMGimXCBooQ) file and
             <figure style="margin: 0;">
               <img src="images/calib/camera_reprojection_erro.png" alt="Alt 2" height="300" width="500" style="margin: 1; padding: 2; display: block;"/>
               <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
-                <strong>Camera reprojection error</strong> 
+                <strong></strong> 
               </figcaption>
             </figure>
           </td>
         </tr>
     </table>
+    <p style="text-align:center;"><strong>Figure 4: Camera reprojection error </strong></p>
+
 
 5. Put the imu noise parametr as `imu-params.yaml`  in  `camera_imu_cal_ws/resources`.
     
@@ -514,13 +525,11 @@ Download [kalib_ros.bag](https://saxion.data.surf.nl/s/XyAARMGimXCBooQ) file and
             <td style="padding: 0; vertical-align: top;">
               <figure style="margin: 0;">
                 <img src="images/calib/cam_imu_reprojectionerror.png" alt="Alt 2" height="400" width="500" style="margin: 1; padding: 2; display: block;"/>
-                <figcaption style="font-size: 12px; margin-top: 4px; padding-left: 50px">
-                  <strong> reprojection error</strong> 
-                </figcaption>
               </figure>
             </td>
           </tr>
       </table>
+      <p style="text-align:center;"><strong>Figure 5: Camera reprojection error during Camera-Imu callibration </strong></p>
 
       Check also your accelerometer and gyroscope errors are within their 3-sigma bounds (if not then your IMU noise or the dataset are incorrect). Ensure that your estimated biases do not leave your 3-sigma bounds. If they do leave then your trajectory was too dynamic, or your noise values are not good. 
       The following figure shows angular velocity and bias error with in 3 sigma bound(red lines).
@@ -530,7 +539,7 @@ Download [kalib_ros.bag](https://saxion.data.surf.nl/s/XyAARMGimXCBooQ) file and
             <figure style="margin: 0;">
               <img src="images/calib/angular_velocity_erro.png" alt="Alt 2" width="500" style="margin: 1; padding: 2; display: block;"/>
               <figcaption style="font-size: 14px; margin-top: 4px;">
-                <strong> angular velocity error</strong> 
+                a) angular velocity error 
               </figcaption>
             </figure>
           </td>
@@ -538,12 +547,14 @@ Download [kalib_ros.bag](https://saxion.data.surf.nl/s/XyAARMGimXCBooQ) file and
              <figure style="margin: 0;">
               <img src="images/calib/gyroscope_error.png" alt="Alt 2" width="500" style="margin: 1; padding: 2; display: block;"/>
               <figcaption style="font-size: 14px; margin-top: 4px;">
-                <strong> gyroscope  bias error </strong> 
+                b) gyroscope  bias error 
               </figcaption>
             </figure>
           </td>
         </tr>
       </table>
+
+      <p style="text-align:center;"><strong>Figure 5: Angular velocity and bias error during Camera-Imu callibration </strong></p>
 
 
       For more explanation about imu-camera calibration using kalibr package please refer this [video tutoriall](https://www.youtube.com/watch?v=BtzmsuJemgI)
