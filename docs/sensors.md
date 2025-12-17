@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ## Objectives
 
-In this chapter, you will meet the most common sensor types used in SLAM and see where each one shines or struggles. By the end, you are expected to:
+In this chapter, you will learn about most common sensor types used in SLAM and see where each one shines or struggles. By the end of this chapter, you should be able to:
 
 - What the common sensors are and what information do they offer.
 - Pick a sensible sensor (or a combination) for your own application.
-- Weigh the usual trade-offs: accuracy vs. cost, compute load, environment, and how mature the open-source algorithms for your application are.
+- Weight the usual trade-offs: accuracy vs. cost, compute load, environment, and how mature the open-source algorithms for your application are.
 - Spot the key specifications that matter when buying or configuring sensors for SLAM.
 
 ## Role of Sensors in SLAM Architecture
@@ -52,7 +52,7 @@ SLAM is usually split into two parts: a *front-end* and a *back-end*.
 
 **Front-end**: It is the part of SLAM that turns raw sensor measurements into compact, useful cues about motion and the scene.
 If we use a camera for a SLAM algorithm, we will have *visual* SLAM.
-Assuming that the camera gives us images of $640\times480$, we will end up with 307200 pixels. This is an enormous amount of information that is very difficult to comprehend and use. The front-end reduces this load by extracting just the most informative bits, so the rest of the system has something manageable to work with.
+Assuming that the camera gives us images of **640 x 480**, we will end up with 307200 pixels. This is an enormous amount of information that is very difficult to comprehend and use. The front-end reduces this load by extracting just the most informative bits, so the rest of the system has something manageable to work with.
 
 **Back-end**: It is the core algorithm, that estimates the robot’s pose and builds the map from those cues.
 
@@ -88,11 +88,11 @@ These are popular feature types for two main reasons: (i) It is relatively easy 
 
 After feature extraction, it is important to maintain a unique identity for each feature across frames. For example, if you see the corner of the house's rooftop (as in Figure 1) as a unique feature in the environment, you should be able to detect the same corner a few moments later and recognize that it is the same feature you saw before. If you successfully do this, you have performed correct *Feature Tracking*. Figure 1 also shows a simple depiction of feature tracking, where features are tracked across two consecutive image frames. The positions of the features in the first and second frames are marked by red dots, and the green lines connect the former and current locations of the same features.
 
-The robustness of SLAM methods is tightly related to the success of the feature extraction and tracking. Our choice of camera sensors can affect this. Generally, having an image with minmum blurring and sharper details that maintains a constant color composure of the details, regardless of light intensity, helps a lot. Moreover, the field of view should be large enough so that you do not lose the features you were teacking with a rapid motion. But we will touch on these requirement later on.
+The robustness of SLAM methods is tightly related to the success of the feature extraction and tracking. Our choice of camera sensors can affect this. Generally, having an image with minimum blurring and sharper details that maintains a constant color composure of the details, regardless of light intensity, helps a lot. Moreover, the field of view should be large enough so that you do not lose the features you were teacking with a rapid motion. But we will touch on these requirements later on.
 
 Although tracking the features in the environment is essential for SLAM and provides a sense of relative motion with respect to the scene, it is not enough to measure motion in full 3D. The feature points should not only be tracked in the 2D image; we also need to estimate their 3D locations in space.
 
-For each feature point, we would like to estimate a 3D position based on the images. This is not trivial, but it is achievable using either monocular or stereo-based camera configurations. In Figure 1, this “uplifting” of 2D features from the image plane into 3D space is visualized: from this, a metric distance between the camera and the 3D position of that feature becomes available. Note that this step is highly dependent on correct knowledge about the camera's physical paramters such as its *Focal Length*. These estimates usaully come from precise calibration of the sensor that we will discuss in later chaters.
+For each feature point, we would like to estimate a 3D position based on the images. This is not trivial, but it is achievable using either monocular or stereo-based camera configurations. In Figure 1, this “uplifting” of 2D features from the image plane into 3D space is visualized: from this, a metric distance between the camera and the 3D position of that feature becomes available. Note that this step is highly dependent on correct knowledge about the camera's physical paramters such as its *Focal Length*. These estimates usaully come from precise calibration of the sensor that we will discuss in the next `Sensor calibration` chaters.
 
 ### 2.1.3 Camera modalities
 The term modality is referring to what kind of light does a camera measure and how it measures it. Most of the cameras capture the *visible light*, which is a small part of electromagnetic spectrum. In Figure 2, we display this spectrum and the visible light is highlited by rainbow colors. Here, the *color*, *monochrome*, *NIR*, and *thermal* cameras are more interesting for us, since they are often used for SLAM.
@@ -112,7 +112,7 @@ The term modality is referring to what kind of light does a camera measure and h
 
 To capture color images, a *Color Filter Array (CFA)* is formed, such that on each pixel either an R, G, or B filter is used. An R filter for instance, only allows the red light frequency to pass. For each pixel, the other two values will be interpolated from the neighboring pixels. This process is also known as *Demosaicing*. Figure 3 diplays the mechanism in which the color images are formed in the sensor. 
 
-Why are the working principle of color camera important for us? To answer that, lets understand the monochrome mechanism as well.
+Why is the working principle of color camera important for us? To answer that, lets understand the monochrome mechanism as well.
 
 **Monochrome**: Unlike color cameras, monochrome cameras do not use a color filter array. All pixels on the sensor are used directly to capture light from the scene. This means that the full resolution of the sensor is used for details, no color interpolation (demosaicing) is needed, and the image is in shades of gray instead of color. The monochrome sensor is also portrayed along with a color sensor in Figure 3, for better comparison.
 
@@ -169,7 +169,7 @@ This is somewhat similar to how humans can still judge distance even if they clo
 
 Because we have two views at the same time, we can estimate depth in every frame.
 For each point in the scene, we find the matching pixel in the left and right images.
-From the difference in their positions (called disparity) and the known distance between the cameras (knwon as baseline), we can compute how far that point is from the cameras using triangulation. More separation between the cameras makes depth estimation more accurate at longer distances, but it can also make the system bulkier and more sensitive to calibration errors.
+From the difference in their positions (called disparity) and the known distance between the cameras (known as baseline), we can compute how far that point is from the cameras using triangulation. More separation between the cameras makes depth estimation more accurate at longer distances, but it can also make the system bulkier and more sensitive to calibration errors.
 
 In Figure 4, examples of depth estimation using monocular and stereo cameras are shown. The star shape represents an example object in the scene.
 
@@ -182,7 +182,7 @@ With a monocular camera, we only have one image at each time instant. To get dep
   margin:1em 0;
   border-radius:4px;
   ">
-  <strong>Advanced note:</strong> In the virtual triangle formed by monocular camera's motion, all three sides are unknown. Yet using a classic computer vision method, namely the <i>Five Points</i> algorithm, you can first have a scaled estimation of motion between two frames (the baseline side of triangle solved), then you can triangulate to find the other two.
+  <strong>Note:</strong> In the virtual triangle formed by monocular camera's motion, all three sides are unknown. Yet using a classic computer vision method, namely the <i>Five Points</i> algorithm, you can first have a scaled estimation of motion between two frames (the baseline side of triangle solved), then you can triangulate to find the other two.
 </div>
 
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
@@ -202,15 +202,15 @@ With a stereo camera, we also form a triangle between the two camera centers and
 
 The camera used in SLAM should have some specific characteristics. Knowing about these characteristics might help you choosing the best option for running SLAM on your robot.
 
-- **Field of View (FOV)**:
-  
-  For SLAM methods, a wide field of view is usually desirable. A wider FOV lets the camera see more of the environment at once, which means: (i) More potential features in each frame. (ii) A better chance to pick stable, well-distributed features to track. (iii) Less chance of losing everything when the robot makes a quick motion or something briefly blocks part of the view.
+#### 2.1.5.1 Field of View (FOV)
+
+  For SLAM methods, a wide field of view is usually desirable. A wider FOV lets the camera see more of the environment at once, which means: (i) More potential features in each frame. (ii) A better chance to pick stable, well-distributed features to track. (iii) Less chance of losing features when the robot makes a quick motion or something briefly blocks part of the view.
 
   However, very large fields of view (above roughly 120°) become more challenging to calibrate (a step you must do before running your SLAM system). In practice, many open-source calibration tools struggle to produce accurate calibration for extreme wide-angle or fisheye lenses.
 
   Figure 5 compares the effect of having a wider FOV. The red dots indicate spots in the image that are selected as feature points in the SLAM front-end using a common feature detection algorithm.
 
-  In the wide-FOV image, it is usually easier to find high-quality features (for example, clear and unique corner points). In the narrow-FOV image, the algorithm often has to rely on lower-quality features (for instance, many similar points inside the trees that are less unique) to maintain a sufficient number of feature points.
+  Image with large FOV camera, it is usually easier to find high-quality features (for example, clear and unique corner points). In the narrow-FOV image, the algorithm often has to rely on lower-quality features (for instance, many similar points inside the trees that are less unique) to maintain a sufficient number of feature points.
 
   Another difference is robustness to motion. With a wide FOV, you need a larger sudden motion of the camera to lose sight of all features at once, because the camera sees more of its surroundings. This helps make SLAM more stable during fast rotations or small occlusions.
 
@@ -229,14 +229,15 @@ The camera used in SLAM should have some specific characteristics. Knowing about
 |*Figure 7: Visualization of the difference between narrow (left image) and wide (right image) FOV, and its effect on feature tracking.*| -->
 
 
-- **Resolution**:
+#### 2.1.5.2 Resolution 
   
   If the resolution is too low, visual SLAM may not be able to detect and track enough good features in the image, especially at longer distances. On the other hand, very high resolution introduces unnecessary processing load. The higher number of pixels allocates more CPU/GPU just to tracking features across frames. Also the communication links such as USB ports will be a bottleneck. Ultimately, more time will be spent on each image, thus, updating the map or the position estimation will be done at longer intervals.
 
   In practice, you should choose a resolution that is high enough to see stable features (e.g., corners, textures) at the distances you care about, but not so high that it slows down your SLAM system. For that, HD resolution is about a good trade-off.
 
 
-- **Shutter**:
+
+#### 2.1.5.3 Shutter
 
   For visual SLAM, global shutter sensors are ideal, because they minimize motion-related distortions. In a global shutter camera, all pixels are exposed at the same time, so fast motion does not *bend* or *skew* objects in the image. 
 
@@ -249,7 +250,7 @@ The camera used in SLAM should have some specific characteristics. Knowing about
   <img src="images/rs_fast_midRS_blur_vectors.png" alt="1" style="width:30%">
   <img src="images/rs_fast_midRS_blur.png" alt="1" style="width:30%">
   <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
-    <em>Figure 6: Comparison between the image taken from a global shutter camera (left) and the one taken from rolling shutter (right) due to the motion pattern in scene (middle). The image is taken from the <code>corridor_ground_1</code> sequence in SMARTNav dataset.</em>
+    <em>Figure 6: Comparison between the image taken from a global shutter camera (left) and the one taken from rolling shutter (right) due to the motion pattern in scene (middle). The image is taken from the <code>corridor_ground_1</code> sequence in  <a href="https://saxionmechatronics.github.io/smartnav-dataset/">SMARTNav dataset</a>.</em>
   </div>
 </div>
 
@@ -258,11 +259,11 @@ The camera used in SLAM should have some specific characteristics. Knowing about
   Many low-cost cameras are rolling shutter but offer adequate resolution for SLAM. Global shutter cameras with high resolution tend to be more expensive, but they provide cleaner geometry for motion estimation.
 
 
-- **Data Rate**:
+#### 2.1.5.4 Data Rate
   
 A higher frame rate (more images per second) can help in fast motion scenarios, because feature tracks are less likely to be lost between frames. Here, “high” means higher than the usual 30 frames per second (FPS) that many cameras provide. However, excessively high FPS (for example, above 90 FPS) is often unnecessary in practice: Most SLAM systems cannot process such a high-frequency stream in real time. They will have to drop frames to keep up, which wastes bandwidth and processing. In most robotics applications, something in the range of 30–60 FPS is a good compromise between smooth tracking and computational load.
 
-- **Dynamic Range**:
+#### 2.1.5.5 Dynamic Range 
 
 Dynamic range describes the camera’s ability to capture details in both dark and bright regions of an image at the same time. It is often defined as the ratio between the brightest intensity and the darkest intensity the sensor can represent. Any light above this range will be shown as pure white (overexposed, no detail). Any light below this range will be pure black (underexposed, no detail).
 
@@ -276,7 +277,7 @@ For SLAM, higher dynamic range guarantees the system can still detect and track 
   </div>
 </div>
 
-- **Bit-rate**:
+#### 2.1.5.6 Bit-rate
 
 The normal image data given by most cameras is an array of 8-bit pixels. This means that each pixel value is represented by 8 bits (8 zeros or ones). As a result, each pixel can take $2^8 = 256$ different values.
 In simpler terms, a standard 8-bit camera can represent each color channel in 256 different shades.
@@ -298,7 +299,7 @@ The exact details of such tone-mapping or compression algorithms are beyond the 
   </div>
 </div>
 
-- **Lens**:
+#### 2.1.5.7 Lens 
 
 This item mostly depends on how custom you want your sensor setup to be. If you want to keep your core sensor (resolution, shutter, frame rate, and connection) the same, but still be able to change or experiment with different FOVs, you should choose a camera that allows you to swap lenses.
 
@@ -313,7 +314,7 @@ This information is usually found in the sensor’s datasheet. For instance, an 
   </div>
 </div>
 
-- **Connection**:
+#### 2.1.5.7 Connection
 
 A flat cable connection (often CSI/MIPI) to the onboard computer (e.g., an Nvidia Jetson) allows for fast data transfer and reduces delays and bandwidth limitations compared to USB. This is ideal when the camera is mounted close to the processing board.
 
@@ -331,24 +332,24 @@ When deciding between USB3 and a flat-cable interface, you should consider the m
 </div>
 
 
-- **Pixel size**:
+#### 2.1.5.8 Pixel size
 In simple terms, larger pixels can collect more light (more photons) in the same exposure time. This usually leads to i) better low-light performance (less noise in dark scenes) and ii) better *signal-to-noise ratio* and sometimes improved dynamic range.
 
 The trade-off is that for a given sensor size, larger pixels mean fewer pixels overall (lower resolution). So you typically balance resolution against pixel size. For dark environments or challenging lighting, slightly larger pixels can make SLAM feature detection and tracking more robust.
 
-- **Optical size/format**:
+#### 2.1.5.9 Optical size/format
 
 If you choose a camera with an adjustable lens, you must ensure that the optical format (sometimes listed as 1/2.3", 1/1.8", etc.) of the lens and the sensor are compatible. This size determines the effective area of the sensor that is used to capture the image:
 
 If the sensor’s active area is smaller than what the lens is designed for, part of the image circle will fall outside the sensor. You will only see the central portion of what the lens projects. Effectively, you get cropped version of what the lens captures.
 If the sensor is larger than the lens’s image circle, you may get dark corners or a big dark ring, because the lens cannot fully cover the sensor. Matching the optical format helps you use the full sensor area without wasting pixels or getting unwanted dark regions.
 
-- **Driver**:
+#### 2.1.5.10 Driver
 
 When buying a camera, it is better to check whether the vendor provides i) a driver that supports embedded computers (often with aarch64 / arm64 architectures, as opposed to amd64 on typical desktops), and preferrably ii) a ROS2 wrapper or ROS2 driver package for the sensor. If both are available, integration becomes much easier and the camera is often close to plug-and-play for robotics applications and trying many open-source SLAM algorithms. Otherwise, you may need to write your own drivers or ROS wrappers, which takes time and expertise.
 
 
-### 2.1.6 Available solutions
+### 2.1.5.11 Available solutions
 
 Now, let’s put the knowledge we have gained about cameras into a small sensor selection exercise. Consider the following imaginary robotic application:
 
@@ -358,13 +359,12 @@ In the table below, we list a few examples of commonly available cameras on the 
 
 | Camera | Modality | Horizontal FOV | Max resolution | Shutter | Max FPS | Dynamic Range (dB) | Max bit rate | Lens | Connection | Pixel size ($µm^2$) | Driver |
 |:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|
-| Realsense D455 | <font color="green">monochrome</font> | <font color="red">87°</font> | <font color="green">1280 × 800</font> | <font color="green">global</font> | <font color="red">30</font> | <font color="red">-</font> | <font color="green">10</font> | <font color="red">fixed</font> | <font color="green">USB 3.1</font> | <font color="green">3 x 3</font> | <font color="green">Embedded Linux and ROS2 support</font> |
-| ZED 2          | <font color="red">color</font> | <font color="green">110°</font> | <font color="red">2208 x 1242</font> | <font color="red">rolling</font> | <font color="green">100</font> | <font color="red">64</font> | <font color="red">8</font> | <font color="red">fixed</font> | <font color="green">USB 3.0</font> | <font color="red">2 x 2</font> | <font color="green">Embedded Linux and ROS2 support</font> |
-| ZED X           | <font color="red">color</font> | <font color="green">110°</font> | <font color="red">1920 x 1200</font> | <font color="green">global</font> | <font color="green">100</font> | <font color="green">71</font> | <font color="red">8</font> | <font color="red">fixed</font> | <font color="red">GMSL2</font> | <font color="green">3 x 3</font> | <font color="green">Embedded Linux and ROS2 support</font> |
-| Raspberry Pi Camera Module 3 Wide           | <font color="red">color</font> | <font color="green">102°</font> | <font color="red">4608 × 2592</font> | <font color="red">rolling</font> | <font color="green">60</font> | <font color="green">up to 96 in HDR mode</font> | <font color="green">10</font> | <font color="red">stock lens</font> | <font color="green">Flat cable</font> | <font color="red">1.4 × 1.4</font> | <font color="green">Embedded Linux support</font> |
-| Arducam multi-cam board with OV9282 base sensors           | <font color="red">color</font> | <font color="green">adjustable</font> | <font color="green">1280 × 720</font> | <font color="green">global</font> | <font color="green">150</font> | <font color="red">68</font> | <font color="green">10</font> | <font color="green">M12 mount</font> | <font color="green">Flat cable</font> | <font color="green">3 × 3</font> | <font color="green">Embedded Linux support</font> |
+| Realsense D455 | <font >monochrome</font> | <font >87°</font> | <font >1280 × 800</font> | <font >global</font> | <font >30</font> | <font >-</font> | <font >10</font> | <font >fixed</font> | <font >USB 3.1</font> | <font >3 x 3</font> | <font >Embedded Linux and ROS2 support</font> |
+| ZED 2          | <font >color</font> | <font >110°</font> | <font >2208 x 1242</font> | <font >rolling</font> | <font >100</font> | <font >64</font> | <font >8</font> | <font >fixed</font> | <font >USB 3.0</font> | <font >2 x 2</font> | <font >Embedded Linux and ROS2 support</font> |
+| ZED X           | <font >color</font> | <font >110°</font> | <font >1920 x 1200</font> | <font >global</font> | <font >100</font> | <font >71</font> | <font >8</font> | <font >fixed</font> | <font >GMSL2</font> | <font >3 x 3</font> | <font >Embedded Linux and ROS2 support</font> |
+| Raspberry Pi Camera Module 3 Wide           | <font >color</font> | <font >102°</font> | <font >4608 × 2592</font> | <font >rolling</font> | <font >60</font> | <font >up to 96 in HDR mode</font> | <font >10</font> | <font >stock lens</font> | <font >Flat cable</font> | <font >1.4 × 1.4</font> | <font >Embedded Linux support</font> |
+| Arducam multi-cam board with OV9282 base sensors           | <font >color</font> | <font >adjustable</font> | <font >1280 × 720</font> | <font >global</font> | <font >150</font> | <font >68</font> | <font >10</font> | <font >M12 mount</font> | <font >Flat cable</font> | <font >3 × 3</font> | <font >Embedded Linux support</font> |
 
-We have highlighted the characteristics with green or red as a simple, binary rating for this specific drone application. This is deliberately a bit harsh and can easily change for other use cases.
 
 For example, if you want a colored 3D map of the environment, monochrome sensors are probably not what you are looking for, even though they tend to perform better in low light. In this version of the table, we prioritized low-light performance, so monochrome are marked in green, while purely color-only options are marked in red for that specific criterion.
 
@@ -378,7 +378,7 @@ For more advanced users who want tighter control over the sensor setup and bette
 ### 2.1.7 Advantages and disadvantages of visual SLAM
 There are many advantages to the cameras, that make them a suitable choice for SLAM in robotics. 
 
-- They are rich. They see almost everything that a human does.
+- They provide rich data. They see almost everything that a human does.
 - They are usually lightweight, that makes them perfect for robots which weight is a determinig factor.
 - They are also energy efficient.
 - Inclusion of the camera has the minimum design burden compared to LiDAR, RADAR, Compass, GNSS, and even the IMU. Meaning that they can be mounted quite flexibly on any part of the robot without much constraint on your design.
@@ -443,11 +443,11 @@ This geometric, 3D-centric data format (pointclouds) is what makes LiDAR particu
 
 LiDAR technology can be implemented in different design configurations. Having a general understanding of these designs helps you identify the best option for each application.
 
-- **LiDAR Range Finders**:
+#### 2.2.3.1 LiDAR Range Finders
   
   This is the simplest version. It only measures the distance in one spatial direction (a single beam). It is not often used directly in SLAM, but it is very common in robotics, especially for aerial robots. For instance, it can be attached to the bottom of a drone to measure the distance to the ground more accurately.
 
-- **2D Planar Scanners**: 
+#### 2.2.3.2 2D Planar Scanners 
 
   These are very common in ground robots. A 2D scanner LiDAR provides, at each scan, a two-dimensional view of obstacles in a single horizontal plane around the sensor.
   The mechanism of planar scanners is very similar to what is shown in Figure 11. A beam is rotated around, and distances are measured in many directions, but all in one plane.
@@ -477,7 +477,7 @@ LiDAR technology can be implemented in different design configurations. Having a
   </div>
 
  
-- **3D Multi-beam**:
+#### 2.2.2.3 3D Multi-beam 
 
 Unlike the single-beam mechanism shown in Figure 11, these sensors simultaneously send out multiple beams from multiple lasers stacked vertically. Each laser emits in a slightly different vertical direction, so together they sense the environment in full 3D, beyond just one scanning plane (as you can see in Figure 18, top-right).
 
@@ -491,7 +491,7 @@ They usually contain moving parts (rotating head), which can affect long-term re
 Moreover, they are more expensive than 2D planar scanners.
 The vertical resolution is limited, so the pointcloud can be sparse, and thin objects may fall between rings and be under-sampled.
 
-Another major drawback is motion distortion, similar to the rolling shutter effect in cameras. Each full sweep of the beams takes tens of milliseconds to complete. If the robot or objects in the scene move during this time, the resulting pointcloud will be slightly warped compared to the true shape of the environment.
+Another major drawback is motion distortion, similar to the rolling shutter effect in cameras. Each full sweep of the beams takes tens of milliseconds to complete. If the robot or objects in the scene move during this time, the resulting pointcloud will be slightly warped compared to the true shape of the environment.This issue can be mitigated by applying motion compensation (deskewing) using high-rate IMU and odometry data to correct each LiDAR point to a common reference time.
 
 An example of such LiDARs is the Ouster OS1-128 sensor.
 
@@ -503,7 +503,7 @@ An example of such LiDARs is the Ouster OS1-128 sensor.
   </div>
 
 
-- **Non-repetitive Scan**:
+#### 2.2.3.4 Non-repetitive Scan 
 
   There are also LiDAR designs that do not use a conventional mechanical rotation to generate a repetitive scan pattern. One example is the Livox Mid-40 sensor, which generates a pseudo-random scanning pattern within a relatively small field of view (instead of a full 360°).
 
@@ -530,7 +530,7 @@ An example of such LiDARs is the Ouster OS1-128 sensor.
   </div>
 
 
-- **Solid-state sensors**: 
+#### 2.2.3.5 Solid-state sensors**: 
 
   These LiDARs are similar in spirit to multi-beam sensors, with the main difference that they do not use mechanical rotation to achieve coverage. Instead, they use tiny mechanisms such as *Optical Phased Arrays (OPA)* to steer the laser beam towards different directions in space electronically.
 
@@ -553,7 +553,7 @@ An example of such LiDARs is the Ouster OS1-128 sensor.
 
 ### 2.2.4 LiDAR-based front-end architecture
 
-An overall architecture of LiDAR-based SLAM methods looks like Figure 19. Compared to visual SLAM, this architecture is a bit simpler, because we do not need any step to infer 3D positions of features: the sensor data is already in an accurate 3D format (the pointcloud).
+A general architecture of LiDAR-based SLAM methods can bes seen in Figure 19. Compared to visual SLAM, this architecture is a bit simpler, because we do not need any step to infer 3D positions of features: the sensor data is already in an accurate 3D format (the pointcloud).
 
 Similar to visual SLAM, we still need to estimate how consecutive scans are related to each other. It is usually simpler and faster to do this not on the raw pointcloud directly, but on some extracted features. Feature extraction is therefore useful here as well. It speeds up processing and focuses the computation on the most informative parts of the data.
 
@@ -569,10 +569,10 @@ After extracting features for individual scans, they can be matched with each ot
 </div>
 
 ### 2.2.6 Advantages and Disadvantages
-LiDAR sensors have many advantages over the cameras, which makes them the most reliable senor for SLAM:
+LiDAR sensor have many advantages over the cameras, which makes them the most reliable senor for SLAM:
 
 - They capture the metric geometry of the scene directly, without any need for estimating the depth. They work even if the scene has few visual features, as long as there is some geometric structure.
-- They are much less sensitive to lighting conditions, whether it is strong daylight or complete darkness at night. The main issues arise only with surfaces that do not reflect the laser well. In general, they are a great solution for night-time SLAM.
+- They are much less sensitive to lighting conditions, whether it is strong daylight or complete darkness at night. The main issues arise only with surfaces that do not reflect the laser well, like glass windows in an office envrionment. In general, they are a great solution for night-time SLAM.
 - Depending on the sensor type, LiDARs can cover large scenes, measure objects farther away, and some models provide very wide FOVs, making them suitable for many outdoor robots.
 
 Despite many advantages of LiDAR, there are certain drawbacks of these sensors:
@@ -625,7 +625,7 @@ In these cases, IMU measurements can keep tracking the motion for short periods,
 
 Although IMU-based dead reckoning is not suitable for long durations, it is very useful over short intervals, until a new frame arrives. In SLAM practice, IMU data is mostly used in the SLAM back-end. It is also used in front-end to reduce motion distortion in both images and pointclouds.
 
-Most SLAM-ready sensors on the market, including many LiDARs and stereo cameras, already come with an integrated IMU, providing tightly synchronized IMU data together with their main measurements. This is very convenient for sensor fusion. However, if you are building your own sensor stack from scratch and you need an IMU, look mainly for low *noise density*, and *low bias instability*. While keeping the cost reasonable. Using very expensive, high-grade IMUs often goes against the goal of building a low-cost navigation stack for a typical robot (one of strong motivations of SLAM). A few common IMU choices in low to mid-cost systems are *Bosch BMI270*, *Bosch BMI160*, and *InvenSense ICM-20602*.
+Most SLAM-ready sensors on the market, including many LiDARs and stereo cameras, already come with an integrated IMU, providing tightly synchronized IMU data together with their main measurements. This is very convenient for sensor fusion. However, if you are building your own sensor stack from scratch and you need an IMU, look mainly for low *noise density*, and *low bias instability*, while keeping the cost reasonable. Using very expensive, high-grade IMUs often goes against the goal of building a low-cost navigation stack for a typical robot (one of strong motivations of SLAM). A few common IMU choices in low to mid-cost systems are *Bosch BMI270*, *Bosch BMI160*, and *InvenSense ICM-20602*.
 
 ## 2.4 Summary
 
