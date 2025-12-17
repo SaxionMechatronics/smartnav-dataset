@@ -5,11 +5,11 @@ use_directory_urls: false
 nav:
   - Home: index.md
   - Practical Guide to SLAM:
-    - Introduction: introduction.md
-    - Sensor Selection for SLAM: sensors.md
-    - Calibration of Sensors: calibration.md
-    - Deployment of SLAM Algorithms: deployment.md
-    - Interpretation of SLAM Results: interpretation.md
+    - "Chapter 1: Introduction": introduction.md
+    - "Chapter 2: Sensor Selection for SLAM": sensors.md
+    - "Chapter 3: Calibration of Sensors": calibration.md
+    - "Chapter 4: Deployment of SLAM Algorithms": deployment.md
+    # - Interpretation of SLAM Results: interpretation.md
 
 theme:
   name: material
