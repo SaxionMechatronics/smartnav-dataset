@@ -530,7 +530,7 @@ An example of such LiDARs is the Ouster OS1-128 sensor.
   </div>
 
 
-#### 2.2.3.5 Solid-state sensors**: 
+#### 2.2.3.5 Solid-state sensors 
 
   These LiDARs are similar in spirit to multi-beam sensors, with the main difference that they do not use mechanical rotation to achieve coverage. Instead, they use tiny mechanisms such as *Optical Phased Arrays (OPA)* to steer the laser beam towards different directions in space electronically.
 
