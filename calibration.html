@@ -25,7 +25,7 @@
     
     
       
-        <title>Calibration of Sensors - SMARTNav Dataset</title>
+        <title>Chapter 3: Calibration of Sensors - SMARTNav Dataset</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Calibration of Sensors
+              Chapter 3: Calibration of Sensors
             
           </span>
         </div>
@@ -296,7 +296,7 @@
   <span class="md-ellipsis">
     
   
-    Introduction
+    Chapter 1: Introduction
   
 
     
@@ -324,7 +324,7 @@
   <span class="md-ellipsis">
     
   
-    Sensor Selection for SLAM
+    Chapter 2: Sensor Selection for SLAM
   
 
     
@@ -359,7 +359,7 @@
   <span class="md-ellipsis">
     
   
-    Calibration of Sensors
+    Chapter 3: Calibration of Sensors
   
 
     
@@ -377,7 +377,7 @@
   <span class="md-ellipsis">
     
   
-    Calibration of Sensors
+    Chapter 3: Calibration of Sensors
   
 
     
@@ -424,10 +424,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#camera-callibration" class="md-nav__link">
+  <a href="#camera-calibration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Camera Callibration
+        Camera calibration
       
     </span>
   </a>
@@ -440,10 +440,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#camera-imu-callibration" class="md-nav__link">
+  <a href="#camera-imu-calibration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Camera-IMU Callibration
+        Camera-IMU calibration
       
     </span>
   </a>
@@ -451,10 +451,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lidar-imu-callibration" class="md-nav__link">
+  <a href="#lidar-imu-calibration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        LIDAR-IMU Callibration
+        LIDAR-IMU calibration
       
     </span>
   </a>
@@ -495,35 +495,7 @@
   <span class="md-ellipsis">
     
   
-    Deployment of SLAM Algorithms
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="interpretation.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Interpretation of SLAM Results
+    Chapter 4: Deployment of SLAM Algorithms
   
 
     
@@ -561,12 +533,12 @@
 
 
 
-  <h1>Calibration of Sensors</h1>
+  <h1>Chapter 3: Calibration of Sensors</h1>
 
 <h2 id="objective">Objective<a class="headerlink" href="#objective" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Understand what sensor calibration is and why it’s critical for localization and mapping.</li>
-<li>Understand What is intrinisic and extrnisic callibration.</li>
+<li>Understand What is intrinisic and extrnisic calibration.</li>
 <li>Perform intrinsic and extrinsic calibration using open-source tools.</li>
 </ol>
 <p>The fundamental objective of sensor calibration in SLAM systems is to ensure accurate spatial perception by establishing precise mathematical relationships between sensor measurements and the physical world. As SLAM systems increasingly rely on multi-sensor fusion architectures, proper calibration becomes essential for maintaining spatial consistency across different sensing modalities. The goal is to minimize systematic errors that can propagate through the SLAM pipeline, ultimately affecting localization accuracy and map quality.</p>
@@ -591,8 +563,8 @@
 <p><strong>Image (Pixel) Frame</strong>: The Image Frame (I) is a 2D coordinate system on the camera’s image plane, where each point corresponds to a pixel location. The origin (u=0,v=0) is typically at the top-left corner, with the u-axis pointing right and v-axis pointing down. 3D points from the camera frame are projected into this frame using the camera intrinsic matrix (K) and distortion model.</p>
 </li>
 </ol>
-<h3 id="camera-callibration">Camera Callibration<a class="headerlink" href="#camera-callibration" title="Permanent link">&para;</a></h3>
-<p><strong>Intrinsic Callibration</strong> </p>
+<h3 id="camera-calibration">Camera calibration<a class="headerlink" href="#camera-calibration" title="Permanent link">&para;</a></h3>
+<p><strong>Intrinsic calibration</strong> </p>
 <p>Intrinsic calibration estimates the camera’s internal parameters, describing how 3D points in the camera frame are projected onto the 2D image plane.we use camera intrinsic parameter matrix, describes some of the physical properties of the camera lens. It is a 3x3 matrix with the following form:</p>
 <div style="margin-left: 65px;">
   <img src="images/calib/Intinisic.png" alt="Camera coordinate system" width="300"/>
@@ -612,7 +584,7 @@
   </div>
 
 <p><strong>Distortion Coefficients</strong>: Real lenses usually deviate from the ideal pinhole camera model, introducing significant distortion to images. As a result, camera parameters include Distortion Coefficients in addition to intrinsics and extrinsics. The main types of distortion are radial distortion and tangential distortion.</p>
-<p><strong>Callibration Target</strong>- Camera calibration relies on predictably shaped and easy to localize calibration targets. Knowing the targets to identify in calibration images along with their spacing allows the optimization to reason about how the targets exist in space.Popular targets include checkerboard patterns, Aruco markers, Charuco markers, and circle grids, with potential modifications on those few.</p>
+<p><strong>calibration Target</strong>- Camera calibration relies on predictably shaped and easy to localize calibration targets. Knowing the targets to identify in calibration images along with their spacing allows the optimization to reason about how the targets exist in space.Popular targets include checkerboard patterns, Aruco markers, Charuco markers, and circle grids, with potential modifications on those few.</p>
 <p>Checkerboard patterns are simple and easy to use.OpenCV has a chessboard calibration library that attempts to map points in 3D on a real-world chessboard to 2D camera coordinates.Any object could have been used (a book, a laptop computer, a car, etc.), but a chessboard has unique characteristics that make it well-suited for the job of correcting camera distortions:</p>
 <ul>
 <li>
@@ -624,30 +596,39 @@
 <li>The points and corners all occur on straight lines and with the same space.</li>
 </ul>
 <p>This tutorial uses a 8x6 checkerboard with 0.23cm squares. Calibration uses the interior vertex points of the checkerboard, so an “9x7” board uses the interior vertex parameter “8x6” as in the example below. </p>
+<div style="margin-left: 65px;">
+  <img src="images/calib/stereo_camera_zed.png" alt="Camera coordinate system" width="600"/>
+</div>
+
+<p style="text-align:center;"><strong>Figure 1: ZED stereo camera lenses and corresponding IMU coordinate frame</strong></p>
+
+<p>We will use the ZED stereo camera(Figure 1) for this experiment. The ZED camera has two lenses (left and right) that capture stereo images. We will perform intrinsic calibration for the left camera first, followed by extrinsic calibration between the left and right cameras.</p>
 <p>There are a number of camera calibration tools available to do this calibration, but if you’re already working in ROS, one of the easier options is the <code>camera_calibration</code> package.</p>
 <ol>
 <li>
-<p>To start first install docker and setup environment. This docker environment installs <code>camera_callibration</code> package within <code>ros2-humble</code>.</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:eliyaskidnae/slam-tutorial-practical.git
-<span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/camera_callibration_ws/
+<p>To start first install docker and setup environment. This docker environment installs <code>camera_calibration</code> package within <code>ros2-humble</code>.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:SaxionMechatronics/slam-tutorial-practical.git
+<span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/calibration/camera_calibration_ws/
 docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>--build<span class="w"> </span>-d<span class="w"> </span>
-docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 <span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
 colcon<span class="w"> </span>build
 </code></pre></div>
 </li>
 <li>
 <p>The next thing we need is data for the calibration to be run on. Normally, you would be able to use a live camera feed for the intrinsic calibration, but to make this training more universally accessible and repeatable, we will be working from bag files.
-   Download <a href="https://saxion.data.surf.nl/s/ifDcJqiMds4yydb">rosbag2_callibration1</a> file and put it <code>camera_callibration_ws/resources</code> folder.</p>
+   Download <a href="https://saxion.data.surf.nl/s/ifDcJqiMds4yydb">rosbag2_calibration1</a> file and put it <code>camera_calibration_ws/resources</code> folder.</p>
 <p>In the first one, run the first rosbag file on loop inside docker environment.  </p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
-<span class="nb">cd</span><span class="w"> </span>~/callibration_ws/resources
-ros2<span class="w"> </span>bag<span class="w"> </span>play<span class="w"> </span>rosbag2_callibration1
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
+<span class="nb">cd</span><span class="w"> </span>~/calibration_ws/resources
+ros2<span class="w"> </span>bag<span class="w"> </span>play<span class="w"> </span>rosbag2_calibration1
 </code></pre></div>
 <p>In the second terminal, run the camera calibration node</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 <span class="nb">source</span><span class="w"> </span>install/setup.bash
-ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span class="w"> </span>cameracalibrator<span class="w"> </span>--size<span class="w"> </span>8x6<span class="w"> </span>--square<span class="w"> </span><span class="m">0</span>.023<span class="w"> </span>--ros-args<span class="w"> </span>--remap<span class="w"> </span>image:<span class="o">=</span>/zed/zed_node/left/color/raw/image<span class="w"> </span>--remap<span class="w"> </span>camera:<span class="o">=</span>zed/zed_node/left/color/raw
+ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span class="w"> </span>cameracalibrator<span class="w"> </span>--size<span class="w"> </span>8x6<span class="w"> </span>--square<span class="w"> </span><span class="m">0</span>.023<span class="w"> </span><span class="se">\</span>
+--ros-args<span class="w"> </span>--remap<span class="w"> </span>image:<span class="o">=</span>/zed/zed_node/left/color/raw/image<span class="w"> </span><span class="se">\</span>
+--remap<span class="w"> </span>camera:<span class="o">=</span>zed/zed_node/left/color/raw
 </code></pre></div>
 <p>We use the above command to calibrate the ZED camera's left lens using the raw image topic <code>/zed/zed_node/left/color/raw/image</code>. The <code>--size 8x6</code> option specifies that the checkerboard used has 8 inner corners horizontally and 6 vertically, and <code>--square 0.023</code> sets the square size to 0.023 meters. The <code>--remap</code> arguments link the calibration node to the correct image and camera topics <code>namespace</code> recorded in the bag file.</p>
 </li>
@@ -690,14 +671,14 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
     </td></p>
 </tr>
 </table>
-<p><p style="text-align:center;"><strong>Figure 1: Required Camera Motions During Calibration</strong></p></p>
+<p><p style="text-align:center;"><strong>Figure 2: Required Camera Motions During Calibration</strong></p></p>
 </li>
 <li>
 <p>When all the 4 bars are green and enough data is available for calibration the <strong>CALIBRATE</strong> button will light up. Click it to see the results. It takes around the minute for calibration to take place.After the calibration is completed the <strong>SAVE</strong> and <strong>commit</strong> buttons light up. And you can also see the result in terminal.</p>
-<p>A successful calibration typically has a mean reprojection error below 0.3 px.The closer to zero, the better.In our case, the GUI shows a 0.23 px error (displayed as “lin” in Figure 5), indicating accurate calibration.</p>
+<p>A successful calibration typically has a mean reprojection error below 0.3 px.The closer to zero, the better. You will get this in the GUI as <code>lin</code> label. In our case, the GUI shows a 0.23 px error, indicating accurate calibration.</p>
 </li>
 <li>
-<p>To record these parameters down, click save.It will save to <code>/tmp/calibrationdata.tar</code>.gz.Let’s get the files somewhere we can easily reach them</p>
+<p>To record these parameters down, click save.It will save to <code>/tmp/calibrationdata.tar</code>.gz.Let’s get the files somewhere we can easily reach them.</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span>mkdir<span class="w"> </span>~/calibration_ws/mono_camera
 <span class="w">  </span>mv<span class="w"> </span>/tmp/calibrationdata.tar.gz<span class="w"> </span>~/calibration_ws/mono_camera
 <span class="w">  </span><span class="nb">cd</span><span class="w"> </span>~/calibration_ws/src/mono_camera
@@ -718,7 +699,7 @@ The main parts are:</p>
 <p>The calibration results should be applied to the raw image so subsequent image processing can use corrected images. In ROS2, this is done in two steps:</p>
 <ol>
 <li>
-<p>Copy the calibration YAML file to <code>camera_pipeline</code> package.This uses the callibration file to rectify the raw image as <code>image_rect</code> topic.  </p>
+<p>Copy the calibration YAML file to <code>camera_pipeline</code> package.This uses the calibration file to rectify the raw image as <code>image_rect</code> topic.  </p>
 <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>~/calibration_ws/camera0_cal/calibrationdata/ost.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>~/calibration_ws/src/camera_pipeline/config/
 
@@ -753,31 +734,31 @@ As illustrated in the images below, the left (raw) image appears distorted, with
   </tr>
 </table>
 
-<p style="text-align:center;"><strong>Figure 2: Comparison of Raw and Rectified Images</strong></p>
+<p style="text-align:center;"><strong>Figure 3: Comparison of Raw and Rectified Images</strong></p>
 
-<p><strong>Extrinisic Callibration</strong></p>
+<p><strong>Extrinisic calibration</strong></p>
 <p>Extrinsic calibration determines the camera’s pose relative to another reference frame, such as the world, body, or another sensor (e.g., camera or LiDAR). It defines how different sensors are spatially related and enables consistent projection of points between coordinate systems. In multi-camera or sensor-fusion setups, accurate extrinsic calibration ensures proper alignment between the camera, IMU, and LiDAR, which is essential for reliable stereo vision, visual-inertial odometry, and SLAM applications.</p>
 <p>For this experiment, we use the ZED stereo camera to perform extrinsic calibration.
   The goal is to estimate the relative pose of the right camera with respect to the left camera, which defines the stereo baseline — the physical separation and orientation difference between the two lenses.</p>
 <p>The resulting extrinsic parameters (rotation R and translation T) describe how to transform points from the right camera’s coordinate frame into the left camera’s coordinate frame. These parameters are later used for stereo rectification and depth estimation.</p>
 <ol>
 <li>
-<p>First download the two provided ROS 2 bag files:</p>
+<p>First download the two provided ROS 2 bag files recoreded with the ZED stereo camera( Figure 1):</p>
 <ul>
 <li><a href="https://saxion.data.surf.nl/s/ZjYXD6xpawgeb4Z">stereo_large_board_bagfile.bag</a> – recorded using a small checkerboard <em>(2.3 cm squares)</em>  </li>
 <li><a href="https://saxion.data.surf.nl/s/ZjYXD6xpawgeb4Z">stereo_small_board_bagfile.bag</a> – recorded using a large checkerboard <em>(11.8 cm squares)</em>  </li>
 </ul>
-<p>Place both bag files in the <code>camera_callibration_ws/resources/</code> directory of the calibration workspace:</p>
+<p>Place both bag files in the <code>camera_calibration_ws/resources/</code> directory of the calibration workspace:</p>
 </li>
 <li>
 <p>Run the bag file and camera_calibration tool from the image_pipeline package to perform stereo calibration:</p>
 <p>In the first one, run the first rosbag file on loop.<br />
-  <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+  <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 <span class="nb">cd</span><span class="w"> </span>resources/
 ros2<span class="w"> </span>bag<span class="w"> </span>play<span class="w"> </span>rosbag2_stereo_large_board
 </code></pre></div></p>
 <p>In the second terminal, run the camera calibration node</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 
 ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span class="w"> </span>cameracalibrator<span class="w"> </span>--approximate<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>--size<span class="w"> </span>8x6<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>--square<span class="w"> </span><span class="m">0</span>.118<span class="w"> </span>--ros-args<span class="w"> </span>--remap<span class="w"> </span>left:<span class="o">=</span>/zed/zed_node/left/color/raw/image<span class="w"> </span><span class="se">\ </span>
@@ -791,8 +772,8 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
 </li>
 <li>
 <p>To record these parameters down, click save.It will save to <code>/tmp/calibrationdata.tar</code>.gz.Let’s get the files somewhere we can easily reach them</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span>mkdir<span class="w"> </span>~/callibration_ws/resources/stereo_camera_large_board_cali/
-<span class="w">  </span>mv<span class="w"> </span>/tmp/calibrationdata.tar.gz<span class="w"> </span>~/callibration_ws/resources/stereo_camera_large_board_cali/
+<div class="highlight"><pre><span></span><code><span class="w">  </span>mkdir<span class="w"> </span>~/calibration_ws/resources/stereo_camera_large_board_cali/
+<span class="w">  </span>mv<span class="w"> </span>/tmp/calibrationdata.tar.gz<span class="w"> </span>~/calibration_ws/resources/stereo_camera_large_board_cali/
 <span class="w">  </span><span class="nb">cd</span><span class="w"> </span>~/calibration_ws/src/stereo_camera_large_board_cali
 <span class="w">  </span>tar<span class="w"> </span>-xvf<span class="w"> </span>calibrationdata.tar.gz
 </code></pre></div>
@@ -809,6 +790,14 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
 </code></pre></div>
 <p>The fourth element in the first row of the <strong>right projection matrix</strong> (here <code>-33.6074</code>) represents the <strong>translation of the right camera along the x-axis</strong> relative to the left camera.<br />
   This value corresponds to the <strong>baseline distance</strong> between the two camera centers when scaled by the focal length:</p>
+<ul>
+<li>
+<p>f_x is in pixels (the focal length in the x-direction from the camera intrinsic matrix, here 279.01721 pixels).</p>
+</li>
+<li>
+<p>P_14 is the element of the projection matrix that is f_x × baseline in homogeneous coordinates, but it is actually f_x × baseline with the baseline in world units (usually meters).</p>
+</li>
+</ul>
 <p>Mathematically:
   $$
     \text{Baseline} = -\frac{P_{14}}{f_x}<br />
@@ -828,6 +817,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
   \text{Baseline} = -\frac{-34.89335}{284.05017} \approx 0.123 \, \text{m}
   $$</p>
 <p>Using a large checkerboard, the reprojection error is very low, less than 0.2 pixels, whereas using a small checkerboard results is a much higher error, greater than 1.2 pixels. The manufacturer-specified baseline for the ZED stereo camera is 12 cm, which is closely matched by the baseline obtained with the large checkerboard. In contrast, the high epipolar reprojection error observed with the small checkerboard indicates that this calibration is poor, and the resulting baseline does not align with the expected manufacturer value.</p>
+<p><em>Epipolar reprojection</em> error simply mean  when you correct stereo images to make them perfectly aligned row-by-row (epipolar geometry), any remaining mismatch in the location of the same checkerboard corner between left and right images is measured in pixels. </p>
 <p><table style="border-collapse: collapse; width: 100%; border: none;">
     <tr>
       <td style="padding: 0; text-align: center; vertical-align: top;">
@@ -851,28 +841,30 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
        </figcaption>
     </tr></p>
 </table>
-<p><p style="text-align:center;"><strong>Figure 3: Calibration results using different checkerboard sizes</strong></p></p>
+<p><p style="text-align:center;"><strong>Figure 4: Calibration results using different checkerboard sizes</strong></p></p>
 </li>
 </ol>
-<h2 id="camera-imu-callibration">Camera-IMU Callibration<a class="headerlink" href="#camera-imu-callibration" title="Permanent link">&para;</a></h2>
-<p>The goal of camera-IMU extrinsic calibration is to accurately determine the transformation that defines the spatial relationship between the camera and the IMU.In this tutorial, we use <a href="https://github.com/ethz-asl/kalibr">Kalibr</a>, a widely used tool for camera–IMU calibration. Kalibr uses motion-induced discrepancies between visual and inertial measurements of the same rigid body motion to solve for all unknown spatial, temporal, and intrinsic parameters simultaneously through continuous-time optimization.Camera tracks external AprilTag corners through projective geometry, while IMU senses internal accelerations and rotations. Calibration uses deliberate platform motion to create observable discrepancies between these measurements, revealing their spatial, temporal, and intrinsic relationships through optimization.</p>
-<p>The following are prerequest to use <code>Kalibr</code> callibration tool:</p>
+<h2 id="camera-imu-calibration">Camera-IMU calibration<a class="headerlink" href="#camera-imu-calibration" title="Permanent link">&para;</a></h2>
+<p>The goal of camera-IMU extrinsic calibration is to accurately determine the transformation that defines the spatial relationship between the camera and the IMU.In this tutorial, we use <a href="https://github.com/ethz-asl/kalibr">Kalibr</a>, a widely used tool for camera–IMU calibration. Kalibr uses motion-induced discrepancies between visual and inertial measurements of the same rigid body motion to solve for all unknown spatial, temporal, and intrinsic parameters simultaneously through continuous-time optimization. Camera tracks external AprilTag corners through projective geometry, while IMU senses internal accelerations and rotations. Calibration uses deliberate platform motion to create observable discrepancies between these measurements, revealing their spatial, temporal, and intrinsic relationships through optimization.</p>
+<p>The following are prerequest to use <code>Kalibr</code> calibration tool:</p>
 <p>A. <strong>Prepare the calibration target:</strong> Kalibr supports multiple target types, but an AprilGrid is strongly recommended. It allows partial visibility of the board while still resolving the pose correctly, making data collection easier.
-Before starting, print an AprilGrid from the <a href="https://github.com/ethz-asl/kalibr/wiki/calibration-targets">Kalibr wiki</a> and fill out the corresponding aprilgrid.yaml(check <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr yaml formats</a>) file:
-   - Count the number of rows and columns, then fill in the values for tagsRows and tagsCols accordingly.
-   - Measure the size of one AprilTag and set it as tagSize (in meters).
-   - Measure the spacing (black border gap) between two tags.
-   - Compute tagSpacing = spacing / tagSize.
-For our tutoriall we will use a grid with 44 mm tags and 12.5 mm spacing.</p>
+Before starting, print an AprilGrid from the <a href="https://github.com/ethz-asl/kalibr/wiki/calibration-targets">Kalibr wiki</a> and fill out the corresponding aprilgrid.yaml(check <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr yaml formats</a>) file:</p>
+<ul>
+<li>Count the number of rows and columns, then fill in the values for tagsRows and tagsCols accordingly.</li>
+<li>Measure the size of one AprilTag and set it as tagSize (in meters).</li>
+<li>Measure the spacing (black border gap) between two tags.</li>
+<li>Compute tagSpacing = spacing / tagSize.
+For our tutoriall we will use a grid with 44 mm tags and 12.5 mm spacing.</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;aprilgrid&#39;</span><span class="w">  </span><span class="c1">#gridtype</span>
-<span class="w">  </span><span class="nt">tagCols</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">                 </span><span class="c1">#number of apriltags</span>
-<span class="w">  </span><span class="nt">tagRows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">                 </span><span class="c1">#number of apriltags</span>
-<span class="w">  </span><span class="nt">tagSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0445</span><span class="w">            </span><span class="c1">#size of apriltag, edge to edge [m]</span>
+<span class="w">  </span><span class="nt">tagCols</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">                </span><span class="c1">#number of apriltags</span>
+<span class="w">  </span><span class="nt">tagRows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">                </span><span class="c1">#number of apriltags</span>
+<span class="w">  </span><span class="nt">tagSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0445</span><span class="w">           </span><span class="c1">#size of apriltag, edge to edge [m]</span>
 <span class="w">  </span><span class="nt">tagSpacing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.296</span><span class="w">          </span><span class="c1">#ratio of space between tags to tagSize</span>
 <span class="w">  </span><span class="nt">codeOffset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">            </span><span class="c1">#code offset for the first tag in the aprilboard</span>
 </code></pre></div>
 <p>B. <strong>Record the calibration dataset (rosbag)</strong>: Record a rosbag containing IMU and camera data:
-To achieve accurate calibration, perform the following motions while keeping the target always in view and  ensure that the calibration board can be seen from different orientations, distances, and in each part of the image plane.</p>
+To achieve accurate calibration, perform the following motions while keeping the target always in view and  ensure that the calibration board can be seen from different orientations, distances, and in each part of the image plane.While recording the data, move the camera-IMU rig in a smooth and continuous manner, avoiding sudden jerks or stops. Aim for a moderate speed that allows the IMU to capture sufficient motion dynamics without causing motion blur in the camera images.</p>
 <ul>
 <li>Pitch, yaw, and roll rotations</li>
 <li>Up/down, left/right, forward/backward translations</li>
@@ -880,29 +872,29 @@ To achieve accurate calibration, perform the following motions while keeping the
 </ul>
 <p>Reference motion example: <a href="https://youtu.be/puNXsnrYWTY?t=57">See this YouTube video as an example:</a></p>
 <p>C. <strong>IMU noise parameters</strong>: Kalibr requires IMU noise parameters such as noise density and random walk. These can come from the manufacturer’s datasheet or tools, but it is recommended to compute them using an Allan variance calibration, since IMU noise characteristics can change depending on the physical setup, mounting, and environment. A convenient ROS-based Allan variance tool is available here <a href="https://github.com/ori-drs/allan_variance_ros">allan_variance_ros</a></p>
-<p>For our tutoriall we will use a manufacturing callibration imu parametrs.</p>
+<p>For our tutoriall we will use a manufacturing calibration imu parametrs.</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="c1">#Accelerometers</span>
-<span class="w">  </span><span class="nt">accelerometer_noise_density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.4e-03</span><span class="w">   </span><span class="c1">#Noise density (continuous-time)</span>
-<span class="w">  </span><span class="nt">accelerometer_random_walk</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">8.0e-05</span><span class="w">   </span><span class="c1">#Bias random walk</span>
-<span class="w">  </span><span class="c1">#Gyroscopes</span>
-<span class="w">  </span><span class="nt">gyroscope_noise_density</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">8.712683324559951815e-5</span><span class="w">   </span><span class="c1">#Noise density (continuous-time)</span>
-<span class="w">  </span><span class="nt">gyroscope_random_walk</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">0.00074001958110154640244</span><span class="w">   </span><span class="c1">#Bias random walk</span>
-<span class="w">  </span><span class="nt">rostopic</span><span class="p">:</span><span class="w">                    </span><span class="l l-Scalar l-Scalar-Plain">/zed/zed_node/imu/data_raw</span><span class="w">      </span><span class="c1">#the IMU ROS topic</span>
-<span class="w">  </span><span class="nt">update_rate</span><span class="p">:</span><span class="w">                 </span><span class="l l-Scalar l-Scalar-Plain">100.0</span><span class="w">     </span><span class="c1">#Hz (for discretization of the values above)</span>
+<span class="w">  </span><span class="nt">accelerometer_noise_density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.4e-03</span><span class="w">        </span><span class="c1"># [m/s^2 / sqrt(Hz)]  continuous-time noise density</span>
+<span class="w">  </span><span class="nt">accelerometer_random_walk</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.0e-05</span><span class="w">          </span><span class="c1"># [m/s^3 / sqrt(Hz)]  bias random walk</span>
+<span class="w">  </span><span class="c1"># Gyroscope</span>
+<span class="w">  </span><span class="nt">gyroscope_noise_density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.712683324559951e-05</span><span class="w">  </span><span class="c1"># [rad/s / sqrt(Hz)]  continuous-time noise density</span>
+<span class="w">  </span><span class="nt">gyroscope_random_walk</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0007400195811015464</span><span class="w">    </span><span class="c1"># [rad/s^2 / sqrt(Hz)] bias random walk</span>
+<span class="w">  </span><span class="nt">rostopic</span><span class="p">:</span><span class="w">             </span><span class="l l-Scalar l-Scalar-Plain">/zed/zed_node/imu/data_raw</span><span class="w">      </span><span class="c1">#the IMU ROS topic</span>
+<span class="w">  </span><span class="nt">update_rate</span><span class="p">:</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">100.0</span><span class="w">     </span><span class="c1">#Hz (for discretization of the values above)</span>
 </code></pre></div>
 <p>Save this file as<code>imu-params.yaml</code>, which we will use as the input for the IMU calibration. After saving it, we can follow the steps below to run the calibration inside our Docker container.</p>
 <ol>
 <li>
 <p>To start first clone the docker container along with all its submodules (kalibr packages).This will build the Docker container with ROS and all necessary dependencies for <code>Kalibr</code> package.</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:eliyaskidnae/slam-tutorial-practical.git<span class="w"> </span><span class="c1"># Clone the repository with all submodules (only if you haven&#39;t cloned it yet)</span>
-<span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/camera_imu_cal_ws/
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:SaxionMechatronics/slam-tutorial-practical.git<span class="w"> </span><span class="c1"># Clone the repository with all submodules (only if you haven&#39;t cloned it yet)</span>
+<span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/calibration/calibrationcamera_imu_cal_ws/
 docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>--build<span class="w"> </span>-d<span class="w">  </span>
 </code></pre></div>
 </li>
 <li>
 <p>Then opens a shell inside the Docker container, builds the Kalibr workspace and  sources the setup file.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/camera_imu_cal_ws/
-docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/calibration/camera_imu_cal_ws/
+docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 catkin<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-j4
 <span class="nb">source</span><span class="w"> </span>devel/setup.bash
 </code></pre></div>
@@ -917,12 +909,12 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
 </code></pre></div>
 </li>
 <li>
-<p>The kalibr imu-camera calibration requires the intrinisic and extinisic callibration of both cameras.We can use other camera callibration and put it the <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr YAML format documentation</a> or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:</p>
+<p>The kalibr imu-camera calibration requires the intrinisic and extinisic calibration of both cameras.We can use other camera calibration and put it the <a href="https://github.com/ethz-asl/kalibr/wiki/yaml-formats">Kalibr YAML format documentation</a> or perform a new calibration using Kalibr’s camera calibration tool as foolowing command:</p>
 <p>run the kalibr camera calibration node</p>
 <div class="highlight"><pre><span></span><code>rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_cameras<span class="w"> </span>--bag<span class="w"> </span>resources/kalib_ros.bag<span class="w"> </span>--topics<span class="w"> </span>/zed/zed_node/left/color/rect/image<span class="w"> </span>/zed/zed_node/right/color/rect/image<span class="w"> </span>--models<span class="w"> </span>pinhole-radtan<span class="w"> </span>pinhole-radtan<span class="w"> </span>--target<span class="w"> </span>resources/april-grid.yaml<span class="w"> </span>--show-extraction<span class="w"> </span>
 </code></pre></div>
-<p>When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file <code>kalib_ros-camchain.yaml</code> and a full PDF report of the result of the calibration inside ~/callibration_ros1_ws/resources folder.</p>
-<p>The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots. In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.Since the points are tightly clustered around zero and the error stays below about 1.0 pixels with a Gaussian-like distribution, this indicates a good and reliable calibration.With a good calibration  less than &lt; 0.2-0.5 pixel reprojection errors is expected.</p>
+<p>When the calibration is complete (it takes many minutes according to the number of image acquired) you will get the file <code>kalib_ros-camchain.yaml</code> and a full PDF report of the result of the calibration inside ~/calibration_ros1_ws/resources folder.</p>
+<p>The quality of the camera calibration can be verified by inspecting the reprojection error scatter plots(Figure 5). In these plots, each point represents the difference between the detected AprilGrid corner and its projected location based on the estimated camera model.Since the points are tightly clustered around zero and the error stays below about 1.0 pixels with a Gaussian-like distribution, this indicates a good and reliable calibration.With a good calibration  less than &lt; 0.2-0.5 pixel reprojection errors is expected.</p>
 <p><table style="border-collapse: collapse; width: 100%; border: none;">
     <tr>
       <td style="padding: 0; vertical-align: top;">
@@ -935,11 +927,11 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
       </td>
     </tr>
 </table>
-<p style="text-align:center;"><strong>Figure 4: Camera reprojection error </strong></p></p>
+<p style="text-align:center;"><strong>Figure 5: Camera reprojection error </strong></p></p>
 </li>
 <li>
 <p>Put the imu noise parametr as <code>imu-params.yaml</code>  in  <code>camera_imu_cal_ws/resources</code>.</p>
-<p>Then run the camera-imu callibration node.</p>
+<p>Then run the camera-imu calibration node.</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span>rosrun<span class="w"> </span>kalibr<span class="w"> </span>kalibr_calibrate_imu_camera<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--bag<span class="w"> </span>resources/kalib_ros.bag<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--cam<span class="w"> </span>resources/kalib_ros-camchain.yaml<span class="se">\</span>
@@ -1005,7 +997,7 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
         </td>
       </tr>
   </table>
-  <p style="text-align:center;"><strong>Figure 5: Camera reprojection error during Camera-Imu callibration </strong></p></p>
+  <p style="text-align:center;"><strong>Figure 6: Camera reprojection error during Camera-Imu calibration </strong></p></p>
 <p>Check also your accelerometer and gyroscope errors are within their 3-sigma bounds (if not then your IMU noise or the dataset are incorrect). Ensure that your estimated biases do not leave your 3-sigma bounds. If they do leave then your trajectory was too dynamic, or your noise values are not good. 
   The following figure shows angular velocity and bias error with in 3 sigma bound(red lines).
   <table style="border-collapse: collapse; width: 100%; border: none;">
@@ -1028,30 +1020,30 @@ rosbag<span class="w"> </span>info<span class="w"> </span>kalib_ros.bag
       </td>
     </tr>
   </table></p>
-<p><p style="text-align:center;"><strong>Figure 5: Angular velocity and bias error during Camera-Imu callibration </strong></p></p>
+<p><p style="text-align:center;"><strong>Figure 7: Angular velocity and bias error during Camera-Imu calibration </strong></p></p>
 <p>For more explanation about imu-camera calibration using kalibr package please refer this <a href="https://www.youtube.com/watch?v=BtzmsuJemgI">video tutoriall</a></p>
 </li>
 </ol>
-<h2 id="lidar-imu-callibration">LIDAR-IMU Callibration<a class="headerlink" href="#lidar-imu-callibration" title="Permanent link">&para;</a></h2>
-<p>Lidar-IMU extrinsic calibration aims to determine the precise spatial relationship between a LiDAR sensor and an Inertial Measurement Unit (IMU).For this experiment, we use the <a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> package, which provides tools to callibrate temporal offset and extrinsic parameter between LiDARs and IMUs, and also the gravity vector and IMU bias. The calibration should be done in an environment with some static surfaces, without moving objects in the lidar’s field of view. When recording the bag file, the box must be rotated around all axes (roll, pitch, and yaw).</p>
-<p>Foolow the steps below to run the calibration inside our Docker container.</p>
+<h2 id="lidar-imu-calibration">LIDAR-IMU calibration<a class="headerlink" href="#lidar-imu-calibration" title="Permanent link">&para;</a></h2>
+<p>Lidar-IMU extrinsic calibration aims to determine the precise spatial relationship between a LiDAR sensor and an Inertial Measurement Unit (IMU).For this experiment, we use the <a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> package, which provides tools to callibrate temporal offset and extrinsic parameter between LiDARs and IMUs, and also the gravity vector and IMU bias. The calibration should be done in an environment with some static surfaces, without moving objects in the lidar’s field of view. When recording the bag file, the sensor box(containg the LiDAR and IMU ) must be rotated around all axes (roll, pitch, and yaw).</p>
+<p>Follow the steps below to run the calibration inside our Docker container.</p>
 <ol>
 <li>
 <p>To start first clone the docker container along with all its submodules (LI-Init package).This will build the Docker container with ROS and all necessary dependencies for <a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> package.</p>
-<p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:eliyaskidnae/slam-tutorial-practical.git<span class="w"> </span><span class="c1"># Clone the repository with all submodules (only if you haven&#39;t cloned it yet)</span>
-<span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/Lidar_imu_cal_ws/
+<p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>--recurse-submodules<span class="w"> </span>clone<span class="w"> </span>git@github.com:SaxionMechatronics/slam-tutorial-practical.git<span class="w"> </span><span class="c1"># Clone the repository with all submodules (only if you haven&#39;t cloned it yet)</span>
+<span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/calibrationcalibrationcalibrationLidar_imu_cal_ws/
 docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>--build<span class="w"> </span>-d<span class="w">  </span>
 </code></pre></div>
 2. Then opens a shell inside the Docker container, builds the workspace and  sources the setup file.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/camera_imu_cal_ws/
-docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>slam-tutorial-practical/calibrationcalibrationcalibrationcamera_imu_cal_ws/
+docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 catkin_make
 <span class="nb">source</span><span class="w"> </span>devel/setup.bash
 </code></pre></div>
 <p>check all packages are installed with out error.</p>
 </li>
 <li>
-<p>The next thing we need data for the calibration to be run on.We will use dataset provided from in the callibration package repository.
+<p>The next thing we need data for the calibration to be run on.We will use dataset provided from in the calibration package repository.
   There are many dataset provided for different type of LiDAR and IMU in this <a href="https://connecthkuhk-my.sharepoint.com/:f:/g/personal/zhufc_connect_hku_hk/EgdJ_F763sVOnkUNBRv-op8BmNL7eZrxETu2zSEAoiRX4A?e=cbNiJI">link</a> 
   Download <a href="https://connecthkuhk-my.sharepoint.com/personal/zhufc_connect_hku_hk/_layouts/15/onedrive.aspx?viewid=bbf22c44%2D8348%2D47d9%2D84c3%2De042ccfb2e11&amp;ga=1&amp;id=%2Fpersonal%2Fzhufc%5Fconnect%5Fhku%5Fhk%2FDocuments%2FLidar%20IMU%20Initialization%20Datasets%2FLiDAR%20with%20Pixhawk%20IMU%2FHesai%2FHesai%5Fapartment%2Ebag&amp;parent=%2Fpersonal%2Fzhufc%5Fconnect%5Fhku%5Fhk%2FDocuments%2FLidar%20IMU%20Initialization%20Datasets%2FLiDAR%20with%20Pixhawk%20IMU%2FHesai">Hesai_apartment.bag</a> file and put it <code>Lidar_imu_cal_ws/resources</code> folder.</p>
 <p>check for the bag file if it contains lidar, imu topics and thier topic names.</p>
@@ -1109,15 +1101,15 @@ for this dataset the topics are <code>/hesai/pandar</code> for lidar and <code>/
 <p>First allow docker to access your display for visualization.This should be done in your host machine terminal.</p>
 <p><div class="highlight"><pre><span></span><code>xhost<span class="w"> </span>+local:docker
 </code></pre></div>
-4. Now we are ready to run the LiDAR-IMU callibration node.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+4. Now we are ready to run the LiDAR-IMU calibration node.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 roslaunch<span class="w"> </span>LiDAR_IMU_Init<span class="w"> </span>lidar_imu_init.launch<span class="w"> </span><span class="se">\</span>
 </code></pre></div>
 <p>in another terminal, play the rosbag file</p>
-<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>callibration<span class="w"> </span>bash<span class="w"> </span>--login
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>calibration<span class="w"> </span>bash<span class="w"> </span>--login
 ros2<span class="w"> </span>bag<span class="w"> </span>play<span class="w"> </span>resources/Hesai_apartment.bag
 </code></pre></div>
-During callibration there are progress bars in the terminal that reach 100% when the excitation around each axis is enough. This makes sure the box is rotated sufficiently around each axis.After initialization and refinement finished, the result would be written into <code>catkin_ws/src/LiDAR_IMU_Init/result/Initialization_result.txt</code></p>
+During calibration there are progress bars in the terminal that reach 100% when the excitation around each axis is enough. This makes sure the box is rotated sufficiently around each axis.After initialization and refinement finished, the result would be written into <code>catkin_ws/src/LiDAR_IMU_Init/result/Initialization_result.txt</code></p>
 <p><div class="highlight"><pre><span></span><code><span class="nt">Initialization result</span><span class="p">:</span>
 <span class="l l-Scalar l-Scalar-Plain">Rotation LiDAR to IMU (degree)     =  0.453906   -1.875376 -179.619277</span>
 <span class="l l-Scalar l-Scalar-Plain">Translation LiDAR to IMU (meter)   =  0.116992 -0.043558  0.131183</span>
@@ -1150,21 +1142,21 @@ During callibration there are progress bars in the terminal that reach 100% when
 The rotation and translation parameters specify how the LiDAR sensor is physically mounted relative to the IMU, with the angles indicating a near-180-degree rotation around one z-axis. The translation vector shows the LiDAR is positioned approximately 14.13 cm forward, 4.52 cm to the left, and 10.64 cm above the IMU. The gyroscope and accelerometer biases indicate small systematic errors in the IMU measurements, which should be accounted for in sensor fusion algorithms. Overall, these parameters provide a comprehensive understanding of the spatial and temporal relationship between the LiDAR and IMU, essential for accurate data integration in robotics applications.</p>
 </li>
 </ol>
-<p><a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> callibration package does not provide evaluation for the calibration result.The following are some suggestion to evaluate the calibration result:</p>
+<p><a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> calibration package does not provide evaluation for the calibration result.The following are some suggestion to evaluate the calibration result:</p>
 <ol>
-<li>Do the callibration multiple times with different dataset and check the consistency of the result.</li>
-<li>Compare the callibration result with hand-measured values of the sensor mounting or CAD model if available.</li>
+<li>Do the calibration multiple times with different dataset and check the consistency of the result.</li>
+<li>Compare the calibration result with hand-measured values of the sensor mounting or CAD model if available.</li>
 <li>Use the calibration result in a lidar-inertial odometry system and check the trajectory accuracy compared to ground truth.</li>
 </ol>
 <p>Although <a href="https://github.com/hku-mars/LiDAR_IMU_Init/blob/main/README.md">LiDAR_IMU_Init</a> supports multiple LiDAR types for calibration, if your LiDAR’s data fields differ from the formats provided by the package, you must create an intermediate (middleware) node to convert your LiDAR messages into the expected format before passing them to the calibration node.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Repeat the intrinisic camera callibration using you laptop webcam or any other camera you have. </p>
+<p>Repeat the intrinisic camera calibration using you laptop webcam or any other camera you have. </p>
 <p>Hint: To feed a PC webcam into ROS, you need to create a publisher node that uses a library like OpenCV to capture frames from the camera and cv_bridge to convert them to ROS sensor_msgs/Image messages.<a href="https://github.com/clydemcqueen/opencv_cam">Here is a simple repository</a> that demonstrates how to publish webcam images to a ROS topic.</p>
 </li>
 <li>
-<p>Download the <a href="https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx">kalib_ros_exer.zip</a>  file and perform the camera-IMU callibration using the above steps(camera-imu callibration steps). Notice the visulization of feature extraction from the april target callibration target and number frames accepted for callibration compare it with previous callibration attempt <a href="https://saxion.data.surf.nl/s/XyAARMGimXCBooQ">kalib_ros.bag</a>.</p>
+<p>Download the <a href="https://saxion.data.surf.nl/s/n7gwTNX2s9C4sbx">kalib_ros_exer.zip</a>  file and perform the camera-IMU calibration using the above steps(camera-imu calibration steps). Notice the visulization of feature extraction from the april target calibration target and number frames accepted for calibration compare it with previous calibration attempt <a href="https://saxion.data.surf.nl/s/XyAARMGimXCBooQ">kalib_ros.bag</a>.</p>
 <p>Hint:This bag file was recorded with  clear view of the calibration target.The number of accepted frames should be higher than from previous calibration attempt.
   Therefore, the camera reprojection error plot should be lower compared to the previous attempt.Compare your results with the provided reference in <code>resources/exercise1</code>.</p>
 </li>

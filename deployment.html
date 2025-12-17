@@ -14,8 +14,6 @@
         <link rel="prev" href="calibration.html">
       
       
-        <link rel="next" href="interpretation.html">
-      
       
         
       
@@ -25,7 +23,7 @@
     
     
       
-        <title>Deployment of SLAM Algorithms - SMARTNav Dataset</title>
+        <title>Chapter 4: Deployment of SLAM Algorithms - SMARTNav Dataset</title>
       
     
     
@@ -111,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deployment of SLAM Algorithms
+              Chapter 4: Deployment of SLAM Algorithms
             
           </span>
         </div>
@@ -296,7 +294,7 @@
   <span class="md-ellipsis">
     
   
-    Introduction
+    Chapter 1: Introduction
   
 
     
@@ -324,7 +322,7 @@
   <span class="md-ellipsis">
     
   
-    Sensor Selection for SLAM
+    Chapter 2: Sensor Selection for SLAM
   
 
     
@@ -352,7 +350,7 @@
   <span class="md-ellipsis">
     
   
-    Calibration of Sensors
+    Chapter 3: Calibration of Sensors
   
 
     
@@ -389,7 +387,7 @@
   <span class="md-ellipsis">
     
   
-    Deployment of SLAM Algorithms
+    Chapter 4: Deployment of SLAM Algorithms
   
 
     
@@ -407,7 +405,7 @@
   <span class="md-ellipsis">
     
   
-    Deployment of SLAM Algorithms
+    Chapter 4: Deployment of SLAM Algorithms
   
 
     
@@ -611,10 +609,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#443-mapping-evaluation" class="md-nav__link">
+  <a href="#443-evaluation-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.4.3 Mapping Evaluation
+        4.4.3 Evaluation Metrics
       
     </span>
   </a>
@@ -622,10 +620,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#444-qualitative-solutions" class="md-nav__link">
+  <a href="#443-mapping-evaluation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.4.4 Qualitative Solutions
+        4.4.3 Mapping Evaluation
       
     </span>
   </a>
@@ -638,96 +636,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#45-what-can-go-wrong" class="md-nav__link">
+  <a href="#45-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.5 What Can Go Wrong?
+        4.5 Summary
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="4.5 What Can Go Wrong?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#45-practical-consideration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5 Practical consideration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#limitation-of-loop-closure-compared-to-gps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Limitation of Loop Closure compared to GPS
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#451-processing-unit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5.1 Processing unit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#452-standalone-or-ros-based" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5.2 Standalone or ROS-based
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#453-qos-in-ros" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5.3 QoS in ROS
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#454-being-real-time-and-low-delay" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5.4 Being real-time and low delay
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#455-using-in-control-loops" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5.5 Using in control loops
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -735,34 +650,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="interpretation.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Interpretation of SLAM Results
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -800,7 +687,6 @@
 <li>How run an open-source SLAM</li>
 <li>What are common parameters to tune when running SLAM</li>
 <li>How to interpret SLAM results</li>
-<li>How to mitigate SLAM failures </li>
 </ul>
 <h2 id="42-deploying-a-camera-imu-slam">4.2 Deploying a camera-IMU SLAM<a class="headerlink" href="#42-deploying-a-camera-imu-slam" title="Permanent link">&para;</a></h2>
 <p>In previous chapters, we discussed camera sensors suitable for SLAM. We also explored different modality and configuration of cameras. When it comes to visual SLAM, one of the most repeatedly used sensor configurations is combination of a stereo-camera and IMU sensor. Of course, there many other possible additions to this setup, such as adding wheel odometry, GPS, LiDAR, or more number of cameras. However, the most repeatedly supported sensor configuration is still stereo+IMU setup. That is why there are many commercially ready to use setup follow this configuration. </p>
@@ -886,7 +772,7 @@ In the newly opened terminal, use the following launch command to start the SLAM
  - camera-imu and camera-camera extrinsic calibration info along with the algorithm's parameters</p>
 <p>For preparing these files, the easiest way to to use a previously created config file, and only change the entries according to your sensor setup calibration. In the dev container that we shared with you, there is a config folder for our camera called <code>zed2_gray</code>. You can create a similar folder there and rename it to your custom setup and start modifying the files inside it as we describe below.</p>
 <p>Let's start with preparing the camera intrinsic file. We will name this file <code>left.yaml</code>. This file has the following format:</p>
-<p><div class="highlight"><pre><span></span><code><span class="err">%</span><span class="l l-Scalar l-Scalar-Plain">YAML:1.0</span>
+<div class="highlight"><pre><span></span><code><span class="err">%</span><span class="l l-Scalar l-Scalar-Plain">YAML:1.0</span>
 <span class="nn">---</span>
 <span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PINHOLE</span>
 <span class="nt">camera_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">camera</span>
@@ -902,11 +788,9 @@ In the newly opened terminal, use the following launch command to start the SLAM
 <span class="w">   </span><span class="nt">fy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="w">   </span><span class="nt">cx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="w">   </span><span class="nt">cy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-<span class="w w-Error"> </span><span class="err">```</span>
-
-<span class="l l-Scalar l-Scalar-Plain">As can be seen, there are some parameters in the file that need to filled in according to the sensor&#39;s calibration. We can find these parameters in the output of Kalibr package (usually a file named `*-camchain.yaml`). In case of a stereo camera calibration, the file has a format like below, and the params needed to prepare `left.yaml` can be found in this file from `cam0` field.</span><span class="p p-Indicator">:</span>
-<span class="w"> </span><span class="err">```</span>
-<span class="nt">cam0</span><span class="p">:</span>
+</code></pre></div>
+<p>As can be seen, there are some parameters in the file that need to filled in according to the sensor's calibration. We can find these parameters in the output of Kalibr package (usually a file named <code>*-camchain.yaml</code>). In case of a stereo camera calibration, the file has a format like below, and the params needed to prepare <code>left.yaml</code> can be found in this file from <code>cam0</code> field.:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">cam0</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">distortion_coeffs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">d1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">d2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">p1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">p2</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">intrinsics</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">fx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">fy</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cy</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">resolution</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">image_width</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">image_height</span><span class="p p-Indicator">]</span>
@@ -917,20 +801,15 @@ In the newly opened terminal, use the following launch command to start the SLAM
 <span class="w">    </span><span class="nt">intrinsics</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">fx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">fy</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cx</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">cy</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">resolution</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">image_width</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">image_height</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">... some other paramters ...</span>
-<span class="w w-Error"> </span><span class="err">```</span>
-
-<span class="l l-Scalar l-Scalar-Plain">Similarly, you can create/modify a `right.yaml` and you can fill it up based on the `cam1` parameters.</span>
-
-<span class="l l-Scalar l-Scalar-Plain">The above format is assuming that in the calibration phase, you have used the default pinhole camera model and radial-tangential dostortion model. If you need to know more about these models and about each of these parameters are, you can revisit the calibration chapter.</span><span class="w"> </span>
-
-<span class="l l-Scalar l-Scalar-Plain">There is a third file require by the VINS-Fusion which is the most important one. We create this file and will name it `main_conf.yaml`. Inside this file, there are many important paramters to be set. Let&#39;s start by filling those that related to sensors and we obtained them from Kalibr package.</span>
-
-<span class="l l-Scalar l-Scalar-Plain">In the main config file, first introduce the individual camera configuration file that you just created. The configurations for that are</span><span class="p p-Indicator">:</span>
-<span class="err">```</span><span class="l l-Scalar l-Scalar-Plain">yaml</span>
-<span class="nt">cam0_calib</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;left.yaml&quot;</span>
+</code></pre></div>
+<p>Similarly, you can create/modify a <code>right.yaml</code> and you can fill it up based on the <code>cam1</code> parameters.</p>
+<p>The above format is assuming that in the calibration phase, you have used the default pinhole camera model and radial-tangential dostortion model. If you need to know more about these models and about each of these parameters are, you can revisit the calibration chapter. </p>
+<p>There is a third file require by the VINS-Fusion which is the most important one. We create this file and will name it <code>main_conf.yaml</code>. Inside this file, there are many important paramters to be set. Let's start by filling those that related to sensors and we obtained them from Kalibr package.</p>
+<p>In the main config file, first introduce the individual camera configuration file that you just created. The configurations for that are:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">cam0_calib</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;left.yaml&quot;</span>
 <span class="nt">cam1_calib</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;right.yaml&quot;</span>
 </code></pre></div>
-Then, enter the image resolution parameter. A very important note is that the camera resolution when you performed the sensor calibration should be the same resolution for images that you want to use in SLAM run time. If for instance you want to feed images of size 640x480 to the SLAM, make sure during the calibration the image resolution is the same and whenever the input reslution to SLAM changed, repeat the calibration with the new resolution.
+<p>Then, enter the image resolution parameter. A very important note is that the camera resolution when you performed the sensor calibration should be the same resolution for images that you want to use in SLAM run time. If for instance you want to feed images of size 640x480 to the SLAM, make sure during the calibration the image resolution is the same and whenever the input reslution to SLAM changed, repeat the calibration with the new resolution.
 <div class="highlight"><pre><span></span><code><span class="nt">image_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">672</span>
 <span class="nt">image_height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">376</span>
 </code></pre></div></p>
@@ -1177,7 +1056,7 @@ Even in some cases, your best estimate of position can be used for evaluations. 
 
 <h3 id="442-postioning-evaluation-using-evo-package">4.4.2 Postioning Evaluation Using EVO Package<a class="headerlink" href="#442-postioning-evaluation-using-evo-package" title="Permanent link">&para;</a></h3>
 <p>If you manage to create an experimental setup for your application by providing ground-truth measurements, or you use an online available dataset that does provide ground-truth for each sequence, now you need a tool to help you with analyzing your results. </p>
-<p><a href="EVO package">https://github.com/MichaelGrupp/evo</a> provides some standard tools commonly needed for evaluating SLAM methods (or generally any position estimation). EVO:
+<p><a href="https://github.com/MichaelGrupp/evo">EVO package</a> provides some standard tools commonly needed for evaluating SLAM methods (or generally any position estimation). EVO:
 - Automatically associates and aligns trajectories that represent the same motion but might be in different coordinate systems
 - Has multiple flexible plotting and visualization formats
 - Has a powerful CLI interface which makes it relatively easy to analuze SLAM outputs</p>
@@ -1212,20 +1091,211 @@ Even in some cases, your best estimate of position can be used for evaluations. 
 <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>bag<span class="w"> </span>record<span class="w"> </span>/odometry<span class="w"> </span>-o<span class="w"> </span>data/vins_odom
 </code></pre></div></p>
 <p>Now we should also get the ground-truth for this sequence. The ground-truth for each sequence of the SMARTNav dataset is available on the <a href="https://saxionmechatronics.github.io/smartnav-dataset/">web page</a> and is in a zip format. Put the data in our dev-container's workspace in <code>slam-tutorial-practical/slam_deployment/data</code>.</p>
-<ul>
-<li>ROS2 bags should be converted to tum format</li>
-<li>then we plot them</li>
-</ul>
+<p>Now, let's use EVO to convert and plot our data. First navigate to the folder containing the bags and convert the VINS output bag and ground-truth bag into a text file:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>data
+evo_traj<span class="w"> </span>bag2<span class="w"> </span>&lt;bag<span class="w"> </span>folder<span class="w"> </span>dir&gt;<span class="w"> </span>&lt;odometry<span class="w"> </span>topic&gt;<span class="w"> </span>--save_as_tum<span class="w"> </span>
+mv<span class="w"> </span>&lt;odometry<span class="w"> </span>topic&gt;.tum<span class="w"> </span>&lt;bag<span class="w"> </span>folder<span class="w"> </span>dir&gt;.tum
+</code></pre></div>
+<p>In the above command, note that the <code>&lt;bag folder dir&gt;</code> should be set to the ROS2 bag directory in which the <code>metadata.yaml</code> file exists, otherwise you will receive errors. The <code>&lt;odometry topic&gt;</code>, determines the topic name containing the actual odometry message as we figured it out in previous steps. If you are not sure about the topic name, you can always inspect the <code>metadata.yaml</code> file of your bag where the topic names and their types are reported. The <code>evo_traj</code> command, dumps a text file with <code>.tum</code> extension that is named similar to the topic name, in the same directory that you are. We rename it to the bag file or any other name that is more informative about the experiment. </p>
+<p>In our example, we used the following commands to extract trajectory info from 1) VINS output bag and 2) ground-truth bag we just downloaded:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For VINS output</span>
+evo_traj<span class="w"> </span>bag2<span class="w"> </span>vins_odom/<span class="w"> </span>/odometry<span class="w"> </span>--save_as_tum
+mv<span class="w"> </span>odometry.tum<span class="w"> </span>vins_odom.tum
+
+<span class="c1"># For the downloaded ground-truth</span>
+evo_traj<span class="w"> </span>bag2<span class="w"> </span>optitrack_handheld_3_gt/optitrack_handheld_3_gt/<span class="w"> </span>/Robot_1/Odom<span class="w"> </span>--save_as_tum<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mv<span class="w"> </span>Robot_1_Odom.tum<span class="w"> </span>optitrack_handheld_3_gt.tum
+</code></pre></div>
+<p>Finally, let's plot the two trajectory to visually compare the perfromance of the algorithm with the correct path.</p>
+<div class="highlight"><pre><span></span><code>evo_config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>plot_backend<span class="w"> </span>Agg
+evo_traj<span class="w"> </span>tum<span class="w"> </span>&lt;vins<span class="w"> </span>output<span class="w"> </span>.tum<span class="w"> </span>file&gt;<span class="w"> </span>--ref<span class="w"> </span>&lt;ground<span class="w"> </span>truth<span class="w"> </span>.tum<span class="w"> </span>file&gt;<span class="w"> </span>-va<span class="w"> </span>--align<span class="w"> </span>--t_max_diff<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>-p<span class="w"> </span>--plot_mode<span class="w"> </span>xy<span class="w"> </span>--save_plot<span class="w"> </span>&lt;a<span class="w"> </span>.png<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>plots&gt;
+</code></pre></div>
+<p>In above command, first we disable plotting backend from popping up windows and just saving everything in form of <code>.png</code> images. Then, we use the <code>evo_traj</code> command to plot the trajectories. It should be clear that we can feed in as many <code>.tum</code> files in this process. We must feed one <code>.tum</code> file as the reference (the one coming from ground-truth). We use the option <code>--align</code> because we know the trajectories might be expressed in different coordinate systems; thus, aligning with automatically bring them into one comparable coordinate system. The parameter <code>--plot_mode</code> deremines the 2D plane in which we look at the data. You can also set it to <code>xyz</code> to view data in 3D plot. And lastly, <code>--save_plot</code> determines a name for the output image files. In our example, we use <code>evo_traj</code> like this:</p>
+<div class="highlight"><pre><span></span><code>evo_traj<span class="w"> </span>tum<span class="w"> </span>vins_odom.tum<span class="w"> </span>--ref<span class="w"> </span>optitrack_handheld_3_gt.tum<span class="w"> </span>-va<span class="w"> </span>--align<span class="w"> </span>--t_max_diff<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>-p<span class="w"> </span>--plot_mode<span class="w"> </span>xyz<span class="w"> </span>--save_plot<span class="w"> </span>vins_gt_comparison.png
+</code></pre></div>
+<p>Let us sress the importance of correct alignment. If you do not align your two trajectories (or not correctly aligning them), these two trajectories are expressed in two completely different coordinate systems. Each of them might be correct in its own coordinates but they will not be comparable with each other. Assume that you have a robot that is moving in east direction. Thus the GPS sensor of the robot report movement if positive y direction according to the global coordinate system that is defined for GPS data. Also, you have started your SLAM algorithm at the beginning and the SLAM will report moving in positive x direction (most SLAMs report position in a coordinate system that is defined at their beginning position and orientation). Both these measurements are correct in their coordinate system but we can not just compare them with each other and for that, we need to first align them. EVO did this automatically when we passed the <code>--align</code> argument. But what if we don't? </p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/vins_gt_comparison_trajectories2.png" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<p>We end up in two trajectories that do not match each other in any way and any form of comparison here would be invalid. But if we align them, we will see the trajectories presented like this:</p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/vins_gt_comparison_trajectories.png" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<p>We can see that EVO has nicely aligned the ground-truth trajectory and the estimated trajectory by VINS-Fusion. We can also use the <code>--plot_mode xy</code> to view the same plot in 2D. If the estimated trajectory was substantially distance from the ground-truth, it is a sign of trouble. </p>
+<p>If we pay more attention to the above plot, we can notice that EVO has globally adjusted the frame transformation between the two trajectory sources, but the beginning of the two paths are not exactly aligned. In such cases, we can not properly assess the drift of position estimation with respect to the true path. We have to make sure that the beginning of the two trajectories is the same point, and from that moment, we can see the gradual drift. To enforce this, instead of using <code>--align</code> we can use <code>--n_to_align &lt;a number&gt;</code> and assign a number of beginning data point to be used for alignment:</p>
+<div class="highlight"><pre><span></span><code>evo_traj<span class="w"> </span>tum<span class="w"> </span>vins_odom.tum<span class="w"> </span>--ref<span class="w"> </span>optitrack_handheld_3_gt.tum<span class="w"> </span>-va<span class="w"> </span>--n_to_align<span class="w"> </span><span class="m">450</span><span class="w"> </span>--t_max_diff<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>-p<span class="w"> </span>--plot_mode<span class="w"> </span>xyz<span class="w"> </span>--save_plot<span class="w"> </span>vins_gt_comparison.png
+</code></pre></div>
+<p>In above example, we set the first 450 data points to be used for aligning the trajectories and it results in the following diagram:</p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/vins_gt_comparison_trajectories1.png" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<p>As is evident, the difference at the beginning position is much lower than before, but not there yet. When the starting points align more, you can clearly see that at the continuation of the trajectory, the position estimation is distancing from reality. One reason that we can not completely align the two starting positions, is coming from the fact that at the beginning of the two trajectories, there is a few seconds of zero motion, which introduces noise to the alignment process. If you start recording your bag file (VINS-Fusion output bag file) when you know there is some motion going one, it will improve alignment with fewer beginning points.</p>
+<p>The <code>traj_eval</code> tool, also generates some other visualizations that help analyzing our SLAM method such as comparing each component of position (x,y,z) and speed:</p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/vins_gt_comparison_xyz.png" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/vins_gt_comparison_speeds.png" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<h3 id="443-evaluation-metrics">4.4.3 Evaluation Metrics<a class="headerlink" href="#443-evaluation-metrics" title="Permanent link">&para;</a></h3>
+<p>In SLAM and trajectory evaluation, <strong>Absolute Pose Error (APE)</strong> and <strong>Relative Pose Error (RPE)</strong> are two standard ways to quantify how far an estimated trajectory deviates from ground truth. EVO package has tools to measure both of these common error metrics.</p>
+<p>As we discussed earlier, EVO first matches poses in time: for each timestamp in the ground-truth trajectory, it finds the closest timestamp in the estimated trajectory. Then it applies a single rigid alignment so that the two trajectories are in the same coordinate frame. The following figure shows on the left side how the two trajectories are differently estimated each in their coordinate frame, but after alignment and time association, each point will have an equivalent point on the other trajectory (connection by yellow lines shows the association). </p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/alignment.drawio.png" alt="1" style="width:95%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<p>After this alignment step, each ground-truth pose <span class="arithmatex"><span class="MathJax_Preview">{P_i}</span><script type="math/tex">{P_i}</script></span> has a matched estimated pose <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_i</span><script type="math/tex">\hat{P}_i</script></span>. The <strong>Absolute Pose Error (APE)</strong> simply measures how far these two points are from each other. In above figure this is the little yellow segments <span class="arithmatex"><span class="MathJax_Preview">{E_i}</span><script type="math/tex">{E_i}</script></span> between <span class="arithmatex"><span class="MathJax_Preview">{P_i}</span><script type="math/tex">{P_i}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_i</span><script type="math/tex">\hat{P}_i</script></span>. In formula form, for each matched pair we compute</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+E_i = \| P_i - \hat{P}_i \|
+</div>
+<script type="math/tex; mode=display">
+E_i = \| P_i - \hat{P}_i \|
+</script>
+</div>
+<p>and then summarize all <span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> errors with the root-mean-square</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\mathrm{APE}_{\mathrm{RMSE}} = \sqrt{\frac{1}{N}\sum_{i=0}^{N-1} E_i^2 }.
+</div>
+<script type="math/tex; mode=display">
+\mathrm{APE}_{\mathrm{RMSE}} = \sqrt{\frac{1}{N}\sum_{i=0}^{N-1} E_i^2 }.
+</script>
+</div>
+<p>This tells us, on average, how far the estimated trajectory is from the ground-truth trajectory after alignment.</p>
+<p>The <strong>Relative Pose Error (RPE)</strong> instead compares the <strong>motions</strong> along the two trajectories. We choose a step <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> (for example, one frame or a fixed time gap) and look at how the robot moves from <span class="arithmatex"><span class="MathJax_Preview">P_i</span><script type="math/tex">P_i</script></span> to <span class="arithmatex"><span class="MathJax_Preview">P_{i+\Delta}</span><script type="math/tex">P_{i+\Delta}</script></span> in ground truth and from <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_i</span><script type="math/tex">\hat{P}_i</script></span> to <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_{i+\Delta}</span><script type="math/tex">\hat{P}_{i+\Delta}</script></span> in the estimate:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\Delta P_i = P_{i+\Delta} - P_i, \qquad
+\Delta \hat{P}_i = \hat{P}_{i+\Delta} - \hat{P}_i,
+</div>
+<script type="math/tex; mode=display">
+\Delta P_i = P_{i+\Delta} - P_i, \qquad
+\Delta \hat{P}_i = \hat{P}_{i+\Delta} - \hat{P}_i,
+</script>
+</div>
+<p>and the relative error for that step is</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+E_i^{\mathrm{rel}} = \| \Delta P_i - \Delta \hat{P}_i \|.
+</div>
+<script type="math/tex; mode=display">
+E_i^{\mathrm{rel}} = \| \Delta P_i - \Delta \hat{P}_i \|.
+</script>
+</div>
+<p>Again we can compute an RMSE over all valid <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> to get <span class="arithmatex"><span class="MathJax_Preview">\mathrm{RPE}_{\mathrm{RMSE}}</span><script type="math/tex">\mathrm{RPE}_{\mathrm{RMSE}}</script></span>. This value answers the question: how similar are the small steps of the estimated trajectory to the small steps of the ground-truth trajectory?</p>
+<p>Now, let's use EVO for analyzing APE metric. The command is <code>evo_ape</code> and it is mostly similar to the way we used <code>evo_traj</code>, with the only difference that we do not introduce a <code>--ref</code> trajectory and only pass in the two trajectories that are to be compared:</p>
+<div class="highlight"><pre><span></span><code>evo_ape<span class="w"> </span>tum<span class="w"> </span>vins_odom.tum<span class="w"> </span>optitrack_handheld_3_gt_fixed.tum<span class="w"> </span>-va<span class="w"> </span>--n_to_align<span class="w"> </span><span class="m">450</span><span class="w"> </span>--t_max_diff<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>-p<span class="w"> </span>--plot_mode<span class="w"> </span>xy<span class="w"> </span>--save_plot<span class="w"> </span>vins_gt_comparison.png
+</code></pre></div>
+<p>This command outputs the following metrics, while the <strong>rmse</strong> of APE is the most important one that we usually look for:</p>
+<div class="highlight"><pre><span></span><code>--------------------------------------------------------------------------------
+APE w.r.t. translation part (m)
+(with SE(3) Umeyama alignment) (aligned poses: 450)
+
+       max      0.791623
+      mean      0.341861
+    median      0.340357
+       min      0.038652
+      rmse      0.382586
+       sse      190.869596
+       std      0.171766
+
+--------------------------------------------------------------------------------
+</code></pre></div>
+<p>In addition, the following trajectory visualization is saved as an image, where the estimated trajectory is compared to the ground-truth while the color map of the points on the estimated trajectory shows the distance from reality (the more red part suggest further drift).</p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/vins_gt_comparison_map.png" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<p>We can repeat this for measuring RPE using the <code>evo_rpe</code> command. </p>
+<div class="highlight"><pre><span></span><code>evo_rpe<span class="w"> </span>tum<span class="w"> </span>vins_odom.tum<span class="w"> </span>optitrack_handheld_3_gt_fixed.tum<span class="w"> </span>-va<span class="w"> </span>--n_to_align<span class="w"> </span><span class="m">450</span><span class="w"> </span>--t_max_diff<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>-p<span class="w"> </span>--plot_mode<span class="w"> </span>xy<span class="w"> </span>--save_plot<span class="w"> </span>vins_gt_comparison.png
+</code></pre></div>
+<p>This time we get outputs as the following:</p>
+<div class="highlight"><pre><span></span><code>--------------------------------------------------------------------------------
+RPE w.r.t. translation part (m)
+for delta = {self.delta} ({self.delta_unit.value}) using consecutive pairs
+(with SE(3) Umeyama alignment) (aligned poses: 450)
+
+       max      0.179393
+      mean      0.012072
+    median      0.008458
+       min      0.000012
+      rmse      0.019814
+       sse      0.511575
+       std      0.015712
+
+--------------------------------------------------------------------------------
+</code></pre></div>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/vins_gt_comparison_rpe_map.png" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<p>The low value of RPE and relatively high value of APE has an important interpretation. The fact that our VINS-Fusion is mostly correct at capturing relative motions but at certain positions, it drifts suddenly, which ends up increasing the overal drift. These small moments of drifet are visible in latest figure, the top-left corners when the robot rotates suddenly, it creates the highest realtive error. As such, if we want to improve our robot's localization, we should fix those rotations either by limiting rotations speeds of the robot, or by getting a higher FOV camera.</p>
 <h3 id="443-mapping-evaluation">4.4.3 Mapping Evaluation<a class="headerlink" href="#443-mapping-evaluation" title="Permanent link">&para;</a></h3>
-<h3 id="444-qualitative-solutions">4.4.4 Qualitative Solutions<a class="headerlink" href="#444-qualitative-solutions" title="Permanent link">&para;</a></h3>
-<h2 id="45-what-can-go-wrong">4.5 What Can Go Wrong?<a class="headerlink" href="#45-what-can-go-wrong" title="Permanent link">&para;</a></h2>
-<h3 id="45-practical-consideration">4.5 Practical consideration<a class="headerlink" href="#45-practical-consideration" title="Permanent link">&para;</a></h3>
-<h3 id="limitation-of-loop-closure-compared-to-gps">Limitation of Loop Closure compared to GPS<a class="headerlink" href="#limitation-of-loop-closure-compared-to-gps" title="Permanent link">&para;</a></h3>
-<h3 id="451-processing-unit">4.5.1 Processing unit<a class="headerlink" href="#451-processing-unit" title="Permanent link">&para;</a></h3>
-<h3 id="452-standalone-or-ros-based">4.5.2 Standalone or ROS-based<a class="headerlink" href="#452-standalone-or-ros-based" title="Permanent link">&para;</a></h3>
-<h3 id="453-qos-in-ros">4.5.3 QoS in ROS<a class="headerlink" href="#453-qos-in-ros" title="Permanent link">&para;</a></h3>
-<h3 id="454-being-real-time-and-low-delay">4.5.4 Being real-time and low delay<a class="headerlink" href="#454-being-real-time-and-low-delay" title="Permanent link">&para;</a></h3>
-<h3 id="455-using-in-control-loops">4.5.5 Using in control loops<a class="headerlink" href="#455-using-in-control-loops" title="Permanent link">&para;</a></h3>
+<p>Two main outputs of SLAM were position and map. We introduced positioning evaluation tools but for mapping, similar approaches can be taken to provide numerical measures of how accurate the mapping of the SLAM is. A simple way to quantify this is to measure distances between two point clouds: our SLAM map versus a ground-truth scan (for example, a high-quality static LiDAR scan of the environment). Tools like <strong>CloudCompare</strong> or point-cloud libraries such as <strong>Open3D</strong> and <strong>PCL</strong> can compute per-point distances and give us simple statistics such as mean, RMSE, or histogram of distances. That already gives a rough, single number answer to “how far off is my map, on average?”.</p>
+<p>On top of that, there are a few very intuitive, visual checks that are great for sanity-checking mapping accuracy in practice:</p>
+<ul>
+<li>
+<p><strong>Checking surfaces when a revisiting a place</strong>: when the robot revisit a corridor or room, new points should land exactly on top of old points. If we see double walls or duplicated surfaces, that’s a clear sign of drift or bad loop closure.</p>
+</li>
+<li>
+<p><strong>Cross-sections</strong>: viewing horizontal or vertical slices through the point cloud or occupancy grid. Straight walls should look straight and have a single line, not a fuzzy band.</p>
+</li>
+<li>
+<p><strong>Overlay live scans on the map</strong>: When streaming the current LiDAR scan on top of the built map, as the robot moves, obstacles and walls should line up tightly with what’s already in the map.</p>
+</li>
+<li>
+<p><strong>Check known structures</strong>: Doors, corners, pillars and flat floors are great landmarks, if they look bent, tilted, or shifted between visits, we know where the map is failing.</p>
+</li>
+</ul>
+<p>These kinds of quick visual checks, together with a simple cloud-to-cloud distance measure, are usually enough to get a first, practical sense of mapping quality. The following visualiztion is an example of comparing two algorithms (FASTLIO and FASTLIO with loop closure), in terms of map quality. It is a top view cross-section map of the evrionment (ceilings are removed), and when the robot revisits the initial location, clearly, the map starts to build duplicate surfaces, while on the right side, the new scans after revisiting, exactly land on the previous map, which is a sign of more accuracy.</p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
+  <img src="images/fast-lio-lc-output.gif" alt="1" style="width:80%">
+  <div style="font-size:0.85em; flex-basis:100%; text-align:center; margin-top:6px;">
+  </div>
+</div>
+
+<h2 id="45-summary">4.5 Summary<a class="headerlink" href="#45-summary" title="Permanent link">&para;</a></h2>
+<p>In this chapter, you have gone through the full cycle of deploying SLAM in practice. Starting from a calibrated stereo-camera + IMU setup, you saw how to run VINS-Fusion on pre-recorded SMARTNav sequences using our dev-container, inspect its outputs in RViz, and understand what the features, landmarks and trajectories actually mean. You also learned how to prepare your own config files by transferring camera and IMU calibration results (intrinsics, extrinsics, time offsets, and noise parameters) into the format expected by the SLAM algorithm, instead of treating it as a black box. On the LiDAR side, you deployed FASTLIO as a real-time LiDAR-IMU odometry block, configured its sensor and map parameters, and observed how a dense 3D map grows as the robot moves. Finally, you saw where pure odometry hits its limits on longer paths and how LeGO-LOAM combines LiDAR odometry with loop closure and pose-graph optimization to correct drift and close loops on larger routes.</p>
+<p>To make all of this more than just “nice pictures”, you then focused on evaluation. You saw how to obtain or record ground-truth, log your SLAM outputs to ROS2 bags, and use the EVO package to convert and compare trajectories. With APE you measured how far the estimated path is from ground truth after alignment; with RPE you inspected how good the local motion estimates are, even when global drift exists. You also looked at simple yet powerful ways to judge mapping quality, from cloud-to-cloud distance measures to intuitive checks such as duplicate walls when revisiting a place or misaligned live scans over the existing map. Altogether, this chapter should give you a realistic picture of what it takes to run open-source SLAM on your own data, what knobs you can tune, and how to tell, quantitatively and qualitatively, whether the system is good enough for your robot and application.</p>
+<!-- 
+## 4.5 What Can Go Wrong?
+
+
+### 4.5 Practical consideration
+
+### Limitation of Loop Closure compared to GPS
+
+### 4.5.1 Processing unit
+
+### 4.5.2 Standalone or ROS-based
+
+### 4.5.3 QoS in ROS
+
+### 4.5.4 Being real-time and low delay
+
+### 4.5.5 Using in control loops -->
+
 <!-- Coordinate systems -->
 
 
