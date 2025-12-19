@@ -664,15 +664,6 @@ $$
 \mathrm{APE}_{\mathrm{RMSE}} = \sqrt{\frac{1}{N}\sum_{i=0}^{N-1} E_i^2 }.
 $$
 
- Mathematically:
-      $$
-        \text{Baseline} = -\frac{P_{14}}{f_x}  
-      $$
-
-      Using the given data:
-      $$
-      \text{Baseline} = -\frac{-33.6074}{279.01721} \approx 0.1204 \, \text{m}
-      $$
 
 This tells us, on average, how far the estimated trajectory is from the ground-truth trajectory after alignment.
 
@@ -755,7 +746,7 @@ for delta = {self.delta} ({self.delta_unit.value}) using consecutive pairs
   </div>
 </div>
 
-The low value of RPE and relatively high value of APE has an important interpretation. The fact that our VINS-Fusion is mostly correct at capturing relative motions but at certain positions, it drifts suddenly, which ends up increasing the overal drift. These small moments of drifet are visible in latest figure, the top-left corners when the robot rotates suddenly, it creates the highest realtive error. As such, if we want to improve our robot's localization, we should fix those rotations either by limiting rotations speeds of the robot, or by getting a higher FOV camera.
+The low value of RPE and relatively high value of APE has an important interpretation. The fact that our VINS-Fusion is mostly correct at capturing relative motions but at certain positions, it drifts suddenly, which ends up increasing the overal drift. These small moments of drift are visible in latest figure, the top-left corners when the robot rotates suddenly, it creates the highest realtive error. As such, if we want to improve our robot's localization, we should fix those rotations either by limiting rotations speeds of the robot, or by getting a higher FOV camera.
 
 ### 4.4.3 Mapping Evaluation
 Two main outputs of SLAM were position and map. We introduced positioning evaluation tools but for mapping, similar approaches can be taken to provide numerical measures of how accurate the mapping of the SLAM is. A simple way to quantify this is to measure distances between two point clouds: our SLAM map versus a ground-truth scan (for example, a high-quality static LiDAR scan of the environment). Tools like **CloudCompare** or point-cloud libraries such as **Open3D** and **PCL** can compute per-point distances and give us simple statistics such as mean, RMSE, or histogram of distances. That already gives a rough, single number answer to “how far off is my map, on average?”.

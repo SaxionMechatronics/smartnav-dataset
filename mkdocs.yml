@@ -27,7 +27,8 @@ theme:
 
 # Simplified markdown extensions - remove the problematic slugify
 markdown_extensions:
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+     generic: true
   - admonition
   - pymdownx.details
   - pymdownx.superfences:

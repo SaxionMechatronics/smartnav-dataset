@@ -51,7 +51,7 @@ Intrinsic calibration estimates the camera’s internal parameters, describing h
   </div>
 
 
-  **Distortion Coefficients**: Real lenses usually deviate from the ideal pinhole camera model, introducing significant distortion to images. As a result, camera parameters include Distortion Coefficients in addition to intrinsics and extrinsics. The main types of distortion are radial distortion and tangential distortion.
+  **Distortion Coefficients**: Real lenses usually deviate from the ideal pinhole camera model, introducing significant distortion to images. As a result, camera parameters include Distortion Coefficients in addition to intrinsics and extrinsics. The main types of distortion are radial distortion and tangential distortion.For more detail you can refer to our course in advanced sensing and pereption course in camera model and distortion here: [Camera Callibration](https://mechatronica.bitbucket.io/spfoundation/rst/camera_calibration.html/)
 
 
   
