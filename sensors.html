@@ -1119,9 +1119,9 @@ From the difference in their positions (called disparity) and the known distance
 </div>
 
 <h4 id="2156-bit-rate">2.1.5.6 Bit-rate<a class="headerlink" href="#2156-bit-rate" title="Permanent link">&para;</a></h4>
-<p>The normal image data given by most cameras is an array of 8-bit pixels. This means that each pixel value is represented by 8 bits (8 zeros or ones). As a result, each pixel can take <span class="arithmatex"><span class="MathJax_Preview">2^8 = 256</span><script type="math/tex">2^8 = 256</script></span> different values.
+<p>The normal image data given by most cameras is an array of 8-bit pixels. This means that each pixel value is represented by 8 bits (8 zeros or ones). As a result, each pixel can take <span class="arithmatex">\(2^8 = 256\)</span> different values.
 In simpler terms, a standard 8-bit camera can represent each color channel in 256 different shades.</p>
-<p>If we use a higher bit depth, such as 10-bit, the number of possible values per pixel jumps to <span class="arithmatex"><span class="MathJax_Preview">2^10 = 1024</span><script type="math/tex">2^10 = 1024</script></span>. This means the camera can represent much finer differences in intensity. This is especially useful when the lighting is very uniform (for example, a dark hallway), or the textures in the scene have colors that are very close to each other.</p>
+<p>If we use a higher bit depth, such as 10-bit, the number of possible values per pixel jumps to <span class="arithmatex">\(2^10 = 1024\)</span>. This means the camera can represent much finer differences in intensity. This is especially useful when the lighting is very uniform (for example, a dark hallway), or the textures in the scene have colors that are very close to each other.</p>
 <p>In Figure 8, the left image was captured and converted to 8-bit format (256 shades). Below or next to this image, a histogram of pixel values is shown. This histogram shows how many times a particular color intensity has repeated among all the pixels. As you can see in the histogram, most pixel values are concentrated in a small region: all colors in the image are very similar, giving the image a generally dark appearance with little detail.</p>
 <p>On the right side, a 10-bit image (1024 shades) from the same environment is shown. The key point to note is that our displays and most standard computer vision libraries still work internally with 8-bit images.
 This means that when using 10-bit data, we almost always need an algorithm to map or compress the 10-bit range back into 8 bits, while preserving and enhancing as much detail as possible.</p>
@@ -1184,7 +1184,7 @@ If the sensor is larger than the lens’s image circle, you may get dark corners
 <th style="text-align: left;">Max bit rate</th>
 <th style="text-align: left;">Lens</th>
 <th style="text-align: left;">Connection</th>
-<th style="text-align: left;">Pixel size (<span class="arithmatex"><span class="MathJax_Preview">µm^2</span><script type="math/tex">µm^2</script></span>)</th>
+<th style="text-align: left;">Pixel size (<span class="arithmatex">\(µm^2\)</span>)</th>
 <th style="text-align: left;">Driver</th>
 </tr>
 </thead>
@@ -1298,7 +1298,7 @@ For more advanced users who want tighter control over the sensor setup and bette
 </div>
 
 <h3 id="222-pointcloud">2.2.2 Pointcloud<a class="headerlink" href="#222-pointcloud" title="Permanent link">&para;</a></h3>
-<p>Just like cameras output images as their data format, LiDARs output <em>pointclouds</em>. A pointcloud is a set of 3D points in space. Each point has <span class="arithmatex"><span class="MathJax_Preview">x, y, z</span><script type="math/tex">x, y, z</script></span> coordinates. 
+<p>Just like cameras output images as their data format, LiDARs output <em>pointclouds</em>. A pointcloud is a set of 3D points in space. Each point has <span class="arithmatex">\(x, y, z\)</span> coordinates. 
 These coordinates are expressed in the sensor’s own coordinate frame, meaning they are defined relative to the LiDAR itself. At this stage, they do not yet have any spatial meaning with respect to a fixed, world-related reference frame. One of the key tasks of SLAM is to estimate the motion of the sensor and transform these points so that they are expressed in a global (world) coordinate frame.</p>
 <p>The immediate outputs of a LiDAR sensor are illustrated in Figure 12. The top-left image is a camera image, included to give an intuitive view of what the environment in front of the robot looks like.</p>
 <p>The top-right image shows the 3D pointcloud of the environment. This pointcloud was captured by a LiDAR sensor with a 360° field of view, so it sees much more than just the front of the robot (unlike the camera). The robot is located at the center of the empty circular region.</p>

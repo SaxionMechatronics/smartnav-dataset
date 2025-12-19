@@ -583,7 +583,7 @@
     <img src="images/calib/projection.webp" alt="Camera coordinate system" width="300"/>
   </div>
 
-<p><strong>Distortion Coefficients</strong>: Real lenses usually deviate from the ideal pinhole camera model, introducing significant distortion to images. As a result, camera parameters include Distortion Coefficients in addition to intrinsics and extrinsics. The main types of distortion are radial distortion and tangential distortion.</p>
+<p><strong>Distortion Coefficients</strong>: Real lenses usually deviate from the ideal pinhole camera model, introducing significant distortion to images. As a result, camera parameters include Distortion Coefficients in addition to intrinsics and extrinsics. The main types of distortion are radial distortion and tangential distortion.For more detail you can refer to our course in advanced sensing and pereption course in camera model and distortion here: <a href="https://mechatronica.bitbucket.io/spfoundation/rst/camera_calibration.html/">Camera Callibration</a></p>
 <p><strong>calibration Target</strong>- Camera calibration relies on predictably shaped and easy to localize calibration targets. Knowing the targets to identify in calibration images along with their spacing allows the optimization to reason about how the targets exist in space.Popular targets include checkerboard patterns, Aruco markers, Charuco markers, and circle grids, with potential modifications on those few.</p>
 <p>Checkerboard patterns are simple and easy to use.OpenCV has a chessboard calibration library that attempts to map points in 3D on a real-world chessboard to 2D camera coordinates.Any object could have been used (a book, a laptop computer, a car, etc.), but a chessboard has unique characteristics that make it well-suited for the job of correcting camera distortions:</p>
 <ul>
@@ -807,7 +807,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span c
   \text{Baseline} = -\frac{-33.6074}{279.01721} \approx 0.1204 \, \text{m}
   $$</p>
 <p>Thus, the two cameras are separated by approximately <strong>12.04 cm</strong>, which matches the expected ZED stereo baseline.</p>
-<p>For parallel stereo cameras, the left and right cameras are almost perfectly aligned.This means the <strong>rotation matrix</strong> <span class="arithmatex"><span class="MathJax_Preview">R</span><script type="math/tex">R</script></span> between them is <strong>close to the identity matrix</strong>:which simplifies stereo processing.If the cameras were not parallel, a QR decomposition or SVD on a normalized version of the projection matrix can be used to to separate the rotation component</p>
+<p>For parallel stereo cameras, the left and right cameras are almost perfectly aligned.This means the <strong>rotation matrix</strong> <span class="arithmatex">\(R\)</span> between them is <strong>close to the identity matrix</strong>:which simplifies stereo processing.If the cameras were not parallel, a QR decomposition or SVD on a normalized version of the projection matrix can be used to to separate the rotation component</p>
 <p>Now consider the <code>stereo_small_board_bagfile.bag</code> with a small checkerboard (<code>--square 0.023</code> m):</p>
 <div class="highlight"><pre><span></span><code>data: [284.05017 ,   0.       , 294.69019 , -34.89335,
           0.     ,  284.05017 , 181.08418 ,   0.     ,

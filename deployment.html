@@ -1165,55 +1165,25 @@ evo_traj<span class="w"> </span>tum<span class="w"> </span>&lt;vins<span class="
   </div>
 </div>
 
-<p>After this alignment step, each ground-truth pose <span class="arithmatex"><span class="MathJax_Preview">{P_i}</span><script type="math/tex">{P_i}</script></span> has a matched estimated pose <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_i</span><script type="math/tex">\hat{P}_i</script></span>. The <strong>Absolute Pose Error (APE)</strong> simply measures how far these two points are from each other. In above figure this is the little yellow segments <span class="arithmatex"><span class="MathJax_Preview">{E_i}</span><script type="math/tex">{E_i}</script></span> between <span class="arithmatex"><span class="MathJax_Preview">{P_i}</span><script type="math/tex">{P_i}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_i</span><script type="math/tex">\hat{P}_i</script></span>. In formula form, for each matched pair we compute</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
+<p>After this alignment step, each ground-truth pose <span class="arithmatex">\({P_i}\)</span> has a matched estimated pose <span class="arithmatex">\(\hat{P}_i\)</span>. The <strong>Absolute Pose Error (APE)</strong> simply measures how far these two points are from each other. In above figure this is the little yellow segments <span class="arithmatex">\({E_i}\)</span> between <span class="arithmatex">\({P_i}\)</span> and <span class="arithmatex">\(\hat{P}_i\)</span>. In formula form, for each matched pair we compute</p>
+<div class="arithmatex">\[
 E_i = \| P_i - \hat{P}_i \|
-</div>
-<script type="math/tex; mode=display">
-E_i = \| P_i - \hat{P}_i \|
-</script>
-</div>
-<p>and then summarize all <span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> errors with the root-mean-square</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
+\]</div>
+<p>and then summarize all <span class="arithmatex">\(N\)</span> errors with the root-mean-square</p>
+<div class="arithmatex">\[
 \mathrm{APE}_{\mathrm{RMSE}} = \sqrt{\frac{1}{N}\sum_{i=0}^{N-1} E_i^2 }.
-</div>
-<script type="math/tex; mode=display">
-\mathrm{APE}_{\mathrm{RMSE}} = \sqrt{\frac{1}{N}\sum_{i=0}^{N-1} E_i^2 }.
-</script>
-</div>
-<p>Mathematically:
-      $$
-        \text{Baseline} = -\frac{P_{14}}{f_x}<br />
-      $$</p>
-<div class="highlight"><pre><span></span><code>  Using the given data:
-  $$
-  \text{Baseline} = -\frac{-33.6074}{279.01721} \approx 0.1204 \, \text{m}
-  $$
-</code></pre></div>
+\]</div>
 <p>This tells us, on average, how far the estimated trajectory is from the ground-truth trajectory after alignment.</p>
-<p>The <strong>Relative Pose Error (RPE)</strong> instead compares the <strong>motions</strong> along the two trajectories. We choose a step <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> (for example, one frame or a fixed time gap) and look at how the robot moves from <span class="arithmatex"><span class="MathJax_Preview">P_i</span><script type="math/tex">P_i</script></span> to <span class="arithmatex"><span class="MathJax_Preview">P_{i+\Delta}</span><script type="math/tex">P_{i+\Delta}</script></span> in ground truth and from <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_i</span><script type="math/tex">\hat{P}_i</script></span> to <span class="arithmatex"><span class="MathJax_Preview">\hat{P}_{i+\Delta}</span><script type="math/tex">\hat{P}_{i+\Delta}</script></span> in the estimate:</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
+<p>The <strong>Relative Pose Error (RPE)</strong> instead compares the <strong>motions</strong> along the two trajectories. We choose a step <span class="arithmatex">\(\Delta\)</span> (for example, one frame or a fixed time gap) and look at how the robot moves from <span class="arithmatex">\(P_i\)</span> to <span class="arithmatex">\(P_{i+\Delta}\)</span> in ground truth and from <span class="arithmatex">\(\hat{P}_i\)</span> to <span class="arithmatex">\(\hat{P}_{i+\Delta}\)</span> in the estimate:</p>
+<div class="arithmatex">\[
 \Delta P_i = P_{i+\Delta} - P_i, \qquad
 \Delta \hat{P}_i = \hat{P}_{i+\Delta} - \hat{P}_i,
-</div>
-<script type="math/tex; mode=display">
-\Delta P_i = P_{i+\Delta} - P_i, \qquad
-\Delta \hat{P}_i = \hat{P}_{i+\Delta} - \hat{P}_i,
-</script>
-</div>
+\]</div>
 <p>and the relative error for that step is</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
+<div class="arithmatex">\[
 E_i^{\mathrm{rel}} = \| \Delta P_i - \Delta \hat{P}_i \|.
-</div>
-<script type="math/tex; mode=display">
-E_i^{\mathrm{rel}} = \| \Delta P_i - \Delta \hat{P}_i \|.
-</script>
-</div>
-<p>Again we can compute an RMSE over all valid <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> to get <span class="arithmatex"><span class="MathJax_Preview">\mathrm{RPE}_{\mathrm{RMSE}}</span><script type="math/tex">\mathrm{RPE}_{\mathrm{RMSE}}</script></span>. This value answers the question: how similar are the small steps of the estimated trajectory to the small steps of the ground-truth trajectory?</p>
+\]</div>
+<p>Again we can compute an RMSE over all valid <span class="arithmatex">\(i\)</span> to get <span class="arithmatex">\(\mathrm{RPE}_{\mathrm{RMSE}}\)</span>. This value answers the question: how similar are the small steps of the estimated trajectory to the small steps of the ground-truth trajectory?</p>
 <p>Now, let's use EVO for analyzing APE metric. The command is <code>evo_ape</code> and it is mostly similar to the way we used <code>evo_traj</code>, with the only difference that we do not introduce a <code>--ref</code> trajectory and only pass in the two trajectories that are to be compared:</p>
 <div class="highlight"><pre><span></span><code>evo_ape<span class="w"> </span>tum<span class="w"> </span>vins_odom.tum<span class="w"> </span>optitrack_handheld_3_gt_fixed.tum<span class="w"> </span>-va<span class="w"> </span>--n_to_align<span class="w"> </span><span class="m">450</span><span class="w"> </span>--t_max_diff<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>-p<span class="w"> </span>--plot_mode<span class="w"> </span>xy<span class="w"> </span>--save_plot<span class="w"> </span>vins_gt_comparison.png
 </code></pre></div>
@@ -1264,7 +1234,7 @@ for delta = {self.delta} ({self.delta_unit.value}) using consecutive pairs
   </div>
 </div>
 
-<p>The low value of RPE and relatively high value of APE has an important interpretation. The fact that our VINS-Fusion is mostly correct at capturing relative motions but at certain positions, it drifts suddenly, which ends up increasing the overal drift. These small moments of drifet are visible in latest figure, the top-left corners when the robot rotates suddenly, it creates the highest realtive error. As such, if we want to improve our robot's localization, we should fix those rotations either by limiting rotations speeds of the robot, or by getting a higher FOV camera.</p>
+<p>The low value of RPE and relatively high value of APE has an important interpretation. The fact that our VINS-Fusion is mostly correct at capturing relative motions but at certain positions, it drifts suddenly, which ends up increasing the overal drift. These small moments of drift are visible in latest figure, the top-left corners when the robot rotates suddenly, it creates the highest realtive error. As such, if we want to improve our robot's localization, we should fix those rotations either by limiting rotations speeds of the robot, or by getting a higher FOV camera.</p>
 <h3 id="443-mapping-evaluation">4.4.3 Mapping Evaluation<a class="headerlink" href="#443-mapping-evaluation" title="Permanent link">&para;</a></h3>
 <p>Two main outputs of SLAM were position and map. We introduced positioning evaluation tools but for mapping, similar approaches can be taken to provide numerical measures of how accurate the mapping of the SLAM is. A simple way to quantify this is to measure distances between two point clouds: our SLAM map versus a ground-truth scan (for example, a high-quality static LiDAR scan of the environment). Tools like <strong>CloudCompare</strong> or point-cloud libraries such as <strong>Open3D</strong> and <strong>PCL</strong> can compute per-point distances and give us simple statistics such as mean, RMSE, or histogram of distances. That already gives a rough, single number answer to “how far off is my map, on average?”.</p>
 <p>On top of that, there are a few very intuitive, visual checks that are great for sanity-checking mapping accuracy in practice:</p>
