@@ -11,16 +11,16 @@ In this chapter, we will be running SLAM algorithms on some pre-recorded data. A
 
 ## 4.2 Deploying a camera-IMU SLAM
 
-In previous chapters, we discussed camera sensors suitable for SLAM. We also explored different modality and configuration of cameras. When it comes to visual SLAM, one of the most repeatedly used sensor configurations is combination of a stereo-camera and IMU sensor. Of course, there many other possible additions to this setup, such as adding wheel odometry, GPS, LiDAR, or more number of cameras. However, the most repeatedly supported sensor configuration is still stereo+IMU setup. That is why there are many commercially ready to use setup follow this configuration. 
+In previous chapters, we discussed camera sensors suitable for SLAM. We also explored different modality and configuration of cameras. When it comes to visual SLAM, one of the most repeatedly used sensor configurations is combination of a stereo-camera and IMU sensor. Of course, there many other possible additions to this setup, such as adding wheel odometry, GPS, LiDAR, or more number of cameras. However, the most repeatedly supported sensor configuration is still stereo-IMU setup. That is why there are many commercially ready to use setup follow this configuration. 
 
 Why is this sensor setup ideal? First, stereo camera pair are able to understand the scene depth up to a certain distance. Increasing the range of depth estimation depends on how far the two cameras are from each other (baseline). Adding the IMU sensor, will make the position estimation in the SLAM more smoth and more reliable. Researches in SLAM prove better accuracy of IMU-aided visual SLAM compared to camera only.
 
-Let us assume that we have acquired a stere+IMU sensor setup ideal for our application based on the instructions of chapter 2. Also, let us assume that we have calibrated our sensors according to the instructions in chapter 3. Now, we want to use this information to run a SLAM on our robot. If you dont have a robot already, no worries. We have prepared some data recorded on our real robots within SMARTNav dataset. The data is recorded in ROS2 bag format, meaning that by playing back the bag file, it is as if you are getting real-time stream of sensor data just like in a real robot.
+Let us assume that we have acquired a stereo-IMU sensor setup ideal for our application based on the instructions of chapter 2. Also, let us assume that we have calibrated our sensors according to the instructions in chapter 3. Now, we want to use this information to run a SLAM on our robot. If you dont have a robot already, no worries. We have prepared some data recorded on our real robots within SMARTNav dataset. The data is recorded in ROS2 bag format, meaning that by playing back the bag file, it is as if you are getting real-time stream of sensor data just like in a real robot.
 
 ### 4.2.1 VINS-Fusion algorithm
 
 **VINS-Fusion** is widely used in research and sometomes adopted in industry because it is relatively mature, open-source, and has good performance in many real-world scenarios.
-It is designed to work with several sensor setups, but the most common configuration (and the one we use in this chapter) is a stereo camera + IMU. By fusing these two sources of information, VINS-Fusion can produce smoother and more robust trajectories than a camera-only SLAM system, especially during fast motions, rotations, or in low-texture regions.
+It is designed to work with several sensor setups, but the most common configuration (and the one we use in this chapter) is a stereo camera-IMU. By fusing these two sources of information, VINS-Fusion can produce smoother and more robust trajectories than a camera-only SLAM system, especially during fast motions, rotations, or in low-texture regions.
 
 At a high level, VINS-Fusion has three main components:
 
@@ -53,7 +53,7 @@ Next, navigate to the `slam-tutorial-practical/slam_deployment` folder and open 
   </div>
 </div>
 
- Another option is to use the **Ctrl+Shift+P** kreyboard buttons, and look for and option for building and opening a container. The building and opening of the container might take a few minutes, depending on your processors, due to the compilation of all the prerequisites and the SLAM source code itself. 
+ Another option is to use the **Ctrl+Shift+P** keyboard buttons, and look for and option for building and opening a container. The building and opening of the container might take a few minutes, depending on your processors, due to the compilation of all the prerequisites and the SLAM source code itself. 
 If all goes well, you will be notified by this message at the VS Code's terminal: **Done. Press any key to close the terminal.** 
 
  <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
@@ -78,8 +78,7 @@ Now, make sure you have one the prerecorded data sequence that we have made avai
   </div>
 </div>
 
-After you download the zipped file of the sequence, extract it in the `slam-tutorial-practical/slam_deployment` directory. We extracted it under a folder named `data`.
-In the newly opened terminal, use the following launch command to start the SLAM running on the prerecorded sequence:
+After you download the zipped file of the sequence, create a folder called `data`  inside  `slam-tutorial-practical/slam_deployment` directory then extract the bag file in side this folder. In the newly opened terminal, use the following launch command to start the SLAM running on the prerecorded sequence:
 ```bash
 ros2 launch vins vins_rviz.launch.py config:=VINS-Fusion-ROS2/config/zed2_gray/main_conf.yaml bag_folder:=data/optitrack_handheld_3/
 ```
@@ -135,7 +134,7 @@ projection_parameters:
    cy: ...
 ```
 
-As can be seen, there are some parameters in the file that need to filled in according to the sensor's calibration. We can find these parameters in the output of Kalibr package (usually a file named `*-camchain.yaml`). In case of a stereo camera calibration, the file has a format like below, and the params needed to prepare `left.yaml` can be found in this file from `cam0` field.:
+As can be seen, there are some parameters in the file that need to filled in according to the sensor's calibration. We can find these parameters in the output of Kalibr package (usually a file named `*-camchain.yaml` refer to the camera-Imu callibration from previousc cahpter). In case of a stereo camera calibration, the file has a format like below, and the params needed to prepare `left.yaml` can be found in this file from `cam0` field.:
 
 ```yaml
 cam0:
@@ -164,7 +163,7 @@ cam0_calib: "left.yaml"
 cam1_calib: "right.yaml"
 ```
 
-Then, enter the image resolution parameter. A very important note is that the camera resolution when you performed the sensor calibration should be the same resolution for images that you want to use in SLAM run time. If for instance you want to feed images of size 640x480 to the SLAM, make sure during the calibration the image resolution is the same and whenever the input reslution to SLAM changed, repeat the calibration with the new resolution.
+Then, enter the image resolution parameter. A very important note is that the camera resolution when you performed the sensor calibration should be the same resolution for images that you want to use in SLAM run time. If for instance you want to feed images of size 640x480 to the SLAM, make sure during the calibration the image resolution is the same and whenever the input resolution to SLAM changed, repeat the calibration with the new resolution.
 ```yaml
 image_width: 672
 image_height: 376
@@ -198,7 +197,7 @@ cam0:
 
 ```
 
-The value from `T_cam_imu` should be transferred to the `body_T_cam0`. By convention, transformation matrices in SLAM algorithms are shown is similar formats, such that the `T_cam_imu` is read "transformation from `imu` coordinate frame to the `cam` frame". Similarly, the `body_T_cam0` is read as "transoformation from `cam0` to `body` (body frame is sometimes referred to the imu frame)".
+The value from `T_cam_imu` should be transferred to the `body_T_cam0`. By convention, transformation matrices in SLAM algorithms are shown is similar formats, such that the `T_cam_imu` is read "transformation from `imu` coordinate frame to the `cam` frame". Similarly, the `body_T_cam0` is read as "transformation from `cam0` to `body` (body frame is sometimes referred to the imu frame)".
 
 If you follow what the above transformations mean, you will notice that they have the inverse effect of each other. Thus, the output of Kalibr should be inversed and then placed in VINS-Fusion algorithm. We have provided the following interactive python script where you can input any 4x4 transformation matrix and get its inverted version. Use the inverted values inside the `main_conf.yaml` file that you are creating.
 
@@ -212,8 +211,10 @@ td: 0.008
 ```
 
 The last sensor-specific parameter to introduce to almost all SLAM algorithms, is the IMU noise characteristics. As discussed in chapter 2, all IMUs have imperfections in their data. The angular velocity and linear acceleration that they produce is either biased against the real value or has a random noise on it. The SLAM method should be able about the extent of the bias and noise. Since, it allows the SLAM to know how much can it rely on the IMU during the fusion. You can change these value in 2 ways. 
-   - First, you can do IMU calibration. In this course, we did not cover this calibration in chapter 3, however, if you want to know the exact noise characteristic of the IMU, tools like *Allan Variance* calibrators might help you. This step is mostly advisable if you have a high-grade IMU sensor that you know is relatively reliable.
+
+   - First, you can do IMU calibration. In this course, we did not cover this calibration in chapter 3, however, if you want to know the exact noise characteristic of the IMU, tools like [Allan Variance](https://github.com/ori-drs/allan_variance_ros) calibrators might help you. This step is mostly advisable if you have a high-grade IMU sensor that you know is relatively reliable.
    - Second, for most of the cheap IMU sensors usually used in SLAM systems, using the default values used by SLAM implementations, usually yields a good trade-off. You can slightly change these value by either increasing them or decreasing them if you want to tune them for your application.
+
 ```yaml
 acc_n: 0.1          
 gyr_n: 0.01         
@@ -231,7 +232,7 @@ estimate_td: 1
 
 Lastly, we should make sure our sensor data stream (or data from replaying a bag file) is correctly introduced to the algorithm, so that when we run the SLAM, it starts estimating the state using the sensor data. For that, make sure these parameters are correct:
 ```yaml
-imu_topic: "some imu topic name"
+imu_topic: "imu topic name"
 image0_topic: "left camera topic name"
 image1_topic: "right camera topic name"
 ```
@@ -241,9 +242,11 @@ image1_topic: "right camera topic name"
 Other than the sensor-specific parameters, there are some other parameters that are used in VINS-Fusion and they affect the internal algorithm. Although these are specific to this algorithm, but knowing about them is useful since many other open-source algorithms share similar concepts/parameters.
 
 The VINS-Fusion supports 3 different sensor configurations:
+
    - Stereo camera
    - Monocular camera + IMU
    - Stereo camera + IMU
+   
 It can be controlled via the following parameters:
 
 ```yaml
@@ -338,7 +341,7 @@ In the above video, on the bottom-left corner, you can see the image from the fo
 
 In the 3D viewport, the robot's pose is visible by a moving axes. The path that the robot has taken is visualized by a green curve. Unlike, the visual SLAM that we discussed earlier, the environment map created by our LiDAR-based algorithm is more dense. You can see a map of the places the robot has visited is being generated and updated as the robot explores more area. The color of the points in this map is determined by the `intensity` attribute of the that point, which is, the strength of the reflection from that surface. It is mainly capture by LiDAR itself and is dependant on the type of surface, angle of incedent, and distance.
 
-One of the main qualitative measures of how a SLAM algorithm is doing (judging the accuracy), is by looking at the correspondance of the map segments at locations that the robot revisits a location. In this demo that run, the robot tranverses a corridor area and comes back at its starting position, and surprusingly, the map does not experience a noticable deviation (the wall surfaces of the new scans almost match the map that was created before). And this is a good indication and FASTLIO, despite being only an Odometry algorithm and not having loop closure mechanism, is pretty competetive in terms of accuracy.
+One of the main qualitative measures of how a SLAM algorithm is doing (judging the accuracy), is by looking at the correspondance of the map segments at locations that the robot revisits a location. In this demo that run, the robot traverses a corridor area and comes back at its starting position, and surprusingly, the map does not experience a noticable deviation (the wall surfaces of the new scans almost match the map that was created before). And this is a good indication and FASTLIO, despite being only an Odometry algorithm and not having loop closure mechanism, is pretty competetive in terms of accuracy.
 
 This map could be even more dense, and we intentionally lowered the density of published map to keep the UI more responsive. We will go over the parameters of FASTLIO in a short time. But the true map that is being maintained in your computers memory looks more like the right image in below figure. This high density is thanks to the dense LiDAR sensor Ouster OS1-128 used in this experiment. It is worth noting that this sensitivity to high density map creation is not caused by the FASTLIO and is more of the visualization software (RViz) limitation:
 
@@ -359,7 +362,7 @@ lid_topic:  "/ouster/points"
 imu_topic:  "/ouster/imu"
 ```
 
-You can control what the algorithm publishes thought the following parameters. `scan_publish_en` determines if any output pointcloud (the map of environment, the de-skewed LiDAR scan and ...) should be published or not. If you dont need these data and only need the localization of FASTLIO, you can use this option to optimize the memory and CPU bandwidth. With `map_en`, you can disable publishing of largest pointcloud (the entire map of the environment) but position estimation is still being done. If you need a map, still you can control whether you need a dense map or a sparse one thgough `dense_publish_en` parameter. Lastly, if you want to visualize the history of location that the robot has visited (useful for visualization) you can use `path_en`. Most of these topics are good for visulization or debugging and for a localization application you can disable them all.
+You can control what the algorithm publishes thought the following parameters. `scan_publish_en` determines if any output pointcloud (the map of environment, the de-skewed LiDAR scan and ...) should be published or not. If you dont need these data and only need the localization of FASTLIO, you can use this option to optimize the memory and CPU bandwidth. With `map_en`, you can disable publishing of largest pointcloud (the entire map of the environment) but position estimation is still being done. If you need a map, still you can control whether you need a dense map or a sparse one through `dense_publish_en` parameter. Lastly, if you want to visualize the history of location that the robot has visited (useful for visualization) you can use `path_en`. Most of these topics are good for visulization or debugging and for a localization application you can disable them all.
 
 ```yaml
 path_en:  true
@@ -368,10 +371,11 @@ scan_publish_en:  true
 dense_publish_en: false
 ```
 
-Then, we should tell more about the sensor configurations. The FASTLIO algorithm uses both the LiDAR and IMU and unlike the VINS-Fusion, can not operate on one of them alone. Each data (or ROS message) that the LiDAR and IMU sends, is time stamped up to milliseconds precision. We should specify whether these times are synchornized or not. Synchronization in the context of such multi-sensor setups mean 1) the times reported by these sensors should have the same time reference 2) the two sensors can sense the motion at the same moment in the reported time, not that there is a delay for when the LiDAR senses the motion compared to IMU. When we ensure this time synchronization, then we can compare or properly fuse the motion information reported by these sensors. 
+Then, we should tell more about the sensor configurations. The FASTLIO algorithm uses both the LiDAR and IMU and unlike the VINS-Fusion, can not operate on one of them alone. Each data (or ROS message) that the LiDAR and IMU sends, is time stamped up to milliseconds precision. We should specify whether these times are synchronized or not. Synchronization in the context of such multi-sensor setups mean 1) the times reported by these sensors should have the same time reference 2) the two sensors can sense the motion at the same moment in the reported time, not that there is a delay for when the LiDAR senses the motion compared to IMU. When we ensure this time synchronization, then we can compare or properly fuse the motion information reported by these sensors. 
 
 The best way to make sure your data fusion is reliable is to make sure the data is actually synchronized in the **hardware level**. How to do this for two sensors (a LiDAR/Camera and an IMU) is out of our context because it requires real hardware to work with.
-If you use sensors that embed IMU whithin them (as most LiDARs in the market do), then you can trust this synchronization to your supplier. 
+
+If you use sensors that embed IMU with in them (as most LiDARs in the market do), then you can trust this synchronization to your supplier. 
 Otherwise, you can manually calibrate the LiDAR-IMU system using the LiDAR-IMU calibration tools and use the reported values in the config file in the following fields.
 As a last resort, the FASTLIO implementation can estimate the time difference between the two sensors in the runtime, and you can enable it to refine the delay estimation.
 
@@ -380,7 +384,7 @@ time_sync_en: false
 time_offset_lidar_to_imu: 0.0
 ```
 
-Some other information about the LiDAR is needed for the algorithm to handle the data coming from different sensor with different data formats. The param `lidar_type` supports 4 categories of sensor types including 1 for for Livox LiDARs, 2 for Velodyne, 3 for Ouster, 4 for MID360 LiDAR and any other number for default. If your LiDAR is immediately one of these categories, chose the parameter accordingly. Otherwise, for any other type of LiDAR you shoud:
+Some other information about the LiDAR is needed for the algorithm to handle the data coming from different sensor with different data formats. The param `lidar_type` supports 4 categories of sensor types including 1 for for Livox LiDARs, 2 for Velodyne, 3 for Ouster, 4 for MID360 LiDAR and any other number for default. If your LiDAR is immediately one of these categories, chose the parameter accordingly. Otherwise, for any other type of LiDAR you should:
 
 - Chose 2, if you have a rotating LiDAR with multiple rings (if you echo the LiDAR's topic, you can see the ring for each point specified) such that for each point of the pointcloud, a distinct timestamp is not provided by the driver. You can learn about the fact that each point has a timestamp or not from the datasheet or manufacturer or simply echo the pointcloud topic and see if you have `ring` field for every point but no distinct `time` field. If you chose this option, make sure you also put a correct value of `scan_rate` according to the publishing rate of your sensor (can be acquired by `ros2 topic hz <topic_name>`). 
 - Chose 3, if you see `ring` field and distinct `time` for each point.
@@ -396,7 +400,7 @@ scan_line: 64
 blind: 0.3
 scan_rate: 10.0
 ```
-FASTLIO, provide many other forms of filtering, to reduce the amount of data to be used whithin the main back-end. Another simple filtering is provided through parameter `point_filter_num` which helps neglecting some points to downsample the incoming pointcloud, reduce CPU load, and enhance processing speed, however, large values might mitigate the accuracy. A more intelligent filtering is by removing points that are not good features (in terms of curvature or smoothness of surface to find edge-like areas) by enabling `feature_extract_enable`. Another preprocessing if to geometrically average points that are close to each other (dividing the space into smaller voxels and averaging points that fall into that). You can use the `filter_size_surf` and `filter_size_map` to control how detailed the point extraction process should be; in other words, the smaller this value is, more averaged points from the data will be extracted and it helps accuracy of the whole process but the computations increase.
+FASTLIO, provide many other forms of filtering, to reduce the amount of data to be used whithin the main back-end. Another simple filtering is provided through parameter `point_filter_num` which helps neglecting some points to downsample the incoming pointcloud, reduce CPU load, and enhance processing speed, however, large values might mitigate the accuracy. A more intelligent filtering is by removing points that are not good features (in terms of curvature or smoothness of surface to find edge-like areas) by enabling `feature_extract_enable`. Another preprocessing to geometrically average points that are close to each other (dividing the space into smaller voxels and averaging points that fall into that). You can use the `filter_size_surf` and `filter_size_map` to control how detailed the point extraction process should be; in other words, the smaller this value is, more averaged points from the data will be extracted and it helps accuracy of the whole process but the computations increase.
 
 ```yaml
 feature_extract_enable: true
@@ -408,7 +412,7 @@ filter_size_map: 0.5
 
 Next, let us go through the parameters than are important for the back-end of FASTLIO. A very common parameter set used in almost any open-source SLAM that used IMU data as input, you need to specify IMU noise characteristics (here they are named `acc_cov`, `gyr_cov`, `b_acc_cov`, and `b_gyr_cov`). As mentioned for VINS-Fusion case, this step can be done through **Allan-Variance** IMU calibration tools but we omit that and use some generic parameters that is applicable in most commercial sensors. If you have a special more accurate sensor you can provide these parameters yourself.
 
-The FASTLIO algorithm keeps a portion of the map being generated (local map) in the memory and constanly compares newly measured pointclouds to this local map in order to estimate relative motion. Two variables control the way the local map is being maintaned. The variable `cube_side_length` determines the size of the local map, while the the variable `det_range` sets how close to the local map border should the robot get in order to update (move) the local map bounding box. It should be intuitive that for small indoor areas you better have a smaller value and for outdoor, you should go for larger values. 
+The FASTLIO algorithm keeps a portion of the map being generated (local map) in the memory and constantly compares newly measured pointclouds to this local map in order to estimate relative motion. Two variables control the way the local map is being maintained. The variable `cube_side_length` determines the size of the local map, while the the variable `det_range` sets how close to the local map border should the robot get in order to update (move) the local map bounding box. It should be intuitive that for small indoor areas you better have a smaller value and for outdoor, you should go for larger values. 
 
 ```yaml
 acc_cov: 0.1
@@ -420,7 +424,7 @@ det_range:     10.0
 cube_side_length: 50.0
 ```
 
-Another important back-end parameter is the extrinsic information between LiDAR and IMU. Unlike the VINS-Fusion method that took both rotation and translation as a single homogeneous (4x4) matrix, here in FASTLIO, you need to provide a separate rotation matrix (3x3) and a translation vector (1x3) that take the data from LiDAR frame to IMU frame. In most of the commercial LiDAR sensors that are shipped with and internal IMU, you can get these values from the vendor, or they are published in the ROS environment by their ROS drivers, or they are accessible by a `tf` tree defined by the ROS driver. If you can not get those values, or if you want to use another external IMU our of the LiDAR, you can always follow the LiDAR-IMU calibration explained in previous chapter to get these values. In the calibration results provided in previous chapter, look for these fields in the **Refined results**:
+Another important back-end parameter is the extrinsic information between LiDAR and IMU. Unlike the VINS-Fusion method that took both rotation and translation as a single homogeneous (4x4) matrix, here in FASTLIO, you need to provide a separate rotation matrix (3x3) and a translation vector (1x3) that take the data from LiDAR frame to IMU frame. In most of the commercial LiDAR sensors that are shipped with and internal IMU, you can get these values from the vendor, or they are published in the ROS environment by their ROS drivers, or they are accessible by a `tf` tree defined by the ROS driver. If you can not get those values, or if you want to use another external IMU out of the LiDAR, you can always follow the LiDAR-IMU calibration explained in previous chapter to get these values. In the calibration results provided in previous chapter, look for these fields in the **Refined results**:
 
 ```yaml
 Refinement result:
@@ -446,7 +450,7 @@ Finally, you can use `max_iteration` to adjust the amount of optimization steps 
 
 ### 4.3.4 LeGO-LOAM Algorithm
 
-FASTLIO algorithm has proven to be a strong option when it comes to localization of the robots in relatively small areas, however, it still exhibits similar limitations of Odometry algorithms when it come to larger pavements. We have demonstrated this in the following figure, an experiment where the robot starts from a certain position in an outdoor environment (bottom-right corner of the image), paved a relatively large path and came back to the same spot. We processed the recorded data (the `sidewalk_ground_1` sequence in SMARTNav dataset) using differnt algorithms and drew the estimated trajectories on a satellite map. You can clearly see that the the visual odometry coming from VINS (yellow trajectory) has ended up tens of meters away from where it was supposed to be. FASTLIO (purple one), does a far better job but still the start and end do not completely match, with few meters error at the end. 
+FASTLIO algorithm has proven to be a strong option when it comes to localization of the robots in relatively small areas, however, it still exhibits similar limitations of Odometry algorithms when it come to larger pavements. We have demonstrated this in the following figure, an experiment where the robot starts from a certain position in an outdoor environment (bottom-right corner of the image), paved a relatively large path and came back to the same spot. We processed the recorded data (the `sidewalk_ground_1` sequence in SMARTNav dataset) using different algorithms and draw the estimated trajectories on a satellite map. You can clearly see that the the visual odometry coming from VINS (yellow trajectory) has ended up tens of meters away from where it was supposed to be. FASTLIO (purple one), does a far better job but still the start and end do not completely match, with few meters error at the end. 
 
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
   <img src="images/sidewalk_ground_1_map.png" alt="1" style="width:40%">
@@ -483,7 +487,7 @@ So far, we have discussed how to run visual or LiDAR-based SLAM methods. These m
 ### 4.4.1 Ground-Truth
 Evaluation of anything follows the same pattern: prepare some questions, ask them from the evaluatee, collect the answers, and compare them with the **correct answers (ground-truth)** to those questions. In case of evaluating SLAM, the ground-truth of the quantities that we want to measure (position and map) needs to be prepared if we want a valid numerical assessment. 
 
-For position, many techniques are used in online introduced datasets, including: using indoor motion-capture systems, Real-Time Kinematics (RTK) sensors for outdoor and clear areas, surveying equipment such as Total Station and etc. For maps, synthetic datasets than can provide accurate geometry of the envoironment, and dense, industrial laser scanners are used to provide a ground-truth environment map.
+For position, many techniques are used in online introduced datasets, including: using indoor motion-capture systems, Real-Time Kinematics (RTK) sensors for outdoor and clear areas, surveying equipment such as Total Station and etc. For maps, synthetic datasets than can provide accurate geometry of the environment, and dense, industrial laser scanners are used to provide a ground-truth environment map.
 Even in some cases, your best estimate of position can be used for evaluations. For instance, we know that LiDAR SLAMs are more accurate than the visual Odometry/SLAM methods. So you can equip your robot during R&D temporarily with a LiDAR sensor and collect both LiDAR and camera data, then use the LiDAR-based SLAM's estimation of positions as a ground-truth for your visual SLAM's position estimation.
 
 <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:flex-start">
@@ -497,9 +501,10 @@ Even in some cases, your best estimate of position can be used for evaluations. 
 If you manage to create an experimental setup for your application by providing ground-truth measurements, or you use an online available dataset that does provide ground-truth for each sequence, now you need a tool to help you with analyzing your results. 
 
 [EVO package](https://github.com/MichaelGrupp/evo) provides some standard tools commonly needed for evaluating SLAM methods (or generally any position estimation). EVO:
+
 - Automatically associates and aligns trajectories that represent the same motion but might be in different coordinate systems
 - Has multiple flexible plotting and visualization formats
-- Has a powerful CLI interface which makes it relatively easy to analuze SLAM outputs
+- Has a powerful CLI interface which makes it relatively easy to analyze SLAM outputs
 
  All we need to do is to record the outputs of our SLAM in ROS2 bag format and then pass it to the EVO tool. EVO is already installed in the dev-container that we setup and used in our previous sections for running the SLAM methods. To exercise evaluation, first you need to run a SLAM in one terminal. For instance, lets run VINS-Fusion on the `optitrack_handheld_3` sequence:
 
@@ -549,7 +554,7 @@ For instance we use the command like this:
 ros2 bag record /odometry -o data/vins_odom
 ```
 
-Now we should also get the ground-truth for this sequence. The ground-truth for each sequence of the SMARTNav dataset is available on the [web page](https://saxionmechatronics.github.io/smartnav-dataset/) and is in a zip format. Put the data in our dev-container's workspace in `slam-tutorial-practical/slam_deployment/data`.
+Now we should also get the ground-truth for this sequence. The ground-truth for each sequence of the SMARTNav dataset is available on the [web page](https://saxionmechatronics.github.io/smartnav-dataset/) and is in a zip format. Put the data in our dev-container's workspace in `slam-tutorial-practical/slam_deployment/data` and extract the zipped bzag file.
 
 Now, let's use EVO to convert and plot our data. First navigate to the folder containing the bags and convert the VINS output bag and ground-truth bag into a text file:
 
@@ -658,6 +663,16 @@ and then summarize all $N$ errors with the root-mean-square
 $$
 \mathrm{APE}_{\mathrm{RMSE}} = \sqrt{\frac{1}{N}\sum_{i=0}^{N-1} E_i^2 }.
 $$
+
+ Mathematically:
+      $$
+        \text{Baseline} = -\frac{P_{14}}{f_x}  
+      $$
+
+      Using the given data:
+      $$
+      \text{Baseline} = -\frac{-33.6074}{279.01721} \approx 0.1204 \, \text{m}
+      $$
 
 This tells us, on average, how far the estimated trajectory is from the ground-truth trajectory after alignment.
 
