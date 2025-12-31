@@ -1,0 +1,16 @@
+.quiz{border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin:16px 0;background:#fafafa}
+.quiz h4{margin:0 0 8px 0}
+.quiz .choices{display:grid;gap:8px;margin:8px 0}
+.quiz button.choice{all:unset;display:block;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px;cursor:pointer;background:#fff}
+.quiz button.choice:hover{background:#f3f4f6}
+.quiz button.choice.correct{border-color:#16a34a;background:#ecfdf5}
+.quiz button.choice.wrong{border-color:#dc2626;background:#fef2f2}
+.quiz .feedback{display:none;margin-top:8px;font-size:.95em}
+.quiz.answered .feedback{display:block}
+.quiz .explain {
+  display: none;
+  color: #4b5563;
+}
+.quiz.answered .explain {
+  display: block;
+}
